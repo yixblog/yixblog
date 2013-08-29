@@ -25,6 +25,7 @@ $(document).ready(function () {
     listArticles(1);
 
     function buildSelfArticle(box, data) {
+        appendArticleTitle(box);
         for (var index = 0; index < data.articles.length; index++) {
             appendArticleRows(box, data.articles[index]);
         }
@@ -34,23 +35,49 @@ $(document).ready(function () {
         }).appendTo(box);
     }
 
+    function appendArticleTitle(box){
+        var dt = $("<dt></dt>");
+        var ul = $("<ul class='article_row'></ul>");
+        $("<li class='article_title'>标题</li>").appendTo(ul);
+        $("<li class='article_addtime'>添加时间</li>").appendTo(ul);
+        $("<li class='article_edittime'>修改时间</li>").appendTo(ul);
+        $("<li class='article_reply'>回复</li>").appendTo(ul);
+        $("<li class='article_active'>操作</li>").appendTo(ul);
+        ul.appendTo(dt);
+        dt.appendTo(box);
+    }
+
     function appendArticleRows(articleDLList, article) {
         var dd = $("<dd></dd>");
         var ul = $("<ul class='article_row'></ul>");
         var titleLi = $("<li class='article_title'></li>");
-        $("<a target='_blank'></a>").attr("href", "article/view/" + article.id + ".htm").html(article.title).appendTo(titleLi);
+        $("<a target='_blank'></a>").attr("href", "article/view/" + article.id + ".htm").attr("title",article.title).html(article.title).appendTo(titleLi);
         titleLi.appendTo(ul);
-        $("<li class='article_addtime'></li>").html(article.addtimestring).appendTo(ul);
-        $("<li class='article_edittime'></li>").html(article.edittimestring).appendTo(ul);
+        $("<li class='article_addtime time'></li>").html(article.addtimestring).appendTo(ul);
+        $("<li class='article_edittime time'></li>").html(article.edittimestring).appendTo(ul);
         $("<li class='article_reply'></li>").html(article.replycount).appendTo(ul);
+        var editbtn = $("<a href='#' class='edit_btn' title='编辑'></a>").click(function(){
+            editArticle(article.id);
+        });
+        var deletebtn = $("<a href='#' class='delete_btn' title='删除'></a>").click(function(){
+            deleteArticle(article.id);
+        });
+        $("<li class='article_active'></li>").append(deletebtn).append(editbtn).appendTo(ul);
         ul.appendTo(dd);
         dd.appendTo(articleDLList);
     }
 
+    function editArticle(id){
+        alert("edit article :"+id);
+    }
+
+    function deleteArticle(id){
+        alert("delete article:"+id);
+    }
 
     $("#menu").selectable({
         create: function () {
-            $("#menu").children("li:eq(0)").click();
+            $("#menu").children("li:eq(0)").addClass("ui-selected").click();
         },
         stop: function () {
             $(".ui-selected").not(":first").removeClass("ui-selected");

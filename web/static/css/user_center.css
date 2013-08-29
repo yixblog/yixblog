@@ -67,59 +67,93 @@
 .right_box .box_item .tab_box>ul {
     width: 713px;
 }
-.right_box .box_item .article_list{
+
+.right_box .box_item .article_list {
     width: 700px;
 }
+
 .right_box .box_item .tab_box .ui-tabs-panel .comment_list {
     width: 674px;
 }
 
-.right_box .box_item .tab_box .ui-tabs-panel .comment_list ul,.right_box .box_item .article_list ul {
+.right_box .box_item .tab_box .ui-tabs-panel .comment_list ul, .right_box .box_item .article_list ul {
     width: 672px;
-    border-left: 1px solid #335;
-    border-bottom: 1px solid #335;
+    border-left: 1px dotted #335;
+    margin-top: 3px;
 }
-.right_box .box_item .article_list ul{
+
+.right_box .box_item .article_list ul {
     width: 698px;
 }
 
-.right_box .box_item .tab_box .ui-tabs-panel .comment_list dt,.right_box .box_item .article_list dt {
-    border-top: 1px solid #335;
+.right_box .box_item .tab_box .ui-tabs-panel .comment_list dt, .right_box .box_item .article_list dt {
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
 }
 
-.ui-tabs-panel .comment_list ul>li,.article_list ul>li {
-    border-right: 1px solid #335;
+.ui-tabs-panel .comment_list ul>li, .article_list ul>li {
+    border-right: 1px dotted #335;
     padding: 2px;
     text-align: left;
+    height: 100%;
 }
 
-.ui-tabs-panel .comment_list dt>ul>li ,.article_list dt>ul>li{
+.ui-tabs-panel .comment_list dt>ul>li, .article_list dt>ul>li {
     text-align: center;
 }
 
 .ui-tabs-panel .comment_list .article {
     width: 395px;
 }
-.article_list .article_title{
-    width: 352px;
+
+.article_list .article_title {
+    width: 262px;
+}
+.article_list .article_title a{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.ui-tabs-panel .comment_list .time,.article_list .article_addtime,.article_list .article_edittime {
+.ui-tabs-panel .comment_list .time, .article_list .article_addtime, .article_list .article_edittime {
     width: 135px;
+    height: 100%;
+}
+
+.time {
     font-size: 12px;
-    height: 21px;
     line-height: 21px;
 }
 
-.article_list .article_reply{
+.article_list .article_reply {
     width: 56px;
-    text-align: right;
-    height: 21px;
-    font-size: 12px;
-    line-height: 21px;
-    background: url(../../img/reply.png) 0 no-repeat;
+    height: 100%;
 }
 
+.article_list dd .article_reply {
+    background: url(../../img/reply.png) 0 no-repeat;
+    font-size: 12px;
+    line-height: 21px;
+    text-align: right;
+}
+
+.article_list .article_active{
+    width: 85px;
+    height: 100%;
+}
+.article_list .article_active a{
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    float: right;
+    margin-right: 5px;
+}
+.edit_btn{
+    background: url(../../img/edit.png) no-repeat;
+}
+.delete_btn{
+    background: url(../../img/delete.png) no-repeat;
+}
 .ui-tabs-panel .comment_list .author {
     width: 127px;
     text-align: right;
