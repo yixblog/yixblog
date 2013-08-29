@@ -1,0 +1,10 @@
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+#foreach($user in ${res.getJSONArray("users")})
+${user.id}:${user.name}<br>
+#end
+</body>
+</html>

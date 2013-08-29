@@ -1,0 +1,41 @@
+.logo_box{
+    float: none;
+    height: 95px;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+}
+.logo_box img{
+    position: relative;
+    float: none;
+}
+
+.login_box{
+    padding: 10px !important;
+    background: #fee !important;
+    line-height: 30px;
+    color: #000;
+}
+.login_box label{
+    font-size: 24px;
+    margin: 5px 0;
+}
+.login_box input{
+    color: #000;
+}
+.login_box input[type="text"],.login_box input[type="password"],.login_box select,.login_box input[type="email"]{
+    height: 30px;
+    width: 95%;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 24px;
+    line-height: 30px;
+    margin: 10px 0;
+}
+.login_box input[type="button"],.login_box input[type="submit"]{
+    width: 150px;
+    height: 30px;
+    font-size: 25px;
+    line-height: 40px;
+    margin: 15px 5px 15px 0;
+}

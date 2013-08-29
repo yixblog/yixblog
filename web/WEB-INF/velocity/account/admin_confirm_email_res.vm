@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("../utils/base.vm")
+    <title>忘记密码</title>
+</head>
+<body>
+
+</body>
+</html>

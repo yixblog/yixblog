@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>${data.sitename}</title>
+    <link rel="stylesheet" type="text/css" href="static/lib/jqcloud/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="static/css/index.css">
+    <script src="static/lib/jqcloud/js/jqcloud-1.0.4.js" type="text/javascript"></script>
+    <script src="resource/yixfragment/js/jquery.yixfragment.js" type="text/javascript"></script>
+    <script src="static/js/index.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content" class="content">
+##    头部
+    #parse("utils/head.vm")
+##    左侧
+    <div class="left_box">
+        <div class="search_box">
+            <input type="text" name="search" id="search_input" placeholder="搜索关键字">
+            <input type="button" value="GO" id="search_button">
+        </div>
+        <div id="ad_01" class="ad">AD01</div>
+        <div class="cloud_box">
+            <span class="tab">Tag</span>
+            <span class="tab">作者</span>
+            <div class="tag_box" id="tag_cloud_box">
+            </div>
+        </div>
+    </div>
+##    中部
+    <div class="center_box">
+        <div class="article_box">
+            <div class="tab_box">
+                <span class="item">最新文章</span>
+                <span class="item">热门文章</span>
+                <span class="item">网站公告</span>
+            </div>
+            <div class="fragment_box">
+                <dl class="item article">
+                    #set($newArticles = $data.getJSONObject("newArticles"))
+                    #foreach($newArticle in $newArticles.getJSONArray("articles"))
+                        <dd>
+                            <span class="title"><a href="article/view/${newArticle.id}.htm">${newArticle.title}</a></span>
+                            <span class="response_count">${newArticle.replycount}</span>
+                            <span class="author">${newArticle.author.nick}</span>
+                            <span class="tag_list">
+                                #foreach($tag in $newArticle.getJSONArray("tags"))
+                                <a href="article/query_tag/${tag}.htm" target="#">${tag}</a>
+                                #end
+                            </span>
+                            <span class="time_box">${newArticle.addtimestring}</span>
+                        </dd>
+                    #end
+                    <dd>
+                        <a href="#" target="_blank" class="more">更多>></a>
+                    </dd>
+                </dl>
+                <dl class="item article">
+                    #set($hotArticles=$data.getJSONObject("hotArticles"))
+                    #foreach($hotArticle in $hotArticles.getJSONArray("articles"))
+                    <dd>
+                        <span class="title"><a href="article/view/${hotArticle.id}.htm">${hotArticle.title}</a></span>
+                        <span class="response_count">${hotArticle.replycount}</span>
+                        <span class="author">${hotArticle.author.nick}</span>
+                            <span class="tag_list">
+                                #foreach($tag in $hotArticle.getJSONArray("tags"))
+                                    <a href="article/query_tag/${tag}.htm" target="#">${tag}</a>
+                                #end
+                            </span>
+                        <span class="time_box">${hotArticle.addtimestring}</span>
+                    </dd>
+                    #end
+                </dl>
+                <dl class="item notice">
+                    <dd>
+                        <span class="title"><a href="\#">网站通知1</a></span>
+                        <span class="time_box">2013-6-30 15:47:26</span>
+                    </dd>
+                    <dd>
+                        <a href="#" target="_blank" class="more">更多>></a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="ad" id="ad_02">AD_02</div>
+        <div class="ad" id="ad_03">AD_03</div>
+        <div class="ad" id="ad_04">AD_04</div>
+        <div class="ad" id="ad_05">AD_05</div>
+    </div>
+    #parse("utils/foot.vm")
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <link rel="stylesheet" type="text/css" href="static/css/login.css">
+
+    <script type="text/javascript" src="static/js/admin_login.js"></script>
+    <title>后台登陆</title>
+</head>
+<body>
+<div id="content" class="content">
+    <div class="login_box" title="管理员登陆">
+        <div class="logo_box">
+            <img src="img/logo.png">
+        </div>
+        <label for="login_uid">用户名</label><input id="login_uid" name="uid" type="text" placeholder="请输入管理员登陆用户名">
+        <label for="login_pwd">密码</label><input id="login_pwd" name="pwd" type="password" placeholder="请输入登陆密码">
+        <label for="login_validate">验证码</label><img id="login_validate_img"><br>
+        <input id="login_validate" type="text" name="validate"><br>
+        <span class="validate_info">&nbsp;</span>
+    </div>
+</div>
+</body>
+</html>

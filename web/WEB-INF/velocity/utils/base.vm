@@ -1,0 +1,11 @@
+<base href="${basePath}">
+<script type="text/javascript" src="static/lib/jquery-2.0.2.min.js"></script>
+<script type="text/javascript" src="static/lib/jqueryui/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="static/js/common.js"></script>
+<script type="text/javascript" src="resource/yixpager/js/jquery.yixpager.js"></script>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+<link href="static/lib/jqueryui/css/custom-theme/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css">
+<link href="static/css/common.css" rel="stylesheet" type="text/css">
+<link href="resource/yixpager/css/pager.css" type="text/css" rel="stylesheet">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />

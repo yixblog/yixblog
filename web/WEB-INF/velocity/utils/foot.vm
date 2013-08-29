@@ -1,0 +1,16 @@
+<div id="foot" xmlns:wb="http://open.weibo.com/wb">
+    <div class="friend_link_box">
+        <span class="title">友情链接</span>
+        <a href="http://www.skynj.com" target="_blank" class="friend_item">
+            <img src="img/friends/skytech.png">
+        </a>
+        <a href="http://www.iteye.com" target="_blank" class="friend_item">
+            <img src="img/friends/iteye.gif">
+        </a>
+    </div>
+    <div class="copyright_box">
+        <span>Copyright YixBlog.com 苏ICP证xxxx号</span><a href="accountservice/adminaccount/login.htm" target="_blank">[后台管理]</a><br>
+        <a href="mailto:davepotter@163.com" target="_blank" class="clear:left">[联系站长]</a>
+        <span><wb:follow-button uid="1018129820" type="gray_1" width="67" height="24" ></wb:follow-button></span>
+    </div>
+</div>

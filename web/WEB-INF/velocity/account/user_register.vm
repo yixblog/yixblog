@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>用户注册</title>
+    <link rel="stylesheet" type="text/css" href="static/css/login.css">
+    <script type="text/javascript" src="static/js/user_reg.js"></script>
+</head>
+<body>
+<div class="content" id="content">
+    <div class="login_box" title="用户注册">
+        <div class="logo_box">
+            <img src="img/logo.png">
+        </div>
+        <form id="register_form">
+            <label for="register_uid">用户名*</label><input id="register_uid" required="required" name="uid" type="text"
+                                                         placeholder="请输入登陆用户名">
+            <label for="register_pwd">密码*</label><input id="register_pwd" required="required" name="pwd" type="password"
+                                                        placeholder="请输入登陆密码">
+            <label for="register_pwd2">重复密码*</label><input id="register_pwd2" required="required" name="pwd2"
+                                                           type="password" placeholder="请再次输入密码">
+            <label for="register_nick">昵称</label><input id="register_nick" name="nick" placeholder="请输入昵称，留空则默认为登陆用户名"
+                                                        type="text">
+            <label for="register_sex">性别</label>
+            <select id="register_sex">
+                <option>保密</option>
+                <option>男</option>
+                <option>女</option>
+            </select>
+            <label for="register_email">E-mail</label>
+            <input id="register_email" name="email" type="email"
+                   placeholder="您的邮箱，本站承诺邮箱仅用于密码找回"><br>
+            <label for="register_validate">验证码</label><img id="validate_img">
+            <input id="register_validate" type="text" placeholder="请输入验证码"/><br>
+            <span class="validate_info">&nbsp;</span>
+        </form>
+    </div>
+</div>
+</body>
+</html>

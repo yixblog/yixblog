@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${title}</title>
+</head>
+<body>
+    ${nick},您好<br>
+这是一封系统自动发出的邮件，请勿回复<br>
+您申请了对 ${uid} 账号进行邮箱绑定操作<br>
+请点击以下链接完成绑定
+<a href="${url}" target="_blank">${url}</a><br>
+本链接有效时间为1小时，超时请重新申请<br>
+
+<br>
+佚博客感谢您的访问
+</body>
+</html>

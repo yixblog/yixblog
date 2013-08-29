@@ -1,0 +1,13 @@
+.pager_item{
+    border: 1px solid #555;
+    background: #333;
+    margin: 5px;
+    padding: 2px;
+    cursor: pointer;
+}
+.pager_item:hover{
+    background: #666;
+}
+.pager_item .unable{
+    cursor: default;
+}

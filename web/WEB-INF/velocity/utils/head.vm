@@ -1,0 +1,27 @@
+<div id="head_box">
+    <div id="logo"></div>
+    <div id="user_box">
+        #if(!${user})
+            您还没有登陆,<input type="button" id="login_button" value="登陆">
+        #else
+            欢迎回来，${user.nick}![<a href="accountservice/account/user/center.htm" target="_blank">用户中心</a>][<a href="#" onclick="doUserLogOut()">退出登陆</a>]
+        #end
+    </div>
+</div>
+<div id="login_dialog" title="登陆">
+    <span class="validate_tips">&nbsp;</span>
+    <form>
+        <fieldset>
+            <label for="user_login_uid_input">用户名</label><br>
+            <input id="user_login_uid_input" name="uid" type="text" placeholder="请输入用户名"><br>
+            <label for="user_login_pwd_input">密码</label><br>
+            <input id="user_login_pwd_input" name="pwd" type="password" placeholder="请输入密码"><br>
+            <label for="user_login_validate_input">验证码</label><img id="validate_img" src=""><br>
+            <input id="user_login_validate_input" name="validate" type="text" placeholder="请输入验证码">
+        </fieldset>
+    </form>
+</div>
+<div id="nav_box">
+    <span class="nav_item gradient_01"><a href="#">demos</a></span>
+    <span class="nav_item gradient_01"><a href="#">EVE计算中心</a></span>
+</div>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.AdminMapper">
+    <resultMap id="admin" type="Admin">
+        <id column="id" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="pwd" property="pwd"/>
+        <result column="email" property="email"/>
+        <result column="temp_email" property="tempEmail"/>
+        <result column="lastlogin" property="lastLogin"/>
+        <result column="regtime" property="regTime"/>
+        <result column="system_config" property="systemConfig"/>
+        <result column="user_manage" property="userManage"/>
+        <result column="admin_manage" property="adminManage"/>
+        <result column="article_manage" property="articleManage"/>
+        <result column="comment_manage" property="commentManage"/>
+    </resultMap>
+
+    <sql id="view_name"> blog_admin_permission_view </sql>
+
+    <select id="getAdminByUid" parameterType="String" resultMap="admin">
+        select * from <include refid="view_name"/> where uid=#{uid}
+    </select>
+
+    <select id="getAdminById" parameterType="int" resultMap="admin">
+        select * from <include refid="view_name"/> where id=#{id}
+    </select>
+
+    <select id="getAdminByEmail" parameterType="String" resultMap="admin">
+        select * from <include refid="view_name"/> where email=#{email}
+    </select>
+
+    <select id="listAdmins" parameterType="Map" resultMap="admin">
+        select * from <include refid="view_name"/>
+        <where>
+            <if test="#uid!=null"> and uid like #{uid}</if>
+            <if test="#email!=null"> and email=#{email} </if>
+        </where>
+        order by uid asc
+    </select>
+
+    <select id="countAdmins" parameterType="Map" resultType="int">
+        select count(*) from <include refid="view_name"/>
+        <where>
+            <if test="#uid!=null"> and uid like #{uid}</if>
+            <if test="#email!=null"> and email=#{email} </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_admins (uid,pwd,email,temp_email,lastlogin,regtime) values
+        (
+        #{uid},#{pwd},#{email,jdbcType=VARCHAR},#{tempEmail,jdbcType=VARCHAR},#{lastLogin,jdbcType=BIGINT},#{regTime}
+        )
+    </insert>
+
+    <update id="update" parameterType="Admin">
+        update blog_admins set
+        <if test="#pwd!=null" >pwd=#{pwd},</if>
+        <if test="#email!=null">email=#{email,jdbcType=VARCHAR},</if>
+        <if test="#tempEmail!=null">temp_email=#{tempEmail,jdbcType=VARCHAR},</if>
+        lastlogin=#{lastLogin,jdbcType=int}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Admin">
+        delete from blog_admins where id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="cn.yix.blog"/>
+    <!--mvc-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="false">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <mvc:interceptors>
+        <bean class="cn.yix.blog.spring.SessionInterceptor">
+            <property name="open" value="true"/>
+            <property name="adminBlackList">
+                <array>
+                    <value>/accountservice/adminaccount/admin/**</value>
+                    <value>/sysadmin/**</value>
+                </array>
+            </property>
+            <property name="userBlackList">
+                <array>
+                    <value>/accountservice/account/user/**</value>
+                    <value>/user/**</value>
+                </array>
+            </property>
+        </bean>
+    </mvc:interceptors>
+    <!--velocity-->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="WEB-INF/velocity"/>
+        <property name="configLocation" value="classpath:velocity.properties"/>
+    </bean>
+
+    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="suffix" value=".vm"/>
+        <property name="contentType" value="text/html;charset=utf-8"/>
+    </bean>
+
+
+    <!--quartz-->
+    <bean id="clearResetCodeTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="resetCodeClearer"/>
+        <property name="targetMethod" value="doClear"/>
+    </bean>
+
+    <bean id="clearResetCodeTimer" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="clearResetCodeTask"/>
+        <property name="cronExpression" value="0 0/5 * * * ?"/>
+    </bean>
+
+    <bean id="startQuartz" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="clearResetCodeTimer"/>
+            </list>
+        </property>
+    </bean>
+</beans>

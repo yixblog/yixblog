@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.CharacterMapper">
+    <resultMap id="character" type="Character">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="system_config" property="systemConfig"/>
+        <result column="user_manage" property="userManage"/>
+        <result column="admin_manage" property="adminManage"/>
+        <result column="article_manage" property="articleManage"/>
+        <result column="comment_manage" property="commentManage"/>
+    </resultMap>
+
+    <select id="listCharacters" resultMap="character">
+        select * from blog_characters order by name asc
+    </select>
+
+    <select id="listAdminCharacters" resultMap="character" parameterType="int">
+        select c.* from blog_characters c
+        left outer join blog_admin_character ac on ac.character=c.id
+        where ac.admin=#{adminId}
+    </select>
+
+    <select id="getCharacter" resultMap="character" parameterType="int">
+        select * from blog_characters where id=#{id}
+    </select>
+
+    <select id="checkNameExists" resultType="int" parameterType="String">
+        select count(*) from blog_characters where name=#{name}
+    </select>
+
+    <insert id="save" parameterType="Character" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_characters (name,system_config,user_manage,admin_manage,article_manage,comment_manage) values
+        (#{name},#{systemConfig},#{userManage},#{adminManage},#{articleManage},#{commentManage})
+    </insert>
+
+    <insert id="setAdminCharacter">
+        insert into blog_admin_character (admin,character) values (#{1},#{2})
+    </insert>
+
+    <update id="update" parameterType="Character">
+        update blog_characters set
+        name=#{name},
+        system_config=#{systemConfig},
+        user_manage=#{userManage},
+        admin_manage=#{adminManage},
+        article_manage=#{articleManage},
+        comment_manage=#{commentManage}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Character">
+        delete from blog_characters where id=#{id}
+    </delete>
+
+    <delete id="clearAdminCharacters" parameterType="int">
+        delete from blog_admin_character where admin=#{adminId}
+    </delete>
+</mapper>

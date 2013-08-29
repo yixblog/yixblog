@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.AccountMapper">
+    <resultMap id="account" type="Account">
+        <id column="id" property="id"/>
+        <result column="uid" property="uid"/>
+        <result column="pwd" property="pwd"/>
+        <result column="nick" property="nick"/>
+        <result column="avatar" property="avatar"/>
+        <result column="qq" property="qq"/>
+        <result column="weibo" property="weibo"/>
+        <result column="email" property="email"/>
+        <result column="temp_email" property="tempEmail"/>
+        <result column="banflag" property="banFlag"/>
+        <result column="regtime" property="regTime"/>
+        <result column="lastlogin" property="lastLogin"/>
+        <result column="sex" property="sex"/>
+    </resultMap>
+
+    <select id="listAccounts" parameterType="Map" resultMap="account">
+        select * from blog_accounts
+        <where>
+            <if test="#uid!=null">and uid like #{uid}</if>
+            <if test="#nick!=null">and nick like #{nick}</if>
+            <if test="#qq!=null">and qq=#{qq}</if>
+            <if test="#weibo!=null">and weibo=#{weibo}</if>
+            <if test="#email!=null">and email=#{email}</if>
+            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+            and banflag=0;
+        </where>
+    </select>
+
+    <select id="countListAccounts" parameterType="Map" resultType="int">
+        select count(*) from blog_accounts
+        <where>
+            <if test="#uid!=null">and uid like #{uid}</if>
+            <if test="#nick!=null">and nick like #{nick}</if>
+            <if test="#qq!=null">and qq=#{qq}</if>
+            <if test="#weibo!=null">and weibo=#{weibo}</if>
+            <if test="#email!=null">and email=#{email}</if>
+            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+            and banflag=0;
+        </where>
+    </select>
+
+    <select id="listAllAccounts" parameterType="Map" resultMap="account">
+        select * from blog_accounts
+        <where>
+            <if test="#uid!=null">and uid like #{uid}</if>
+            <if test="#nick!=null">and nick like #{nick}</if>
+            <if test="#qq!=null">and qq=#{qq}</if>
+            <if test="#weibo!=null">and weibo=#{weibo}</if>
+            <if test="#email!=null">and email=#{email}</if>
+            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+        </where>
+    </select>
+
+    <select id="countListAllAccounts" parameterType="Map" resultType="int">
+        select count(*) from blog_accounts
+        <where>
+            <if test="#uid!=null">and uid like #{uid}</if>
+            <if test="#nick!=null">and nick like #{nick}</if>
+            <if test="#qq!=null">and qq=#{qq}</if>
+            <if test="#weibo!=null">and weibo=#{weibo}</if>
+            <if test="#email!=null">and email=#{email}</if>
+            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+        </where>
+    </select>
+
+    <select id="getAccountById" parameterType="int" resultMap="account">
+        select * from blog_accounts where id=#{id}
+    </select>
+
+    <select id="getAccountByUid" parameterType="String" resultMap="account">
+        select * from blog_accounts where uid=#{uid}
+    </select>
+
+    <select id="getAccountByQQ" parameterType="String" resultMap="account">
+        select * from blog_accounts where qq=#{qq}
+    </select>
+
+    <select id="getAccountByWeibo" parameterType="String" resultMap="account">
+        select * from blog_accounts where weibo=#{weibo}
+    </select>
+
+    <select id="getAccountByEmail" parameterType="String" resultMap="account">
+        select * from blog_accounts where email=#{email} or temp_email=#{tempEmail}
+    </select>
+
+    <update id="update" parameterType="Account">
+        update blog_accounts set
+        <if test="#pwd!=null">pwd=#{pwd},</if>
+        <if test="#nick!=null">nick=#{nick},</if>
+        <if test="#qq!=null">qq=#{qq,jdbcType=VARCHAR},</if>
+        <if test="#weibo!=null">weibo=#{weibo,jdbcType=VARCHAR},</if>
+        <if test="#email!=null">email=#{email,jdbcType=VARCHAR},</if>
+        <if test="#tempEmail!=null">temp_email=#{tempEmail,jdbcType=VARCHAR}</if>
+        <if test="#avatar!=null">avatar=#{avatar,jdbcType=VARCHAR},</if>
+        <if test="#sex!=null">sex=#{sex,jdbcType=VARCHAR},</if>
+        banflag=#{banFlag},
+        lastlogin=#{lastLogin}
+        where id=#{id}
+    </update>
+
+    <insert id="save" parameterType="Account" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_accounts (uid,pwd,nick,avatar,qq,weibo,email,temp_email,banflag,regtime,lastlogin,sex)
+        values
+        (#{uid},#{pwd},#{nick},#{avatar,jdbcType=VARCHAR},#{qq,jdbcType=VARCHAR},
+        #{weibo,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{tempEmail,jdbcType=VARCHAR},#{banFlag},#{regTime},
+        #{lastLogin,jdbcType=BIGINT},#{sex,jdbcType=VARCHAR})
+    </insert>
+</mapper>

@@ -1,0 +1,131 @@
+.left_box {
+    width: 300px;
+    background: #555;
+    height: 400px;
+}
+
+.left_box .title {
+    width: 100%;
+    background: #558;
+    text-indent: 10px;
+    text-align: left;
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 10px;
+}
+
+.left_box #menu {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.left_box #menu li {
+    cursor: pointer;
+    margin: 10px;
+    width: 278px;
+    text-align: left;
+    text-indent: 10px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 1px solid #aaaaaa;
+}
+
+.left_box #menu .ui-selecting {
+    background: #aaa;
+}
+
+.left_box #menu .ui-selected {
+    background: #777;
+}
+
+.right_box {
+    background: #222;
+    width: 723px;
+    border-left: 1px solid #888;
+    height: 400px;
+    overflow: hidden;
+}
+
+.inner {
+    white-space: nowrap;
+    width: 300%;
+}
+
+.right_box .box_item {
+    width: 723px;
+    height: 400px;
+    overflow: auto;
+}
+
+.right_box .box_item .tab_box {
+    width: 721px;
+    height: 398px;
+    overflow: hidden;
+}
+
+.right_box .box_item .tab_box>ul {
+    width: 713px;
+}
+.right_box .box_item .article_list{
+    width: 700px;
+}
+.right_box .box_item .tab_box .ui-tabs-panel .comment_list {
+    width: 674px;
+}
+
+.right_box .box_item .tab_box .ui-tabs-panel .comment_list ul,.right_box .box_item .article_list ul {
+    width: 672px;
+    border-left: 1px solid #335;
+    border-bottom: 1px solid #335;
+}
+.right_box .box_item .article_list ul{
+    width: 698px;
+}
+
+.right_box .box_item .tab_box .ui-tabs-panel .comment_list dt,.right_box .box_item .article_list dt {
+    border-top: 1px solid #335;
+}
+
+.ui-tabs-panel .comment_list ul>li,.article_list ul>li {
+    border-right: 1px solid #335;
+    padding: 2px;
+    text-align: left;
+}
+
+.ui-tabs-panel .comment_list dt>ul>li ,.article_list dt>ul>li{
+    text-align: center;
+}
+
+.ui-tabs-panel .comment_list .article {
+    width: 395px;
+}
+.article_list .article_title{
+    width: 352px;
+}
+
+.ui-tabs-panel .comment_list .time,.article_list .article_addtime,.article_list .article_edittime {
+    width: 135px;
+    font-size: 12px;
+    height: 21px;
+    line-height: 21px;
+}
+
+.article_list .article_reply{
+    width: 56px;
+    text-align: right;
+    height: 21px;
+    font-size: 12px;
+    line-height: 21px;
+    background: url(../../img/reply.png) 0 no-repeat;
+}
+
+.ui-tabs-panel .comment_list .author {
+    width: 127px;
+    text-align: right;
+}
+
+.ui-tabs-panel .comment_list .content {
+    width: 667px;
+    border-top: 1px solid #ddf;
+}

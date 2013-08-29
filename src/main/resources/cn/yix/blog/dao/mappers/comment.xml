@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.CommentMapper">
+    <resultMap id="comment" type="Comment">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="addtime" property="addTime"/>
+        <result column="floor" property="floor"/>
+        <association property="author" column="author"
+                     select="cn.yix.blog.dao.mappers.AccountMapper.getAccountById"/>
+        <association property="article" column="article"
+                     select="cn.yix.blog.dao.mappers.ArticleMapper.getArticle"/>
+    </resultMap>
+
+    <select id="listCommentsByArticle" resultMap="comment" parameterType="int">
+        select * from blog_comments c where article=#{articleId} order by addtime desc
+    </select>
+
+    <select id="countCommentsByArticle" resultType="int" parameterType="int">
+        select count(*) from blog_comments where article=#{articleId}
+    </select>
+
+    <select id="listCommentsByAccount" resultMap="comment" parameterType="int">
+        select * from blog_comments where author=#{accountId} order by addtime desc
+    </select>
+
+    <select id="countCommentsByAccount" resultType="int" parameterType="int">
+        select count(*) from blog_comments where author=#{accountId}
+    </select>
+
+    <select id="listCommentsToAccount" resultMap="comment" parameterType="int">
+        select c.* from blog_comments c left join blog_articles a on a.id=c.article left join blog_accounts ac on ac.id=a.author where ac.id=#{id} group by c.id order by c.addtime desc
+    </select>
+
+    <select id="countCommentsToAccount" resultType="int" parameterType="int">
+        select count(c.id) from blog_comments c left join blog_articles a on a.id=c.article left join blog_accounts ac on ac.id=a.author where ac.id=#{id}
+    </select>
+
+    <select id="getComment" resultMap="comment" parameterType="int">
+        select * from blog_comments where id=#{id}
+    </select>
+
+    <insert id="save" parameterType="Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_comments (title,content,addtime,floor,author,article) values
+        (#{title,jdbcType=VARCHAR},#{content},#{addTime},#{floor},#{author.id},#{article.id})
+    </insert>
+
+    <delete id="delete" parameterType="Comment">
+        delete from blog_comments where id=#{id}
+    </delete>
+</mapper>

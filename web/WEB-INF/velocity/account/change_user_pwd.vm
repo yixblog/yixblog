@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #change_pwd_form label{
+            clear: left;
+            line-height: 25px;
+        }
+        #change_pwd_form .tip_box{
+            height: 20px;
+        }
+        #change_pwd_form input[type='button']{
+            clear: left;
+        }
+        #change_pwd_form input[type='password']{
+            float: right;
+        }
+    </style>
+</head>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var formBox = jQuery("#change_pwd_form");
+        var oldPwdInput = jQuery("#user_old_password");
+        var newPwdInput = jQuery("#user_new_password");
+        var confirmInput= jQuery("#user_confirm_password");
+        var inputs = [oldPwdInput,newPwdInput,confirmInput];
+        var tip_box = formBox.find(".tip_box");
+        formBox.find("input[type='button']").button().click(function(){
+            var checkFlag = true;
+            checkFlag = checkFlag&&checkEmpty(oldPwdInput,"旧密码",tip_box);
+            checkFlag = checkFlag&&checkEmpty(newPwdInput,"新密码",tip_box);
+            checkFlag = checkFlag&&checkSimilar(newPwdInput,confirmInput,"两次输入密码不同",tip_box);
+            if(checkFlag){
+                tip_box.html("");
+                jQuery.ajax({
+                    url:"accountservice/account/user/change_pwd.action",
+                    data:{oldPwd:oldPwdInput.val(),newPwd:newPwdInput.val()},
+                    type:"post",
+                    dataType:"json",
+                    success:function(data){
+                        inputs.val("");
+                        tip_box.html(data.msg);
+                    }
+                })
+            }
+        });
+    });
+</script>
+<body>
+<form id="change_pwd_form">
+    <table border="0">
+        <tr>
+            <td colspan="2"><span class="tip_box"></span></td>
+        </tr>
+        <tr>
+            <td><label for="user_old_password">旧密码</label></td>
+            <td><input id="user_old_password" type="password"></td>
+        </tr>
+        <tr>
+            <td><label for="user_new_password">新密码</label></td>
+            <td><input id="user_new_password" type="password"></td>
+        </tr>
+        <tr>
+            <td><label for="user_confirm_password">重复新密码</label></td>
+            <td><input id="user_confirm_password" type="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" value="提交"></td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>

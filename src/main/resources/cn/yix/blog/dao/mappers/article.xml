@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.ArticleMapper">
+    <resultMap id="article" type="Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="addtime" property="addTime"/>
+        <result column="edittime" property="editTime"/>
+        <result column="topflag" property="topFlag"/>
+        <result column="replycount" property="replyCount"/>
+        <association property="author" column="author"
+                     select="cn.yix.blog.dao.mappers.AccountMapper.getAccountById"/>
+        <collection property="tags" column="article" select="getArticleTags" ofType="String"/>
+    </resultMap>
+    <resultMap id="tagcount" type="TagCount">
+        <id column="tag" property="tag"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <sql id="listcolumns">a.id,a.title,a.addtime,a.edittime,a.author,a.topflag</sql>
+
+    <select id="getArticleTags" resultType="string" parameterType="int">
+        select tag from blog_tags where article=#{articleId}
+    </select>
+
+    <select id="listNewArticles" resultMap="article" parameterType="Map">
+        select
+        <include refid="listcolumns"/>,count(c.id) replycount
+        from blog_articles a
+        left join blog_comments c on c.article=a.id
+        left join blog_tags t on t.article=a.id
+        <where>
+            <if test="#keywords!=null">and
+                <foreach collection="#keywords" item="item" separator=" or " open="(" close=")">
+                    title like #{item}
+                </foreach>
+            </if>
+            <if test="#userid>0">and a.author=#{userid}</if>
+            <if test="#tag!=null">and t.tag=#{tag}</if>
+            <if test="#addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
+            <if test="#addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
+        </where>
+        group by a.id
+        order by addtime desc
+    </select>
+
+    <select id="listHotArticles" resultMap="article" parameterType="Map">
+        select
+        <include refid="listcolumns"/>,count(c.id) replycount
+        from blog_articles a
+        left join blog_comments c on c.article=a.id
+        left join blog_tags t on t.article=a.id
+        <where>
+            <if test="#keywords!=null">and
+                <foreach collection="#keywords" item="item" separator=" or " open="(" close=")">
+                    title like #{item}
+                </foreach>
+            </if>
+            <if test="#userid>0">and a.author=#{userid}</if>
+            <if test="#tag!=null">and t.tag=#{tag}</if>
+            <if test="#addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
+            <if test="#addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
+        </where>
+        group by a.id
+        order by replycount desc
+    </select>
+
+    <select id="countArticles" resultType="int" parameterType="Map">
+        select count(a.id) from blog_articles a
+        left join blog_tags t on t.article=a.id
+        <where>
+            <if test="#keywords!=null">and
+                <foreach collection="#keywords" item="item" separator=" or " open="(" close=")">
+                    title like #{item}
+                </foreach>
+            </if>
+            <if test="#userid>0">and a.author=#{userid}</if>
+            <if test="#tag!=null">and t.tag=#{tag}</if>
+            <if test="#addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
+            <if test="#addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
+        </where>
+    </select>
+
+    <select id="listArticlesByAccount" parameterType="int" resultMap="article">
+        select
+        <include refid="listcolumns"/>
+        from blog_articles a where a.author=#{accountId}
+    </select>
+
+    <select id="countArticlesByAccount" parameterType="int" resultType="int">
+        select count(*) from blog_articles where author=#{accountId}
+    </select>
+
+    <select id="listArticlesByTag" parameterType="String" resultMap="article">
+        select
+        <include refid="listcolumns"/>
+        from blog_articles a
+        left join blog_tags t on t.article=a.id
+        where t.tag=#{tag} group by a.id
+    </select>
+
+    <select id="countArticlesByTag" parameterType="String" resultType="int">
+        select count(a.id) from blog_articles a
+        left join blog_tags t on t.article=a.id
+        where t.tag=#{tag} group by a.id
+    </select>
+
+    <select id="getArticle" parameterType="int" resultMap="article">
+        select * from blog_articles where id=#{id}
+    </select>
+
+    <select id="listTags" resultMap="tagcount" parameterType="int">
+        select tag,count(article) count from blog_tags group by tag order by count(article) desc limit #{number}
+    </select>
+
+    <insert id="saveArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_articles (title,content,addtime,edittime,author,topflag) values
+        (#{title},#{content},#{addtime},#{edittime,jdbcType=BIGINT},#{author.id},#{topFlag})
+    </insert>
+
+    <insert id="saveTag" parameterType="Article">
+        insert into blog_tags (article,tag) values
+        <foreach collection="tags" separator="," item="tag">
+            (#{id},#{tag})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="Article">
+        update blog_articles
+        set
+        title=#{title},
+        content=#{content},
+        edittime=#{editTime},
+        topflag=#{topFlag}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Article">
+        delete from blog_articles where id=#{id}
+    </delete>
+
+    <delete id="clearArticleTags" parameterType="Article">
+        delete from blog_tags where article=#{id}
+    </delete>
+</mapper>

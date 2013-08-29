@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.NoticeMapper">
+    <resultMap id="notice" type="Notice">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="addtime" property="addTime"/>
+    </resultMap>
+
+    <select id="list" resultMap="notice">
+        select id,title,addtime from blog_notice order by addtime desc
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from blog_notice
+    </select>
+
+    <select id="queryById" resultMap="notice" parameterType="int">
+        select * from blog_notice where id=#{id}
+    </select>
+
+    <insert id="save" parameterType="Notice" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_notice (title,content,addtime) values (#{title},#{content,jdbcType=TEXT},#{addTime})
+    </insert>
+
+    <update id="update" parameterType="Notice">
+        update blog_notice set
+        title=#{title},
+        content=#{content,jdbcType=TEXT},
+        addtime=#{addTime}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from blog_notice where id=#{id}
+    </delete>
+</mapper>
