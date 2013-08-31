@@ -37,6 +37,7 @@
             </div>
             <div class="box_item">
                 <input name="current_tag" type="hidden" id="current_tag_input">
+                <button id="new_article">新文章</button>
                 <dl class="article_list" id="article_list">
                 </dl>
             </div>

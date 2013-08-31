@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ueditor.Uploader;
 
@@ -42,7 +43,22 @@ public class FileUploadController {
         int maxSize = 10000;
         Uploader up = buildUploader(request, fileType, maxSize);
         up.upload();
-        logger.debug("file uploaded,file size:"+up.getSize()+",url:"+up.getUrl());
+        logger.debug("file uploaded,file size:" + up.getSize() + ",url:" + up.getUrl());
+        return buildUploadResult(up);
+    }
+
+    @RequestMapping(value = "/scrawl.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    JSONObject uploadScrawl(@RequestParam(required = false) String action, HttpServletRequest request) throws Exception {
+        String[] fileType = {".gif", ".png", ".jpg", ".jpeg", ".bmp"};
+        int maxSize = 10000;
+        Uploader up = buildUploader(request, fileType, maxSize);
+        if ("tmpImg".equals(action)) {
+            up.upload();
+        } else {
+            up.uploadBase64("content");
+        }
         return buildUploadResult(up);
     }
 
