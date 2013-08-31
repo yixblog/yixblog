@@ -4,5 +4,19 @@
     #parse("utils/base.vm")
     <script src="static/lib/ueditor/ueditor.config.js" type="text/javascript"></script>
     <script src="static/lib/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="static/js/new_article.js"></script>
+    <link type="text/css" rel="stylesheet" href="static/lib/ueditor/themes/iframe.css">
+    <link type="text/css" rel="stylesheet" href="static/css/new_article.css">
 </head>
+<body>
+<div class="content" id="content">
+    #parse("utils/head.vm")
+    <div class="new_article_content">
+        <label for="article_title">标题:</label><input id="article_title" type="text"><br>
+        <label for="editor">正文:</label><br>
+        <textarea id="editor"></textarea>
+    </div>
+    #parse("utils/foot.vm")
+</div>
+</body>
 </html>
