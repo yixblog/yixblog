@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <script src="static/lib/ueditor/ueditor.config.js" type="text/javascript"></script>
+    <script src="static/lib/ueditor/ueditor.all.min.js" type="text/javascript"></script>
+</head>
+</html>

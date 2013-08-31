@@ -59,7 +59,6 @@ public class ArticleEditController {
 
     @RequestMapping("/new.htm")
     public String newArticlePage(Model model){
-
         return "article/new";
     }
 

@@ -27,6 +27,7 @@
                 <array>
                     <value>/accountservice/account/user/**</value>
                     <value>/user/**</value>
+                    <value>/upload/**</value>
                 </array>
             </property>
         </bean>
