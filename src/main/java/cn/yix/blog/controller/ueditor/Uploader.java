@@ -1,4 +1,4 @@
-package ueditor;
+package cn.yix.blog.controller.ueditor;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

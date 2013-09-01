@@ -98,6 +98,11 @@ $(document).ready(function () {
         show: {effect: "slide", duration: "fast"},
         hide: {effect: "slide", duration: "fast"}
     });
+
+    $("#new_article_btn").button().click(function(){
+        window.open("user/article/new.htm")
+    });
+
     var comment_data;
     $("#comment_tab").tabs({
         beforeLoad: function (event, ui) {

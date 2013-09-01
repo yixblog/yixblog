@@ -1,4 +1,4 @@
-package cn.yix.blog.controller.utils;
+package cn.yix.blog.controller.ueditor;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ueditor.Uploader;
 
 import javax.servlet.http.HttpServletRequest;
 

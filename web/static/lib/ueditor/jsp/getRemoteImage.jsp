@@ -2,7 +2,7 @@
     <%@ page import="java.io.*"%>
     <%@ page import="java.net.*"%>
     <%@ page import="java.util.*"%>
-    <%@ page import="ueditor.Uploader" %>
+    <%@ page import="cn.yix.blog.controller.ueditor.Uploader" %>
     <%
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");

@@ -136,18 +136,18 @@
         UEDITOR_HOME_URL: URL
 
         //图片上传配置区
-        , imageUrl: URL + "uploader/image.action"             //图片上传提交地址
+        , imageUrl: "uploader/image.action"             //图片上传提交地址
         , imagePath: URL                   //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         //,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                            //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
         //,maxImageSideLength:900                    //上传图片最大允许的边长，超过会自动等比缩放,不缩放就设置一个比较大的值，更多设置在image.html中
 
         //涂鸦图片配置区
-        , scrawlUrl: URL + "uploader/scrawl.action"           //涂鸦上传地址
+        , scrawlUrl: "uploader/scrawl.action"           //涂鸦上传地址
         , scrawlPath: URL                        //图片修正地址，同imagePath
 
         //附件上传配置区
-        , fileUrl: URL + "uploader/file.acion"               //附件上传提交地址
+        , fileUrl: "uploader/file.acion"               //附件上传提交地址
         , filePath: URL + "jsp/"                   //附件修正地址，同imagePath
         //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
 
@@ -165,17 +165,17 @@
 
         //屏幕截图配置区
         , snapscreenHost: location.hostname                                 //屏幕截图的server端文件所在的网站地址或者ip，请不要加http://
-        , snapscreenServerUrl: URL + "jsp/imageUp.jsp" //屏幕截图的server端保存程序，UEditor的范例代码为“URL +"server/upload/jsp/snapImgUp.jsp"”
+        , snapscreenServerUrl: "uploader/image.action" //屏幕截图的server端保存程序，UEditor的范例代码为“URL +"server/upload/jsp/snapImgUp.jsp"”
         , snapscreenPath: URL + "jsp/", snapscreenServerPort: location.port                                   //屏幕截图的server端端口
         //,snapscreenImgAlign: ''                                //截图的图片默认的排版方式
 
         //word转存配置区
-        , wordImageUrl: URL + "jsp/imageUp.jsp"             //word转存提交地址
+        , wordImageUrl: "uploader/image.action"            //word转存提交地址
         , wordImagePath: URL + "jsp/"                       //
         //,wordImageFieldName:"upfile"                     //word转存表单名若此处修改，需要在后台对应文件修改对应参数
 
         //获取视频数据的地址
-        , getMovieUrl: URL + "jsp/getMovie.jsp"                   //视频数据获取地址
+        , getMovieUrl: "ueditor/movie.action"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
 

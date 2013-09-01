@@ -9,7 +9,7 @@
     <%@ page import="java.io.File"%>
     <%@ page import="java.io.FileOutputStream"%>
     <%@ page import="java.util.Date"%>
-    <%@ page import="ueditor.Uploader" %>
+    <%@ page import="cn.yix.blog.controller.ueditor.Uploader" %>
 
     <%
     request.setCharacterEncoding("utf-8");

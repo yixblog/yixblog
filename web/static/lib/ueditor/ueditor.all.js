@@ -195,18 +195,18 @@ var utils = UE.utils = {
     /**
      * 遍历数组，对象，nodeList
      * @name each
-     * @grammar UE.utils.each(obj,iterator,[context])
+     * @grammar UE.ueditor.each(obj,iterator,[context])
      * @since 1.2.4+
      * @desc
      * * obj 要遍历的对象
      * * iterator 遍历的方法,方法的第一个是遍历的值，第二个是索引，第三个是obj
      * * context  iterator的上下文
      * @example
-     * UE.utils.each([1,2],function(v,i){
+     * UE.ueditor.each([1,2],function(v,i){
      *     console.log(v)//值
      *     console.log(i)//索引
      * })
-     * UE.utils.each(document.getElementsByTagName('*'),function(n){
+     * UE.ueditor.each(document.getElementsByTagName('*'),function(n){
      *     console.log(n.tagName)
      * })
      */
@@ -237,8 +237,8 @@ var utils = UE.utils = {
     /**
      * 将source对象中的属性扩展到target对象上
      * @name extend
-     * @grammar UE.utils.extend(target,source)  => Object  //覆盖扩展
-     * @grammar UE.utils.extend(target,source,true)  ==> Object  //保留扩展
+     * @grammar UE.ueditor.extend(target,source)  => Object  //覆盖扩展
+     * @grammar UE.ueditor.extend(target,source,true)  ==> Object  //保留扩展
      */
     extend:function (t, s, b) {
         if (s) {
@@ -265,7 +265,7 @@ var utils = UE.utils = {
     /**
      * 模拟继承机制，subClass继承superClass
      * @name inherits
-     * @grammar UE.utils.inherits(subClass,superClass) => subClass
+     * @grammar UE.ueditor.inherits(subClass,superClass) => subClass
      * @example
      * function SuperClass(){
      *     this.name = "小李";
@@ -278,7 +278,7 @@ var utils = UE.utils = {
      * function SubClass(){
      *     this.name = "小张";
      * }
-     * UE.utils.inherits(SubClass,SuperClass);
+     * UE.ueditor.inherits(SubClass,SuperClass);
      * var sub = new SubClass();
      * sub.hello("早上好!"); ==> "小张早上好！"
      */
@@ -293,7 +293,7 @@ var utils = UE.utils = {
     /**
      * 用指定的context作为fn上下文，也就是this
      * @name bind
-     * @grammar UE.utils.bind(fn,context)  =>  fn
+     * @grammar UE.ueditor.bind(fn,context)  =>  fn
      */
     bind:function (fn, context) {
         return function () {
@@ -304,18 +304,18 @@ var utils = UE.utils = {
     /**
      * 创建延迟delay执行的函数fn
      * @name defer
-     * @grammar UE.utils.defer(fn,delay)  =>fn   //延迟delay毫秒执行fn，返回fn
-     * @grammar UE.utils.defer(fn,delay,exclusion)  =>fn   //延迟delay毫秒执行fn，若exclusion为真，则互斥执行fn
+     * @grammar UE.ueditor.defer(fn,delay)  =>fn   //延迟delay毫秒执行fn，返回fn
+     * @grammar UE.ueditor.defer(fn,delay,exclusion)  =>fn   //延迟delay毫秒执行fn，若exclusion为真，则互斥执行fn
      * @example
      * function test(){
      *     console.log("延迟输出！");
      * }
      * //非互斥延迟执行
-     * var testDefer = UE.utils.defer(test,1000);
+     * var testDefer = UE.ueditor.defer(test,1000);
      * testDefer();   =>  "延迟输出！";
      * testDefer();   =>  "延迟输出！";
      * //互斥延迟执行
-     * var testDefer1 = UE.utils.defer(test,1000,true);
+     * var testDefer1 = UE.ueditor.defer(test,1000,true);
      * testDefer1();   =>  //本次不执行
      * testDefer1();   =>  "延迟输出！";
      */
@@ -332,8 +332,8 @@ var utils = UE.utils = {
     /**
      * 查找元素item在数组array中的索引, 若找不到返回-1
      * @name indexOf
-     * @grammar UE.utils.indexOf(array,item)  => index|-1  //默认从数组开头部开始搜索
-     * @grammar UE.utils.indexOf(array,item,start)  => index|-1  //start指定开始查找的位置
+     * @grammar UE.ueditor.indexOf(array,item)  => index|-1  //默认从数组开头部开始搜索
+     * @grammar UE.ueditor.indexOf(array,item,start)  => index|-1  //start指定开始查找的位置
      */
     indexOf:function (array, item, start) {
         var index = -1;
@@ -350,7 +350,7 @@ var utils = UE.utils = {
     /**
      * 移除数组array中的元素item
      * @name removeItem
-     * @grammar UE.utils.removeItem(array,item)
+     * @grammar UE.ueditor.removeItem(array,item)
      */
     removeItem:function (array, item) {
         for (var i = 0, l = array.length; i < l; i++) {
@@ -364,7 +364,7 @@ var utils = UE.utils = {
     /**
      * 删除字符串str的首尾空格
      * @name trim
-     * @grammar UE.utils.trim(str) => String
+     * @grammar UE.ueditor.trim(str) => String
      */
     trim:function (str) {
         return str.replace(/(^[ \t\n\r]+)|([ \t\n\r]+$)/g, '');
@@ -373,7 +373,7 @@ var utils = UE.utils = {
     /**
      * 将字符串list(以','分隔)或者数组list转成哈希对象
      * @name listToMap
-     * @grammar UE.utils.listToMap(list)  => Object  //Object形如{test:1,br:1,textarea:1}
+     * @grammar UE.ueditor.listToMap(list)  => Object  //Object形如{test:1,br:1,textarea:1}
      */
     listToMap:function (list) {
         if (!list)return {};
@@ -387,12 +387,12 @@ var utils = UE.utils = {
     /**
      * 将str中的html符号转义,默认将转义''&<">''四个字符，可自定义reg来确定需要转义的字符
      * @name unhtml
-     * @grammar UE.utils.unhtml(str);  => String
-     * @grammar UE.utils.unhtml(str,reg)  => String
+     * @grammar UE.ueditor.unhtml(str);  => String
+     * @grammar UE.ueditor.unhtml(str,reg)  => String
      * @example
      * var html = '<body>You say:"你好！Baidu & UEditor!"</body>';
-     * UE.utils.unhtml(html);   ==>  &lt;body&gt;You say:&quot;你好！Baidu &amp; UEditor!&quot;&lt;/body&gt;
-     * UE.utils.unhtml(html,/[<>]/g)  ==>  &lt;body&gt;You say:"你好！Baidu & UEditor!"&lt;/body&gt;
+     * UE.ueditor.unhtml(html);   ==>  &lt;body&gt;You say:&quot;你好！Baidu &amp; UEditor!&quot;&lt;/body&gt;
+     * UE.ueditor.unhtml(html,/[<>]/g)  ==>  &lt;body&gt;You say:"你好！Baidu & UEditor!"&lt;/body&gt;
      */
     unhtml:function (str, reg) {
         return str ? str.replace(reg || /[&<">'](?:(amp|lt|quot|gt|#39|nbsp);)?/g, function (a, b) {
@@ -413,7 +413,7 @@ var utils = UE.utils = {
     /**
      * 将str中的转义字符还原成html字符
      * @name html
-     * @grammar UE.utils.html(str)  => String   //详细参见<code><a href = '#unhtml'>unhtml</a></code>
+     * @grammar UE.ueditor.html(str)  => String   //详细参见<code><a href = '#unhtml'>unhtml</a></code>
      */
     html:function (str) {
         return str ? str.replace(/&((g|l|quo)t|amp|#39);/g, function (m) {
@@ -429,7 +429,7 @@ var utils = UE.utils = {
     /**
      * 将css样式转换为驼峰的形式。如font-size => fontSize
      * @name cssStyleToDomStyle
-     * @grammar UE.utils.cssStyleToDomStyle(cssName)  => String
+     * @grammar UE.ueditor.cssStyleToDomStyle(cssName)  => String
      */
     cssStyleToDomStyle:function () {
         var test = document.createElement('div').style,
@@ -446,11 +446,11 @@ var utils = UE.utils = {
     /**
      * 动态加载文件到doc中，并依据obj来设置属性，加载成功后执行回调函数fn
      * @name loadFile
-     * @grammar UE.utils.loadFile(doc,obj)
-     * @grammar UE.utils.loadFile(doc,obj,fn)
+     * @grammar UE.ueditor.loadFile(doc,obj)
+     * @grammar UE.ueditor.loadFile(doc,obj,fn)
      * @example
      * //指定加载到当前document中一个script文件，加载成功后执行function
-     * utils.loadFile( document, {
+     * ueditor.loadFile( document, {
      *     src:"test.js",
      *     tag:"script",
      *     type:"text/javascript",
@@ -528,11 +528,11 @@ var utils = UE.utils = {
     /**
      * 判断obj对象是否为空
      * @name isEmptyObject
-     * @grammar UE.utils.isEmptyObject(obj)  => true|false
+     * @grammar UE.ueditor.isEmptyObject(obj)  => true|false
      * @example
-     * UE.utils.isEmptyObject({}) ==>true
-     * UE.utils.isEmptyObject([]) ==>true
-     * UE.utils.isEmptyObject("") ==>true
+     * UE.ueditor.isEmptyObject({}) ==>true
+     * UE.ueditor.isEmptyObject([]) ==>true
+     * UE.ueditor.isEmptyObject("") ==>true
      */
     isEmptyObject:function (obj) {
         if (obj == null) return true;
@@ -544,7 +544,7 @@ var utils = UE.utils = {
     /**
      * 统一将颜色值使用16进制形式表示
      * @name fixColor
-     * @grammar UE.utils.fixColor(name,value) => value
+     * @grammar UE.ueditor.fixColor(name,value) => value
      * @example
      * rgb(255,255,255)  => "#ffffff"
      */
@@ -615,8 +615,8 @@ var utils = UE.utils = {
     /**
      * 深度克隆对象，从source到target
      * @name clone
-     * @grammar UE.utils.clone(source) => anthorObj 新的对象是完整的source的副本
-     * @grammar UE.utils.clone(source,target) => target包含了source的所有内容，重名会覆盖
+     * @grammar UE.ueditor.clone(source) => anthorObj 新的对象是完整的source的副本
+     * @grammar UE.ueditor.clone(source,target) => target包含了source的所有内容，重名会覆盖
      */
     clone:function (source, target) {
         var tmp;
@@ -637,8 +637,8 @@ var utils = UE.utils = {
     /**
      * 转换cm/pt到px
      * @name transUnitToPx
-     * @grammar UE.utils.transUnitToPx('20pt') => '27px'
-     * @grammar UE.utils.transUnitToPx('0pt') => '0'
+     * @grammar UE.ueditor.transUnitToPx('20pt') => '27px'
+     * @grammar UE.ueditor.transUnitToPx('0pt') => '0'
      */
     transUnitToPx:function (val) {
         if (!/(pt|cm)/.test(val)) {
@@ -661,7 +661,7 @@ var utils = UE.utils = {
     /**
      * DomReady方法，回调函数将在dom树ready完成后执行
      * @name domReady
-     * @grammar UE.utils.domReady(fn)  => fn  //返回一个延迟执行的方法
+     * @grammar UE.ueditor.domReady(fn)  => fn  //返回一个延迟执行的方法
      */
     domReady:function () {
 
@@ -712,10 +712,10 @@ var utils = UE.utils = {
     /**
      * 动态添加css样式
      * @name cssRule
-     * @grammar UE.utils.cssRule('添加的样式的节点名称',['样式'，'放到哪个document上'])
-     * @grammar UE.utils.cssRule('body','body{background:#ccc}') => null  //给body添加背景颜色
-     * @grammar UE.utils.cssRule('body') =>样式的字符串  //取得key值为body的样式的内容,如果没有找到key值先关的样式将返回空，例如刚才那个背景颜色，将返回 body{background:#ccc}
-     * @grammar UE.utils.cssRule('body','') =>null //清空给定的key值的背景颜色
+     * @grammar UE.ueditor.cssRule('添加的样式的节点名称',['样式'，'放到哪个document上'])
+     * @grammar UE.ueditor.cssRule('body','body{background:#ccc}') => null  //给body添加背景颜色
+     * @grammar UE.ueditor.cssRule('body') =>样式的字符串  //取得key值为body的样式的内容,如果没有找到key值先关的样式将返回空，例如刚才那个背景颜色，将返回 body{background:#ccc}
+     * @grammar UE.ueditor.cssRule('body','') =>null //清空给定的key值的背景颜色
      */
     cssRule:browser.ie ? function (key, style, doc) {
         var indexList, index;
@@ -777,22 +777,22 @@ var utils = UE.utils = {
 /**
  * 判断str是否为字符串
  * @name isString
- * @grammar UE.utils.isString(str) => true|false
+ * @grammar UE.ueditor.isString(str) => true|false
  */
 /**
  * 判断array是否为数组
  * @name isArray
- * @grammar UE.utils.isArray(obj) => true|false
+ * @grammar UE.ueditor.isArray(obj) => true|false
  */
 /**
  * 判断obj对象是否为方法
  * @name isFunction
- * @grammar UE.utils.isFunction(obj)  => true|false
+ * @grammar UE.ueditor.isFunction(obj)  => true|false
  */
 /**
  * 判断obj对象是否为数字
  * @name isNumber
- * @grammar UE.utils.isNumber(obj)  => true|false
+ * @grammar UE.ueditor.isNumber(obj)  => true|false
  */
 utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object'], function (v) {
     UE.utils['is' + v] = function (obj) {
@@ -802,7 +802,7 @@ utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object'], functi
  * @file
  * @name UE.EventBase
  * @short EventBase
- * @import editor.js,core/utils.js
+ * @import editor.js,core/ueditor.js
  * @desc UE采用的事件基类，继承此类的对应类将获取addListener,removeListener,fireEvent方法。
  * 在UE中，Editor以及所有ui实例都继承了该类，故可以在对应的ui对象以及editor对象上使用上述方法。
  */
@@ -897,7 +897,7 @@ function getListener(obj, type, force) {
 
 ///import editor.js
 ///import core/dom/dom.js
-///import core/utils.js
+///import core/ueditor.js
 /**
  * dtd html语义化的体现类
  * @constructor
@@ -1078,7 +1078,7 @@ var dtd = dom.dtd = (function() {
  * @file
  * @name UE.dom.domUtils
  * @short DomUtils
- * @import editor.js, core/utils.js,core/browser.js,core/dom/dtd.js
+ * @import editor.js, core/ueditor.js,core/browser.js,core/dom/dtd.js
  * @desc UEditor封装的底层dom操作库
  */
 function getDomNode(node, start, ltr, startFromChild, fn, guard) {
@@ -2361,7 +2361,7 @@ var domUtils = dom.domUtils = {
     }
 };
 var fillCharReg = new RegExp(domUtils.fillChar, 'g');///import editor.js
-///import core/utils.js
+///import core/ueditor.js
 ///import core/browser.js
 ///import core/dom/dom.js
 ///import core/dom/dtd.js
@@ -2371,7 +2371,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');///import editor.js
  * @name UE.dom.Range
  * @anthor zhanyi
  * @short Range
- * @import editor.js,core/utils.js,core/browser.js,core/dom/domUtils.js,core/dom/dtd.js
+ * @import editor.js,core/ueditor.js,core/browser.js,core/dom/domUtils.js,core/dom/dtd.js
  * @desc Range范围实现类，本类是UEditor底层核心类，统一w3cRange和ieRange之间的差异，包括接口和属性
  */
 (function () {
@@ -3944,7 +3944,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');///import editor.js
  * @file
  * @name UE.Editor
  * @short Editor
- * @import editor.js,core/utils.js,core/EventBase.js,core/browser.js,core/dom/dtd.js,core/dom/domUtils.js,core/dom/Range.js,core/dom/Selection.js,plugins/serialize.js
+ * @import editor.js,core/ueditor.js,core/EventBase.js,core/browser.js,core/dom/dtd.js,core/dom/domUtils.js,core/dom/Range.js,core/dom/Selection.js,plugins/serialize.js
  * @desc 编辑器主类，包含编辑器提供的大部分公用接口
  */
 (function () {
@@ -5013,7 +5013,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');///import editor.js
  * @name UE.ajax
  * @short Ajax
  * @desc UEditor内置的ajax请求模块
- * @import core/utils.js
+ * @import core/ueditor.js
  * @user: taoqili
  * @date: 11-8-18
  * @time: 下午3:18
@@ -5145,7 +5145,7 @@ UE.ajax = function() {
  * @name UE.filterWord
  * @short filterWord
  * @desc 用来过滤word粘贴过来的字符串
- * @import editor.js,core/utils.js
+ * @import editor.js,core/ueditor.js
  * @anthor zhanyi
  */
 var filterWord = UE.filterWord = function () {
@@ -5307,7 +5307,7 @@ var filterWord = UE.filterWord = function () {
         return (isWordDocument( html ) ? filterPasteWord( html ) : html);
     };
 }();///import editor.js
-///import core/utils.js
+///import core/ueditor.js
 ///import core/dom/dom.js
 ///import core/dom/dtd.js
 ///import core/htmlparser.js
@@ -5897,7 +5897,7 @@ var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
  * @name UE.filterNode
  * @short filterNode
  * @desc 根据给定的规则过滤节点
- * @import editor.js,core/utils.js
+ * @import editor.js,core/ueditor.js
  * @anthor zhanyi
  */
 var filterNode = UE.filterNode = function () {
@@ -7158,7 +7158,7 @@ UE.plugins['font'] = function () {
             }
             node.tagName = 'span';
         });
-//        utils.each(root.getNodesByTagName('span'), function (node) {
+//        ueditor.each(root.getNodesByTagName('span'), function (node) {
 //            var val;
 //            if(val = node.getAttr('class')){
 //                if(/fontstrikethrough/.test(val)){
@@ -7181,7 +7181,7 @@ UE.plugins['font'] = function () {
 //        });
     });
 //    me.addOutputRule(function(root){
-//        utils.each(root.getNodesByTagName('span'), function (node) {
+//        ueditor.each(root.getNodesByTagName('span'), function (node) {
 //            var val;
 //            if(val = node.getStyle('text-decoration')){
 //                if(/line-through/.test(val)){
@@ -15246,7 +15246,7 @@ UE.plugins['table'] = function () {
 //                    minWidth -= cellMinWidth;
 //
 //                    table.removeAttribute("width");
-//                    utils.each(cells, function (cell) {
+//                    ueditor.each(cells, function (cell) {
 //                        cell.style.width = "";
 //                        cell.width -= minWidth;
 //                    });
