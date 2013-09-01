@@ -103,18 +103,15 @@
             parsedStack = parsedStack.split( this.localSeparator );
             parsedStack.length = parsedStack.length - 1;
 
-            for(var i= 0,tempPath,l=parsedStack.length,root = this.stack;i<l;i++){
-                tempPath = parsedStack[i];
-                if(tempPath){
-                    if( PathStack.isParentPath( tempPath ) ) {
-                        root.pop();
-                    } else {
-                        root.push( tempPath );
-                    }
+            for( var i= 0, tempPath, root = this.stack; tempPath = parsedStack[ i ]; i++ ) {
+
+                if( PathStack.isParentPath( tempPath ) ) {
+                    root.pop();
+                } else {
+                    root.push( tempPath );
                 }
 
             }
-
 
         }
 
@@ -127,7 +124,6 @@
 
     })();
 
-    console.log("ueditor url:"+URL);
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -138,18 +134,18 @@
 
         //图片上传配置区
         ,imageUrl:URL+"uploader/image.action"             //图片上传提交地址
-        ,imagePath:URL                    //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+        ,imagePath:URL + "jsp/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
         //,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
         //,compressSide:0                            //等比压缩的基准，确定maxImageSideLength参数的参照对象。0为按照最长边，1为按照宽度，2为按照高度
         //,maxImageSideLength:900                    //上传图片最大允许的边长，超过会自动等比缩放,不缩放就设置一个比较大的值，更多设置在image.html中
 
         //涂鸦图片配置区
-        ,scrawlUrl:URL+"uploader/scrawl.action"           //涂鸦上传地址
-        ,scrawlPath:URL                            //图片修正地址，同imagePath
+        ,scrawlUrl:URL+"jsp/scrawlUp.jsp"           //涂鸦上传地址
+        ,scrawlPath:URL+"jsp/"                            //图片修正地址，同imagePath
 
         //附件上传配置区
-        ,fileUrl:URL+"uploader/file.action"               //附件上传提交地址
-        ,filePath:URL                   //附件修正地址，同imagePath
+        ,fileUrl:URL+"jsp/fileUp.jsp"               //附件上传提交地址
+        ,filePath:URL + "jsp/"                   //附件修正地址，同imagePath
         //,fileFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
 
         //远程抓取配置区
@@ -180,8 +176,19 @@
         ,getMovieUrl:URL+"jsp/getMovie.jsp"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
-        
-        , toolbars: [["fullscreen","source","undo","redo","insertunorderedlist","insertorderedlist","unlink","link","cleardoc","selectall","searchreplace","preview","help","|","insertimage","scrawl","music","emotion","insertvideo","attachment","insertframe","date","time","horizontal","spechars","blockquote","insertcode","bold","italic","underline","strikethrough","forecolor","backcolor","superscript","subscript","justifyleft","justifycenter","justifyright","justifyjustify","touppercase","tolowercase","directionalityltr","directionalityrtl","indent","removeformat","formatmatch","customstyle","paragraph","autotypeset","rowspacingbottom","rowspacingtop","lineheight","fontfamily","fontsize","imagenone","imageleft","imageright","imagecenter","inserttable","deletetable","mergeright","mergedown","splittorows","splittocols","splittocells","mergecells","insertcol","insertrow","deletecol","deleterow","insertparagraphbeforetable"]]
+        , toolbars:[
+            ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe','insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+                'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+                'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
+                'print', 'preview', 'searchreplace', 'help']
+        ]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
 //        ,labelMap:{
 //            'anchor':'', 'undo':''
@@ -192,7 +199,7 @@
 
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
-        ,lang:"zh-cn"
+        //,lang:"zh-cn"
         //,langPath:URL +"lang/"
 
         //主题配置项,默认是default。有需要的话也可以使用如下这样的方式来自动多主题切换，当然，前提条件是themes文件夹下存在对应的主题文件：
@@ -369,9 +376,6 @@
 //                }
 //            }
 //           ]
-
-        //快捷菜单
-        //,shortcutMenu:["fontfamily","fontsize","bold","italic","underline","forecolor","backcolor","insertorderedlist","insertunorderedlist"]
 
         //wordCount
         //,wordCount:true          //是否开启字数统计
