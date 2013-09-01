@@ -1,3 +1,42 @@
-#editor{
-    height: 400px;
+.new_article_content {
+    width: 100%;
+}
+
+.new_article_content .page_title {
+    width: 100%;
+    color: #aa88ff;
+    font-size: 34px;
+    margin: 10px 0;
+    text-shadow: 3px 3px 2px #429;
+}
+
+.new_article_table {
+    width: 100%;
+}
+
+.new_article_table tr, .new_article_table td, .new_article_table th {
+    margin: 0;
+    border: 0;
+    vertical-align: top;
+}
+.new_article_table td{
+    padding:10px 0;
+}
+
+.new_article_table .title_col {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.new_article_table .title_col label {
+    width: 60px;
+}
+
+.new_article_table #article_title {
+    width: 800px;
+    font-size: 22px;
+    height: 24px;
+    line-height: 24px;
+    padding: 5px;
+    border-radius: 9px;
 }

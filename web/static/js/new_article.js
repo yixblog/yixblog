@@ -8,4 +8,7 @@
 $(document).ready(function(){
     var editor = new UE.ui.Editor();
     editor.render("editor");
+    editor.ready(function(){
+        editor.setHeight(400);
+    })
 });

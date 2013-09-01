@@ -24,7 +24,7 @@ input[type='text'], input[type='password'] {
 }
 
 .content div, .content span, .content a, .content ul, .content li, .content dl,
-.content dd, .content dt, .content input, .content label, .content button, .content select, .content img {
+.content dd, .content dt, .content input, .content label, .content button, .content select, .content img,.content table {
     float: left;
     list-style: none;
     position: relative;
