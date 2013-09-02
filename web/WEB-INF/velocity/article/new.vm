@@ -23,6 +23,22 @@
                 <td class="title_col"><label for="editor">正文:</label></td>
                 <td><textarea id="editor"></textarea></td>
             </tr>
+            <tr>
+                <td class="title_col"><label for="tags">标签:</label></td>
+                <td><input id="tags" type="text"></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    #foreach($tag in $tags.getJSONArray("tags"))
+                        <button class="tag_btn">$tag</button>
+                    #end
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input value="提交" type="button" id="submit_article_btn"></td>
+            </tr>
         </table>
     </div>
     #parse("utils/foot.vm")

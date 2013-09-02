@@ -16,6 +16,8 @@ public interface IArticleStorage {
 
     public JSONObject saveArticle(int userId, String title, String content, boolean topFlag,String[] tags);
 
+    public JSONObject getUserTags(int userId);
+
     public JSONObject editArticle(int userId, int articleId, String title, String content,String[] tags);
 
     public JSONObject doAdminEditArticle(int adminId, int articleId, String title, String content, boolean topFlag,String[] tags);

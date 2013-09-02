@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,11 +34,34 @@ public class ArticleEditController {
     }
 
     private String[] splitTag(String tagString) {
+        tagString = fullToHalf(tagString);
         tagString = tagString.replace(" ", ",");
         tagString = tagString.replace(";", ",");
-        tagString = tagString.replace("，", ",");
         tagString = tagString.replace("　", ",");
-        return ",".split(tagString);
+        return tagString.split(",");
+    }
+
+    private String fullToHalf(String sourceString){
+        StringBuilder targetBuilder = new StringBuilder();
+        for (int i=0;i<sourceString.length();i++){
+            String cacheChar = sourceString.substring(i,i+1);
+            if ("　".equals(cacheChar)){
+                targetBuilder.append(" ");
+                continue;
+            }
+            try {
+                byte[] b = cacheChar.getBytes("unicode");
+                if (b[2]==-1){
+                    b[3]=(byte)(b[3]+32);
+                    b[2]=0;
+                    targetBuilder.append(new String(b,"unicode"));
+                }else {
+                    targetBuilder.append(cacheChar);
+                }
+            } catch (UnsupportedEncodingException ignored) {
+            }
+        }
+        return targetBuilder.toString();
     }
 
     @RequestMapping(value = "/update.action", method = RequestMethod.POST)
@@ -58,7 +82,9 @@ public class ArticleEditController {
     }
 
     @RequestMapping("/new.htm")
-    public String newArticlePage(Model model){
+    public String newArticlePage(Model model,@ModelAttribute("user") JSONObject user){
+        JSONObject tags = articleStorage.getUserTags(user.getIntValue("id"));
+        model.addAttribute("tags",tags);
         return "article/new";
     }
 

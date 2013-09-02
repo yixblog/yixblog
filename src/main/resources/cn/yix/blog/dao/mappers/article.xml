@@ -24,6 +24,10 @@
         select tag from blog_tags where article=#{articleId}
     </select>
 
+    <select id="getUserTags" resultType="string" parameterType="int">
+        select t.tag from blog_tags t left join blog_articles a on a.id=t.article where a.author=#{userId} group by t.tag order by count(t.tag) desc limit 10
+    </select>
+
     <select id="listNewArticles" resultMap="article" parameterType="Map">
         select
         <include refid="listcolumns"/>,count(c.id) replycount

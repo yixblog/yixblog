@@ -27,6 +27,8 @@ public interface ArticleMapper {
 
     public List<String> getArticleTags(int articleId);
 
+    public List<String> getUserTags(int userId);
+
     public int countArticles(Map<String, Object> params);
 
     public List<TagCountBean> listTags(int topNumber);

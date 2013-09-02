@@ -77,7 +77,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
             }
         }
         res.put("articles", articles);
-        res.put("success",true);
+        res.put("success", true);
         int totalCount = articleMapper.countArticles(params);
         setPageInfo(res, totalCount, page, pageSize);
         return res;
@@ -126,6 +126,15 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         articleMapper.saveTag(article);
         setResult(res, true, "保存成功");
         res.put("article", article);
+        return res;
+    }
+
+    @Override
+    public JSONObject getUserTags(int userId) {
+        JSONObject res = new JSONObject();
+        List<String> tags = getMapper(ArticleMapper.class).getUserTags(userId);
+        res.put("tags", tags);
+        logger.debug("get user tags:" + res.toJSONString());
         return res;
     }
 
