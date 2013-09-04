@@ -44,6 +44,8 @@
     </bean>
 
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
     <!--quartz-->
     <bean id="clearResetCodeTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="resetCodeClearer"/>

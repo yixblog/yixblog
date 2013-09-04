@@ -8,6 +8,11 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/appCxt.xml,/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>web.root</param-value>
+    </context-param>
 
     <context-param>
         <param-name>log4jConfigLocation</param-name>
@@ -37,6 +42,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.WebAppRootListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -56,7 +64,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>/uploader/upload/*</url-pattern>
+        <url-pattern>/upload/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

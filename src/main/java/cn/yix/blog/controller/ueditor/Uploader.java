@@ -42,7 +42,7 @@ public class Uploader {
 	// 文件大小限制，单位KB
 	private int maxSize = 10000;
 	
-	private HashMap<String, String> errorInfo = new HashMap<String, String>();
+	private HashMap<String, String> errorInfo = new HashMap<>();
 
 	public Uploader(HttpServletRequest request) {
 		this.request = request;
@@ -121,7 +121,7 @@ public class Uploader {
 	
 	/**
 	 * 接受并保存以base64格式上传的文件
-	 * @param fieldName
+	 * @param fieldName fieldName
 	 */
 	public void uploadBase64(String fieldName){
 		String savePath = this.getFolder(this.savePath);
@@ -150,8 +150,8 @@ public class Uploader {
 	/**
 	 * 文件类型判断
 	 * 
-	 * @param fileName
-	 * @return
+	 * @param fileName filename
+	 * @return if allows
 	 */
 	private boolean checkFileType(String fileName) {
 		Iterator<String> type = Arrays.asList(this.allowFiles).iterator();
@@ -175,7 +175,7 @@ public class Uploader {
 
 	/**
 	 * 依据原始文件名生成新文件名
-	 * @return
+	 * @return new filename
 	 */
 	private String getName(String fileName) {
 		Random random = new Random();
@@ -185,8 +185,8 @@ public class Uploader {
 
 	/**
 	 * 根据字符串创建本地目录 并按照日期建立子目录返回
-	 * @param path 
-	 * @return 
+	 * @param path save path
+	 * @return local folder
 	 */
 	private String getFolder(String path) {
 		SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
@@ -206,8 +206,8 @@ public class Uploader {
 	/**
 	 * 根据传入的虚拟路径获取物理路径
 	 * 
-	 * @param path
-	 * @return
+	 * @param path virtual path
+	 * @return physical path
 	 */
 	private String getPhysicalPath(String path) {
 		String servletPath = this.request.getServletPath();
