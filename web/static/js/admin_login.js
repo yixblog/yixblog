@@ -47,6 +47,7 @@ $(document).ready(function(){
                             $dialog.dialog("close");
                         }else{
                             updateTips(validateTip,data.msg);
+                            $("#login_validate_img").click();
                         }
                     }
                 })

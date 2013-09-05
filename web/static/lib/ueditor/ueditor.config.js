@@ -144,7 +144,7 @@
 
         //涂鸦图片配置区
         , scrawlUrl: URL + "../../../uploader/scrawl.action"           //涂鸦上传地址
-//        , scrawlPath: URL                        //图片修正地址，同imagePath
+        , scrawlPath: URL + "../../../"                       //图片修正地址，同imagePath
 
         //附件上传配置区
         , fileUrl: URL + "../../../uploader/file.acion"               //附件上传提交地址

@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Time: 上午7:40
  */
 public interface IFileSavingStorage {
-    public SavingResultInfo saveFile(MultipartFile file,String[] allowedTypes,int maxSize);
+    public SavingResultInfo saveFile(MultipartFile file, String pictitle, String[] allowedTypes, int maxSize);
 
-    public SavingResultInfo saveBase64(byte[] fileBytes,String[] allowedTypes,int maxSize);
+    public SavingResultInfo saveBase64(String content,String[] allowedTypes,int maxSize);
 }

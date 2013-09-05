@@ -5,6 +5,7 @@ import cn.yix.blog.core.file.SavingResultInfo;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -50,10 +51,11 @@ public class FileSavingStorage implements IFileSavingStorage {
     }
 
     @Override
-    public SavingResultInfo saveFile(MultipartFile file, String[] allowedTypes, int maxSize) {
+    public SavingResultInfo saveFile(MultipartFile file, String pictitle, String[] allowedTypes, int maxSize) {
         SavingResultInfo result = new SavingResultInfo();
         result.setOriginalName(file.getOriginalFilename());
         result.setSize(file.getSize());
+        result.setTitle(pictitle);
         if (!checkLegal(result, allowedTypes, maxSize)) {
             return result;
         }
@@ -68,8 +70,17 @@ public class FileSavingStorage implements IFileSavingStorage {
     }
 
     @Override
-    public SavingResultInfo saveBase64(byte[] fileBytes, String[] allowedTypes, int maxSize) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public SavingResultInfo saveBase64(String fileContent, String[] allowedTypes, int maxSize) {
+        SavingResultInfo result = new SavingResultInfo();
+        result.setType(".png");
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            byte[] fileBytes = decoder.decodeBuffer(fileContent);
+            saveFileBytes(result, fileBytes);
+        } catch (IOException e) {
+            result.setState(errorCode.get("IO"));
+        }
+        return result;
     }
 
     private SavingResultInfo saveFileBytes(SavingResultInfo result, byte[] fileBytes) {
@@ -90,11 +101,15 @@ public class FileSavingStorage implements IFileSavingStorage {
             result.setState(errorCode.get("IO"));
             return result;
         }
-        String url = savingFolder.replace("\\", "/") + "/" + fileName;
+        String url = generateUrl(savingFolder, fileName);
         logger.debug("request url:" + url);
         result.setUrl(url);
         result.setState(errorCode.get("SUCCESS"));
         return result;
+    }
+
+    private String generateUrl(String savingFolder, String fileName) {
+        return savingFolder.replace("\\", "/") + "/" + fileName;
     }
 
     private boolean createFolder(String savingFolder) {
