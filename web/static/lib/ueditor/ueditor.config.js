@@ -153,7 +153,7 @@
 
         //远程抓取配置区
         //,catchRemoteImageEnable:true               //是否开启远程图片抓取,默认开启
-        , catcherUrl: URL + "jsp/getRemoteImage.jsp"   //处理远程图片抓取的地址
+        , catcherUrl: URL + "../../../uploader/remote.action"   //处理远程图片抓取的地址
         , catcherPath: URL + "../../../"                  //图片修正地址，同imagePath
         //,catchFieldName:"upfile"                   //提交到后台远程图片uri合集，若此处修改，需要在后台对应文件修改对应参数
         //,separater:'ue_separate_ue'               //提交至后台的远程图片地址字符串分隔符
@@ -175,7 +175,7 @@
         //,wordImageFieldName:"upfile"                     //word转存表单名若此处修改，需要在后台对应文件修改对应参数
 
         //获取视频数据的地址
-        , getMovieUrl: "ueditor/movie.action"                   //视频数据获取地址
+        , getMovieUrl: URL + "../../../ueditor/movie.action"                   //视频数据获取地址
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
 
@@ -211,7 +211,7 @@
 
         //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
-        ,initialFrameWidth:950  //初始化编辑器宽度,默认1000
+        , initialFrameWidth: 950  //初始化编辑器宽度,默认1000
         //,initialFrameHeight:320  //初始化编辑器高度,默认320
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
@@ -220,7 +220,7 @@
 
         //,textarea:'editorValue' // 提交表单时，服务器获取编辑器提交内容的所用的参数，多实例时可以给容器name属性，会将name给定的值最为每个实例的键值，不用每次实例化的时候都设置这个值
 
-        ,focus:false //初始化时，是否让编辑器获得焦点true或false
+        , focus: false //初始化时，是否让编辑器获得焦点true或false
 
         //,autoClearEmptyNode : true //getContent时，是否删除空的inlineElement节点（包括嵌套的情况）
 

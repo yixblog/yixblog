@@ -10,5 +10,5 @@ import java.util.List;
  * 图片管理器
  */
 public interface IImageListStorage {
-    public List<String> listAllImages();
+    public List<String> listAllImages(int userid);
 }

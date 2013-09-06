@@ -51,7 +51,7 @@ CREATE TABLE `blog_accounts` (
 
 LOCK TABLES `blog_accounts` WRITE;
 /*!40000 ALTER TABLE `blog_accounts` DISABLE KEYS */;
-INSERT INTO `blog_accounts` VALUES (1,'testuser1','f3066ae2889d8a3b679806111ea5a0e0','tester1',NULL,NULL,NULL,NULL,0,1377620025491,1377620116215,'男','davepotter@163.com');
+INSERT INTO `blog_accounts` VALUES (1,'testuser1','f3066ae2889d8a3b679806111ea5a0e0','tester1',NULL,NULL,NULL,NULL,0,1377620025491,1378476208098,'男','davepotter@163.com');
 /*!40000 ALTER TABLE `blog_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,6 +231,32 @@ LOCK TABLES `blog_comments` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `blog_images`
+--
+
+DROP TABLE IF EXISTS `blog_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `blog_images` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `url` varchar(100) NOT NULL,
+  `account` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_USER_IMAGES` (`account`),
+  CONSTRAINT `FK_USER_IMAGES` FOREIGN KEY (`account`) REFERENCES `blog_accounts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `blog_images`
+--
+
+LOCK TABLES `blog_images` WRITE;
+/*!40000 ALTER TABLE `blog_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `blog_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `blog_notice`
 --
 
@@ -307,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-28 19:50:29
+-- Dump completed on 2013-09-06 23:00:22

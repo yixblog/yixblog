@@ -11,9 +11,7 @@
         <typeAlias type="cn.yix.blog.dao.beans.CommentBean" alias="Comment"/>
         <typeAlias type="cn.yix.blog.dao.beans.NoticeBean" alias="Notice"/>
         <typeAlias type="cn.yix.blog.dao.beans.TagCountBean" alias="TagCount"/>
-        <!--mappers-->
-        <typeAlias type="cn.yix.blog.dao.mappers.AccountMapper" alias="AccountMapper"/>
-        <typeAlias type="cn.yix.blog.dao.mappers.ArticleMapper" alias="ArticleMapper"/>
+        <typeAlias type="cn.yix.blog.dao.beans.ImageBean" alias="Image"/>
     </typeAliases>
 
     <plugins>

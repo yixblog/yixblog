@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yix.blog.dao.mappers.ImageMapper">
+    <resultMap id="image" type="Image">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <association property="user" column="account"
+                     select="cn.yix.blog.dao.mappers.AccountMapper.getAccountById"/>
+    </resultMap>
+
+    <select id="listUserImages" resultMap="image" parameterType="int">
+        select * from blog_images where account=#{userid}
+    </select>
+
+    <insert id="saveImage" parameterType="Image" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_images (url,account) values (#{url},#{user.id})
+    </insert>
+
+    <delete id="clearUnusedImage">
+        delete from blog_images where account is null
+    </delete>
+
+    <delete id="deleteImage" parameterType="int">
+        delete from blog_images where id=#{id}
+    </delete>
+</mapper>

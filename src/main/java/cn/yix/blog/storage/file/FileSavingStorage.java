@@ -2,21 +2,25 @@ package cn.yix.blog.storage.file;
 
 import cn.yix.blog.core.file.IFileSavingStorage;
 import cn.yix.blog.core.file.SavingResultInfo;
+import cn.yix.blog.dao.beans.AccountBean;
+import cn.yix.blog.dao.beans.ImageBean;
+import cn.yix.blog.dao.mappers.AccountMapper;
+import cn.yix.blog.dao.mappers.ImageMapper;
+import cn.yix.blog.storage.AbstractStorage;
+import cn.yix.blog.utils.UEditorConfig;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.annotation.Resource;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,12 +30,17 @@ import java.util.Random;
  * 文件保存类
  */
 @Repository("fileSavingStorage")
-public class FileSavingStorage implements IFileSavingStorage {
+public class FileSavingStorage extends AbstractStorage implements IFileSavingStorage {
     private Map<String, String> errorCode = new HashMap<>();
     private String webRoot;
     private static final String SAVE_DIR = "upload";
 
     private Logger logger = Logger.getLogger(getClass());
+
+    @Resource(name = "sessionFactory")
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        super.setSqlSessionFactory(sqlSessionFactory);
+    }
 
     public FileSavingStorage() {
         initErrorCode();
@@ -48,10 +57,12 @@ public class FileSavingStorage implements IFileSavingStorage {
         errorCode.put("IO", "IO异常");
         errorCode.put("DIR", "目录创建失败");
         errorCode.put("UNKNOWN", "未知错误");
+        errorCode.put("URL", "请求地址不存在！");
+        errorCode.put("HTTPHEAD", "请求地址头不正确");
     }
 
     @Override
-    public SavingResultInfo saveFile(MultipartFile file, String pictitle, String[] allowedTypes, int maxSize) {
+    public SavingResultInfo doSaveFile(MultipartFile file, String pictitle, String[] allowedTypes, int maxSize, int userId) {
         SavingResultInfo result = new SavingResultInfo();
         result.setOriginalName(file.getOriginalFilename());
         result.setSize(file.getSize());
@@ -66,24 +77,75 @@ public class FileSavingStorage implements IFileSavingStorage {
             result.setState(errorCode.get("UNKNOWN"));
             return result;
         }
-        return saveFileBytes(result, fileBytes);
+        return saveFileBytes(result, fileBytes, userId);
     }
 
     @Override
-    public SavingResultInfo saveBase64(String fileContent, String[] allowedTypes, int maxSize) {
+    public SavingResultInfo doSaveBase64(String fileContent, String[] allowedTypes, int maxSize, int userId) {
         SavingResultInfo result = new SavingResultInfo();
         result.setType(".png");
         try {
             BASE64Decoder decoder = new BASE64Decoder();
             byte[] fileBytes = decoder.decodeBuffer(fileContent);
-            saveFileBytes(result, fileBytes);
+            saveFileBytes(result, fileBytes, userId);
         } catch (IOException e) {
             result.setState(errorCode.get("IO"));
         }
         return result;
     }
 
-    private SavingResultInfo saveFileBytes(SavingResultInfo result, byte[] fileBytes) {
+    @Override
+    public SavingResultInfo doSaveRemoteImage(String upfile, String[] allowedTypes, int maxSize, int userId) {
+        String[] sourceUrls = upfile.split(UEditorConfig.UE_SEPERATOR);
+        List<String> outSrcs = new ArrayList<>();
+        SavingResultInfo result = new SavingResultInfo();
+        for (int i = 0; i < sourceUrls.length; i++) {
+            String sourceUrl = sourceUrls[i];
+            result.setType(sourceUrl.substring(sourceUrl.lastIndexOf(".")));
+            if (!checkLegal(result, allowedTypes, maxSize)) {
+                return result;
+            }
+            try {
+                byte[] imageBytes = getUrlImageBytes(sourceUrl, result);
+                if (imageBytes == null) {
+                    if (result.getState() == null) {
+                        result.setState(errorCode.get("UNKNOWN"));
+                    }
+                    return result;
+                }
+                saveFileBytes(result, imageBytes, userId);
+                outSrcs.add(result.getUrl());
+            } catch (IOException e) {
+                result.setState(errorCode.get("URL"));
+                return result;
+            }
+        }
+        result.setUrl(UEditorConfig.combineUrls(outSrcs));
+        return result;
+    }
+
+    private byte[] getUrlImageBytes(String sourceUrl, SavingResultInfo result) throws IOException {
+        HttpURLConnection.setFollowRedirects(false);
+        HttpURLConnection conn = (HttpURLConnection) new URL(sourceUrl).openConnection();
+        if (conn.getContentType().indexOf("image") == -1) {
+            result.setState(errorCode.get("HTTPHEAD"));
+            return null;
+        }
+        if (conn.getResponseCode() != 200) {
+            result.setState(errorCode.get("URL"));
+            return null;
+        }
+        ByteArrayOutputStream ous = new ByteArrayOutputStream();
+        InputStream ins = conn.getInputStream();
+        int b;
+        while ((b = ins.read()) != -1) {
+            ous.write(b);
+        }
+        ins.close();
+        return ous.toByteArray();
+    }
+
+    private SavingResultInfo saveFileBytes(SavingResultInfo result, byte[] fileBytes, int userId) {
         String savingFolder = generateSavingFolder();
         String fileName = generateFileName(result.getType());
         if (!createFolder(savingFolder)) {
@@ -103,9 +165,35 @@ public class FileSavingStorage implements IFileSavingStorage {
         }
         String url = generateUrl(savingFolder, fileName);
         logger.debug("request url:" + url);
+        if (isImageFile(result.getType())) {
+            saveFileToDatabase(url, userId);
+        }
         result.setUrl(url);
         result.setState(errorCode.get("SUCCESS"));
         return result;
+    }
+
+    private boolean isImageFile(String type) {
+        final String[] imageTypes = {".jpg", ".jpeg", ".bmp", ".png", ".gif"};
+        for (String imageType : imageTypes) {
+            if (imageType.equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void saveFileToDatabase(String url, int userId) {
+        ImageMapper imageMapper = getMapper(ImageMapper.class);
+        AccountMapper accountMapper = getMapper(AccountMapper.class);
+        AccountBean user = accountMapper.getAccountById(userId);
+        if (user == null) {
+            return;
+        }
+        ImageBean image = new ImageBean();
+        image.setUrl(url);
+        image.setUser(user);
+        imageMapper.saveImage(image);
     }
 
     private String generateUrl(String savingFolder, String fileName) {

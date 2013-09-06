@@ -1,11 +1,10 @@
 package cn.yix.blog.controller.ueditor;
 
 import cn.yix.blog.core.file.IImageListStorage;
+import cn.yix.blog.utils.UEditorConfig;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
@@ -24,6 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/ueditor")
+@SessionAttributes("user")
 public class UEditorApiController {
     @Resource(name = "imageListStorage")
     private IImageListStorage imageListStorage;
@@ -47,16 +47,9 @@ public class UEditorApiController {
     @RequestMapping(value = "/imageManage.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    String manageImages() {
-        List<String> files = imageListStorage.listAllImages();
-        return connectFiles(files);
+    String manageImages(@ModelAttribute("user")JSONObject user) {
+        List<String> files = imageListStorage.listAllImages(user.getIntValue("id"));
+        return UEditorConfig.combineUrls(files);
     }
 
-    private String connectFiles(List<String> files) {
-        StringBuilder res = new StringBuilder();
-        for (String file : files) {
-            res.append(file).append("ue_separate_ue");
-        }
-        return res.length() > 0 ? res.substring(0, res.lastIndexOf("ue_separate_ue")) : "";
-    }
 }
