@@ -1,17 +1,20 @@
 package cn.yix.blog.controller.ueditor;
 
+import cn.yix.blog.core.file.IImageListStorage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +25,9 @@ import java.net.URLEncoder;
 @Controller
 @RequestMapping("/ueditor")
 public class UEditorApiController {
+    @Resource(name = "imageListStorage")
+    private IImageListStorage imageListStorage;
+
     @RequestMapping(value = "/movie.action", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -36,5 +42,21 @@ public class UEditorApiController {
             builder.append(line);
         }
         return builder.toString();
+    }
+
+    @RequestMapping(value = "/imageManage.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String manageImages() {
+        List<String> files = imageListStorage.listAllImages();
+        return connectFiles(files);
+    }
+
+    private String connectFiles(List<String> files) {
+        StringBuilder res = new StringBuilder();
+        for (String file : files) {
+            res.append(file).append("ue_separate_ue");
+        }
+        return res.length() > 0 ? res.substring(0, res.lastIndexOf("ue_separate_ue")) : "";
     }
 }

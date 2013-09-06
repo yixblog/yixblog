@@ -9,6 +9,7 @@
     <!--mvc-->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
                 <property name="supportedMediaTypes" value="application/json"/>
             </bean>
