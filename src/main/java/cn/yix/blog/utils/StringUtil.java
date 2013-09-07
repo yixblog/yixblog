@@ -2,6 +2,7 @@ package cn.yix.blog.utils;
 
 import org.apache.log4j.Logger;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -39,5 +40,28 @@ public class StringUtil {
             md5String.append(Integer.toHexString(num));
         }
         return md5String.toString();
+    }
+
+    public static String fullToHalf(String sourceString){
+        StringBuilder targetBuilder = new StringBuilder();
+        for (int i=0;i<sourceString.length();i++){
+            String cacheChar = sourceString.substring(i,i+1);
+            if ("　".equals(cacheChar)){
+                targetBuilder.append(" ");
+                continue;
+            }
+            try {
+                byte[] b = cacheChar.getBytes("unicode");
+                if (b[2]==-1){
+                    b[3]=(byte)(b[3]+32);
+                    b[2]=0;
+                    targetBuilder.append(new String(b,"unicode"));
+                }else {
+                    targetBuilder.append(cacheChar);
+                }
+            } catch (UnsupportedEncodingException ignored) {
+            }
+        }
+        return targetBuilder.toString();
     }
 }

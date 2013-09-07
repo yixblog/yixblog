@@ -4,10 +4,11 @@
 
 .new_article_content .page_title {
     width: 100%;
-    color: #aa88ff;
+    color: #aaffaa;
     font-size: 34px;
+    text-align: center;
     margin: 10px 0;
-    text-shadow: 3px 3px 2px #429;
+    text-shadow: 3px 3px 2px #492;
 }
 
 .new_article_table {
@@ -39,4 +40,15 @@
     line-height: 24px;
     padding: 5px;
     border-radius: 9px;
+}
+.new_article_table #tags{
+    width: 800px;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px;
+    border-radius: 6px;
+    font-size: 16px;
+}
+.new_article_table #submit_article_btn{
+    padding: .4em 1em;
 }
