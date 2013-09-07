@@ -60,7 +60,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                         writer.flush();
                         writer.close();
                     } else {
-                        response.sendRedirect("static/pages/AdminNotLogin.html");
+                        response.sendRedirect("/static/pages/AdminNotLogin.html");
                     }
                     return false;
                 }
@@ -77,7 +77,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                         writer.flush();
                         writer.close();
                     } else {
-                        response.sendRedirect("static/pages/UserNotLogin.html");
+                        response.sendRedirect("/static/pages/UserNotLogin.html");
                     }
                     return false;
                 }

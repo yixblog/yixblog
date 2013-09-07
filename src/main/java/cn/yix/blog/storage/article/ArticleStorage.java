@@ -59,23 +59,6 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         } else if ("replycount".equals(sortKey)) {
             articles = articleMapper.listHotArticles(params, getRowBounds(page, pageSize));
         }
-        //todo test data
-        if (articles == null || articles.size() == 0) {
-            articles = new ArrayList<>();
-            AccountBean user = new AccountBean();
-            user.setNick("佚仙");
-            String[] tags = {"java", "程序", "asdf", "test"};
-            for (int i = 0; i < pageSize; i++) {
-                ArticleBean articleBean = new ArticleBean();
-                articleBean.setId(i);
-                articleBean.setTitle("测试文章" + i);
-                articleBean.setTags(Arrays.asList(tags));
-                articleBean.setAddTime(System.currentTimeMillis());
-                articleBean.setReplyCount(i * 10);
-                articleBean.setAuthor(user);
-                articles.add(articleBean);
-            }
-        }
         res.put("articles", articles);
         res.put("success", true);
         int totalCount = articleMapper.countArticles(params);
@@ -258,18 +241,6 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         JSONObject res = new JSONObject();
         setResult(res, true, "查询成功");
         res.put("tags", articleMapper.listTags(topNumber));
-        //todo test data
-        if (res.getJSONArray("tags").size() == 0) {
-            List<TagCountBean> tags = new ArrayList<>();
-            for (int i = 0; i < topNumber; i++) {
-                TagCountBean tag = new TagCountBean();
-                tag.setTag(ValidateCodeDesigner.generateValidateCode(5));
-                Random ran = new Random();
-                tag.setCount(ran.nextInt(30));
-                tags.add(tag);
-            }
-            res.put("tags", tags);
-        }
         return res;
     }
 }

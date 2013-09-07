@@ -120,7 +120,7 @@
 
     <insert id="saveArticle" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
         insert into blog_articles (title,content,addtime,edittime,author,topflag) values
-        (#{title},#{content},#{addtime},#{edittime,jdbcType=BIGINT},#{author.id},#{topFlag})
+        (#{title},#{content},#{addTime},#{editTime,jdbcType=BIGINT},#{author.id},#{topFlag})
     </insert>
 
     <insert id="saveTag" parameterType="Article">

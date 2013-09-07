@@ -28,8 +28,10 @@ input[type='text'], input[type='password'] {
     float: left;
     list-style: none;
     position: relative;
-    padding: 0;
+}
+*{
     margin: 0;
+    padding: 0;
 }
 
 #head_box {

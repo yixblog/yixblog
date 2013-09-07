@@ -12,7 +12,27 @@ $(document).ready(function () {
         editor.setHeight(400);
     });
 
-    $("#submit_article_btn").button();
+    $("#submit_article_btn").button().click(function () {
+        var tags = $("#tags").val();
+        var content = editor.getContent();
+        console.log(content);
+        var title = $("#article_title").val();
+        if (title.length == 0) {
+            alert("标题不能为空！");
+            return;
+        }
+        $.ajax({
+            url: "user/article/save.action",
+            data: {title: title, content: content, tags: tags},
+            dataType: "json",
+            type: "post",
+            success: function (data) {
+                console.log("submitted return:" + JSON.stringify(data));
+                location.href = "artile/view/" + data.id + ".htm";
+            }
+        })
+    });
+
     $(".tag_btn").click(function () {
         var tagInput = $("#tags");
         tagInput.val(tagInput.val() + "," + $(this).val());
@@ -22,7 +42,7 @@ $(document).ready(function () {
     $("#tags").change(function () {
         var tags = $(this).val();
         tags = fullToHalf(tags);
-        console.log("full to half string:"+tags);
+        console.log("full to half string:" + tags);
         tags = replaceSplitChar(tags);
         console.log("replaced tags string:" + tags);
         var tagArray = tags.split(",");
@@ -41,7 +61,7 @@ $(document).ready(function () {
         for (var i = 0; i < array.length; i++) {
             result += array[i] + ",";
         }
-        result = result.substr(0,result.length-1);
+        result = result.substr(0, result.length - 1);
         return result;
     }
 
