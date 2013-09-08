@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>${res.article.title}</title>
+
+    <link rel="stylesheet" type="text/css" href="static/css/article_content.css">
+    <script type="text/javascript" src="static/js/article_content.js"></script>
+</head>
+<body>
+<div class="content" id="content">
+    #parse("utils/head.vm")
+    <div class="article">
+        <div class="article_title">${res.article.title}</div>
+        <div class="article_content">${res.article.content}</div>
+    </div>
+    #parse("utils/foot.vm")
+</div>
+</body>
+</html>

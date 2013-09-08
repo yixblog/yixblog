@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     $(".tag_btn").click(function () {
         var tagInput = $("#tags");
-        tagInput.val(tagInput.val() + "," + $(this).val());
+        tagInput.val(tagInput.val() + "," + $(this).html());
         tagInput.change();
     });
 

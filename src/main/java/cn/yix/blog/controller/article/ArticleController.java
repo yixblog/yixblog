@@ -33,7 +33,7 @@ public class ArticleController {
         JSONObject res = articleStorage.queryArticles(page, pageSize, DateUtils.parseDate(startDate, DateUtils.DATE_FORMAT),
                 DateUtils.parseDate(endDate, DateUtils.DATE_FORMAT), userId, tag, keywords, null);
         model.addAttribute("res", res);
-        return "articles/list";
+        return "article/list";
     }
 
     @RequestMapping(value = "/query.action", method = RequestMethod.POST)
@@ -53,7 +53,7 @@ public class ArticleController {
     public String showArticle(@PathVariable int articleId, Model model) {
         JSONObject res = articleStorage.queryArticle(articleId);
         model.addAttribute("res", res);
-        return "articles/content";
+        return "article/content";
     }
 
     @RequestMapping("/tag_cloud.action")
@@ -67,7 +67,7 @@ public class ArticleController {
     public String queryArticlesByTag(@PathVariable String tagName,
                                      @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                      @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize) {
-        return "articles/tag_result";
+        return "article/tag_result";
     }
 
 }

@@ -49,6 +49,9 @@
     border-radius: 6px;
     font-size: 16px;
 }
+.new_article_table .tag_btn{
+    padding: .4em 1em;
+}
 .new_article_table #submit_article_btn{
     padding: .4em 1em;
 }
