@@ -12,6 +12,7 @@
     #parse("utils/head.vm")
     <div class="article">
         <div class="article_title">${res.article.title}</div>
+        <div class="article_content article_info"></div>
         <div class="article_content">${res.article.content}</div>
     </div>
     #parse("utils/foot.vm")
