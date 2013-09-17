@@ -9,11 +9,26 @@
 </head>
 <body>
 <div class="content" id="content">
+    <input type="hidden" value="${res.article.id}" name="articleId" id="articleIdInput">
     #parse("utils/head.vm")
+    <div class="ad article_ad">AD1</div>
     <div class="article">
+        <div class="prev_article"></div>
+        <div class="next_article"></div>
         <div class="article_title">${res.article.title}</div>
-        <div class="article_content article_info"></div>
+        <div class="article_content article_info">添加时间：${res.article.addTimeString}&nbsp;&nbsp;&nbsp;&nbsp;作者：<a href=""
+                                                                                                                 target="_blank">${res.article.author.nick}</a>
+            #if(${res.article.author.id}==${user.id})
+                <a href="user/article/${res.article.id}/edit.htm" title="修改"><img src="img/edit.png">修改</a>
+            #end
+        </div>
         <div class="article_content">${res.article.content}</div>
+    </div>
+    <div class="ad article_ad">AD2</div>
+    <div class="comment_box">
+        <div class="comment_box_title">评论列表<span class="right_btn show"></span></div>
+        <ul class="comment_list">
+        </ul>
     </div>
     #parse("utils/foot.vm")
 </div>

@@ -1,13 +1,13 @@
 package cn.yix.blog.storage.article;
 
 import cn.yix.blog.core.article.IArticleStorage;
-import cn.yix.blog.dao.beans.*;
+import cn.yix.blog.dao.beans.AccountBean;
+import cn.yix.blog.dao.beans.AdminBean;
+import cn.yix.blog.dao.beans.ArticleBean;
 import cn.yix.blog.dao.mappers.AccountMapper;
 import cn.yix.blog.dao.mappers.AdminMapper;
 import cn.yix.blog.dao.mappers.ArticleMapper;
-import cn.yix.blog.dao.mappers.CommentMapper;
 import cn.yix.blog.storage.AbstractStorage;
-import cn.yix.blog.utils.validate.ValidateCodeDesigner;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
@@ -229,9 +229,6 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         }
         res.put("article", articleBean);
         setResult(res, true, "操作成功");
-        CommentMapper commentMapper = getMapper(CommentMapper.class);
-        List<CommentBean> comments = commentMapper.listCommentsByArticle(articleId, getRowBounds(1, 10));
-        res.put("comments", comments);
         return res;
     }
 

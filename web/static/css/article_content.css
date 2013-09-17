@@ -21,4 +21,74 @@
 .article .article_info {
     text-align: center;
     font-size: 14px;
+    line-height: 30px;
+}
+
+.article_ad {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.content .comment_box {
+    position: fixed;
+    bottom: 0;
+    float: none;
+    width: 1020px;
+}
+
+.comment_box .comment_box_title {
+    font-size: 18px;
+    width: 100%;
+    text-indent: 20px;
+    background: #00cc00;
+    color: #000;
+    height: 20px;
+    line-height: 20px;
+}
+
+.comment_box .comment_box_title .right_btn {
+    height: 16px;
+    width: 16px;
+    float: right;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.comment_box .comment_box_title .show {
+    background: url(../../img/up.png) no-repeat;
+}
+
+.comment_box .comment_box_title .hide {
+    background: url(../../img/down.png) no-repeat;
+}
+
+.comment_box .comment_list{
+    display: none;
+    width: 100%;
+    border-top: 1px solid #fff;
+}
+.comment_box .comment_list li{
+    border-bottom: 1px solid #fff;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#afa),color-stop(1,#dfd));
+    background-image: -moz-linear-gradient(top,#afa,#dfd);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#afa',endColorstr='#dfd',GradientType='0');
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.comment_box .comment_list li .author{
+    width: 50%;
+    text-align: left;
+    text-indent: 10px;
+}
+
+.comment_box .comment_list li .time{
+    text-align: right;
+    float: right;
+    padding: 10px;
+    text-align: right;
+}
+
+.comment_box .comment_list li .content{
+    clear: both;
 }

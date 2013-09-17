@@ -49,6 +49,11 @@ public class ArticleEditController {
         return articleStorage.deleteArticle(userId, id);
     }
 
+    @RequestMapping("/{article_id}/edit.htm")
+    public String editArticlePage(Model model, @ModelAttribute("user") JSONObject user,@PathVariable("article_id") String articleId){
+        return "article/edit";
+    }
+
     @RequestMapping("/new.htm")
     public String newArticlePage(Model model, @ModelAttribute("user") JSONObject user) {
         JSONObject tags = articleStorage.getUserTags(user.getIntValue("id"));

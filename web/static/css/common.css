@@ -23,13 +23,14 @@ input[type='text'], input[type='password'] {
     position: absolute;
 }
 
-.content div, .content span, .content a, .content ul, .content li, .content dl,
-.content dd, .content dt, .content input, .content label, .content button, .content select, .content img,.content table {
+.content div, .content span, .content ul, .content li, .content dl,
+.content dd, .content dt, .content input, .content label, .content button, .content select, .content img, .content table {
     float: left;
     list-style: none;
     position: relative;
 }
-*{
+
+* {
     margin: 0;
     padding: 0;
 }
