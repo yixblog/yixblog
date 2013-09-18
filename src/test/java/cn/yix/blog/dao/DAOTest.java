@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Time: 下午12:06
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:WEB-INF/appCxt.xml")
+@ContextConfiguration(locations = "classpath:WEB-INF/applicationContext.xml")
 public class DAOTest extends SqlSessionDaoSupport{
     @Autowired
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){

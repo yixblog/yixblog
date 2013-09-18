@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * Time: 下午7:56
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:WEB-INF/appCxt.xml")
+@ContextConfiguration(locations = "classpath:WEB-INF/applicationContext.xml")
 public class StorageTest {
     @Resource(name = "adminAccountStorage")
     private IAdminAccountStorage adminAccountStorage;
