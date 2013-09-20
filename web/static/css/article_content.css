@@ -62,33 +62,42 @@
     background: url(../../img/down.png) no-repeat;
 }
 
-.comment_box .comment_list{
+.comment_box .comment_list {
     display: none;
     width: 100%;
     border-top: 1px solid #fff;
 }
-.comment_box .comment_list li{
+
+.comment_box .comment_list ul {
+    width: 100%;
+}
+
+.comment_box .comment_list li {
     border-bottom: 1px solid #fff;
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#afa),color-stop(1,#dfd));
-    background-image: -moz-linear-gradient(top,#afa,#dfd);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#afa',endColorstr='#dfd',GradientType='0');
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #afa), color-stop(1, #dfd));
+    background-image: -moz-linear-gradient(top, #afa, #dfd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#afa', endColorstr='#dfd', GradientType='0');
     width: 100%;
     margin-bottom: 5px;
 }
 
-.comment_box .comment_list li .author{
+.comment_box .comment_list li .author {
     width: 50%;
     text-align: left;
     text-indent: 10px;
 }
 
-.comment_box .comment_list li .time{
+.comment_box .comment_list li .time {
     text-align: right;
     float: right;
     padding: 10px;
     text-align: right;
 }
 
-.comment_box .comment_list li .content{
+.comment_box .comment_list li .comment_content {
     clear: both;
+}
+
+.input_panel, .new_comment {
+    width: 100%;
 }

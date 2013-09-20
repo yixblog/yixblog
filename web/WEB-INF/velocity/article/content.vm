@@ -26,9 +26,14 @@
     </div>
     <div class="ad article_ad">AD2</div>
     <div class="comment_box">
-        <div class="comment_box_title">评论列表<span class="right_btn show"></span></div>
-        <ul class="comment_list">
-        </ul>
+        <div class="comment_box_title">评论列表</div>
+        <div class="comment_list">
+            <ul></ul>
+            <div class="input_panel">
+                <label for="new_comment" class="new_comment">添加评论</label>
+                <textarea id="new_comment"></textarea>
+            </div>
+        </div>
     </div>
     #parse("utils/foot.vm")
 </div>

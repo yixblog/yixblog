@@ -1,12 +1,15 @@
 package cn.yix.blog.dao.beans;
 
+import cn.yix.blog.utils.DateUtils;
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Created with IntelliJ IDEA.
  * User: yxdave
  * Date: 13-5-26
  * Time: 上午12:38
  */
-public class CommentBean implements DatabaseEntity{
+public class CommentBean implements DatabaseEntity {
     private int id;
     private String title;
     private String content;
@@ -55,8 +58,14 @@ public class CommentBean implements DatabaseEntity{
         this.article = article;
     }
 
+    @JSONField(serialize = false)
     public long getAddTime() {
         return addTime;
+    }
+
+    @JSONField(name = "addtimestring")
+    public String getAddTimeString() {
+        return DateUtils.getDateString(addTime, DateUtils.DATE_TIME_FORMAT);
     }
 
     public void setAddTime(long addTime) {
