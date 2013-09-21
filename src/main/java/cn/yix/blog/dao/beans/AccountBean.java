@@ -9,7 +9,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  * Date: 13-5-23
  * Time: 下午9:43
  */
-public class AccountBean implements DatabaseEntity{
+public class AccountBean implements DatabaseEntity {
     private int id;
     private String uid;
     private String pwd;
@@ -142,7 +142,7 @@ public class AccountBean implements DatabaseEntity{
         this.tempEmail = tempEmail;
     }
 
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         return o instanceof AccountBean && ((AccountBean) o).getId() == this.getId();
     }
 }

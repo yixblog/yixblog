@@ -9,7 +9,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  * Date: 13-5-11
  * Time: 上午9:15
  */
-public class AdminBean implements DatabaseEntity{
+public class AdminBean implements DatabaseEntity {
     private int id;
     private String uid;
     private String pwd;

@@ -9,7 +9,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  * Date: 13-6-18
  * Time: 下午9:32
  */
-public class NoticeBean implements DatabaseEntity{
+public class NoticeBean implements DatabaseEntity {
     private int id;
     private String title;
     private String content;
@@ -49,7 +49,7 @@ public class NoticeBean implements DatabaseEntity{
     }
 
     @JSONField(name = "addtimestring")
-    public String getAddTimeString(){
-        return DateUtils.getDateString(addTime,DateUtils.DATE_TIME_FORMAT);
+    public String getAddTimeString() {
+        return DateUtils.getDateString(addTime, DateUtils.DATE_TIME_FORMAT);
     }
 }
