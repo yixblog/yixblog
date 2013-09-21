@@ -6,7 +6,6 @@
     <script src="static/lib/ueditor/ueditor.config.js" type="text/javascript"></script>
     <script src="static/lib/ueditor/ueditor.all.js" type="text/javascript"></script>
     <script type="text/javascript" src="static/js/new_article.js"></script>
-    <link type="text/css" rel="stylesheet" href="static/lib/ueditor/themes/iframe.css">
     <link type="text/css" rel="stylesheet" href="static/css/new_article.css">
 </head>
 <body>

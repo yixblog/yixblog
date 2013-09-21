@@ -33,8 +33,7 @@ public class UserAccountController {
     }
 
     @RequestMapping("/user/center.htm")
-    public String userCenter(Model model,@ModelAttribute("user") JSONObject user){
-        model.addAttribute("user",user);
+    public String userCenter() {
         return "account/user_center";
     }
 
@@ -49,7 +48,7 @@ public class UserAccountController {
             session.removeAttribute("validatecode");
             return res;
         }
-        logger.debug("session obj id:"+session.getId());
+        logger.debug("session obj id:" + session.getId());
         String sessValidate = (String) session.getAttribute("validatecode");
         session.removeAttribute("validatecode");
         if (sessValidate == null || !sessValidate.toLowerCase().equals(validate.toLowerCase())) {
@@ -69,7 +68,7 @@ public class UserAccountController {
     @ResponseBody
     JSONObject logout(HttpSession session) {
         JSONObject user = (JSONObject) session.getAttribute("user");
-        logger.info("user logout:"+user.getString("nick"));
+        logger.info("user logout:" + user.getString("nick"));
         session.removeAttribute("user");
         JSONObject res = new JSONObject();
         res.put("success", true);
@@ -89,8 +88,8 @@ public class UserAccountController {
         }
         JSONObject res = new JSONObject();
         String sessionValidate = (String) session.getAttribute("validatecode");
-        logger.debug("session obj id:"+session.getId());
-        logger.debug("session:"+sessionValidate+",request:"+validate);
+        logger.debug("session obj id:" + session.getId());
+        logger.debug("session:" + sessionValidate + ",request:" + validate);
         session.removeAttribute("validatecode");
         if (sessionValidate == null || !sessionValidate.toLowerCase().equals(validate.toLowerCase())) {
             res.put("success", false);
@@ -128,9 +127,10 @@ public class UserAccountController {
     }
 
     @RequestMapping("/forget_password_request.htm")
-    public String forgetPwdPage(){
+    public String forgetPwdPage() {
         return "account/forget_pwd_page";
     }
+
     @RequestMapping("/reset/{resetcode}.htm")
     public String queryResetCode(@PathVariable("resetcode") String resetCode, Model model) {
         ResetCode reset = ResetCodeFactory.generateResetCode(resetCode);
@@ -150,7 +150,7 @@ public class UserAccountController {
                     return "account/user_reset_pwd";
             }
         }
-        return "redirect:/static/illegal.html";
+        return "redirect:/static/pages/illegal.html";
     }
 
     @RequestMapping(value = "/user/reset_email.action", method = RequestMethod.POST)
@@ -181,9 +181,10 @@ public class UserAccountController {
     }
 
     @RequestMapping(value = "/user/change_pwd.htm")
-    public String changePwdPage(){
+    public String changePwdPage() {
         return "account/change_user_pwd";
     }
+
     @RequestMapping(value = "/user/change_pwd.action", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -227,8 +228,8 @@ public class UserAccountController {
     }
 
     @RequestMapping("/user/bind.htm")
-    public String bindPage(@ModelAttribute("user") JSONObject user,Model model){
-        model.addAttribute("user",user);
+    public String bindPage(@ModelAttribute("user") JSONObject user, Model model) {
+        model.addAttribute("user", user);
         return "account/bind";
     }
 

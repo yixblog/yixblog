@@ -18,7 +18,7 @@
     }
 
     function getPageItems(options) {
-        var box = $("<div></div>");
+        var box = $("<div></div>").addClass("pager");
         var pageInfo = options.pageInfo;
         $("<span class='pager_item'></span>").html("首页").click(gotoPageCallback(1, options.callback)).appendTo(box);
         var prevPageBtn = $("<span class='pager_item'></span>").html("上一页").appendTo(box);
@@ -39,7 +39,7 @@
             nextPageBtn.addClass("unable");
         }
         $("<span class='pager_item'></span>").html("末页").click(gotoPageCallback(pageInfo.totalpage,options.callback)).appendTo(box);
-        return box.children();
+        return box;
     }
 
     $.fn.yixpager.defaults = {

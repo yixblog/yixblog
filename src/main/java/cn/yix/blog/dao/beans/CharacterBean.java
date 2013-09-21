@@ -6,14 +6,14 @@ package cn.yix.blog.dao.beans;
  * Date: 13-5-24
  * Time: 下午6:46
  */
-public class CharacterBean implements DatabaseEntity{
+public class CharacterBean implements DatabaseEntity {
     private int id;
     private String name;
-    private boolean systemConfig=false;
-    private boolean userManage=false;
-    private boolean adminManage=false;
-    private boolean articleManage=false;
-    private boolean commentManage=false;
+    private boolean systemConfig = false;
+    private boolean userManage = false;
+    private boolean adminManage = false;
+    private boolean articleManage = false;
+    private boolean commentManage = false;
 
     public int getId() {
         return id;

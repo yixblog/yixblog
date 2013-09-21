@@ -36,9 +36,6 @@ public class IndexController {
         data.put("hotArticles", hotArticles);
         data.put("sitename", "佚博客");
         model.addAttribute("data", data);
-        if (session.getAttribute("user")!=null){
-            model.addAttribute("user",session.getAttribute("user"));
-        }
         logger.debug(data.toJSONString());
         return "index";
     }

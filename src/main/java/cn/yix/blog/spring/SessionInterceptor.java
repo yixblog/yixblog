@@ -66,14 +66,15 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         } else {
-            session.setAttribute("admin", adminAccountStorage.queryAdminById(admin.getIntValue("id")));
+            JSONObject updatedAdmin = adminAccountStorage.queryAdminById(admin.getIntValue("id"));
+            session.setAttribute("admin", updatedAdmin);
         }
         if (user == null) {
             for (String userBlackpattern : userBlackList) {
                 if (checkUriMatch(uri, userBlackpattern)) {
                     if (uri.endsWith(".action")) {
                         PrintWriter writer = response.getWriter();
-                        writer.write(generateNotLoginJSON("您必须登录后才能访问此页面").toJSONString());
+                        writer.write(generateNotLoginJSON("您必须登录").toJSONString());
                         writer.flush();
                         writer.close();
                     } else {
@@ -84,7 +85,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
             }
         } else {
             JSONObject updatedUser = userAccountStorage.queryUser(user.getIntValue("id")).getJSONObject("user");
-            logger.debug("session update user info:"+updatedUser.toJSONString());
+            logger.debug("session update user info:" + updatedUser.toJSONString());
             session.setAttribute("user", updatedUser);
         }
         return super.preHandle(request, response, handler);
@@ -92,14 +93,22 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.debug("post handle called,requestURI:"+request.getRequestURI()+",url:"+request.getRequestURL().toString());
-        if (request.getRequestURI().endsWith(".htm")||request.getRequestURI().endsWith("/")) {
+        logger.debug("post handle called,requestURI:" + request.getRequestURI() + ",url:" + request.getRequestURL().toString());
+        if (request.getRequestURI().endsWith(".htm") || request.getRequestURI().endsWith("/")) {
             logger.debug("called");
             String path = request.getContextPath();
-            path = path.length()>0?path+"/":path;
+            path = path.length() > 0 ? path + "/" : path;
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
-            logger.debug("basepath:"+basePath);
+            logger.debug("basepath:" + basePath);
             modelAndView.getModel().put("basePath", basePath);
+            JSONObject sessionAdmin = (JSONObject) request.getSession().getAttribute("admin");
+            if (sessionAdmin != null) {
+                modelAndView.getModel().put("admin", sessionAdmin);
+            }
+            JSONObject sessionUser = (JSONObject) request.getSession().getAttribute("user");
+            if (sessionUser != null) {
+                modelAndView.getModel().put("user", sessionUser);
+            }
 //            logger.debug(((JSONObject)(modelAndView.getModel().get("data"))).toJSONString());
         }
         super.postHandle(request, response, handler, modelAndView);

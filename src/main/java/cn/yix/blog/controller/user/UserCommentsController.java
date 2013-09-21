@@ -35,4 +35,12 @@ public class UserCommentsController {
                                @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return commentStorage.queryCommentsToUser(user.getIntValue("id"), page, pageSize);
     }
+
+    @RequestMapping(value = "/add_comment.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    JSONObject addComment(@ModelAttribute("user") JSONObject user, @RequestParam String content,
+                          @RequestParam(required = false, defaultValue = "") String title, @RequestParam int articleId) {
+        return commentStorage.saveComment(user.getIntValue("id"), articleId, title, content);
+    }
 }
