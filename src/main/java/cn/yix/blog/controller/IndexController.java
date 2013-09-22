@@ -25,14 +25,14 @@ public class IndexController {
     @Resource(name = "articleStorage")
     private IArticleStorage articleStorage;
 
-    @RequestMapping({"/index.htm","/"})
-    public String showIndex(Model model,HttpSession session) {
+    @RequestMapping({"/index.htm", "/"})
+    public String showIndex(Model model) {
         JSONObject data = new JSONObject();
         JSONObject newArticles = articleStorage.queryArticles(1, 8, null, null, 0, null, null, "addtime");
-        logger.debug("newArticle:"+newArticles.toJSONString());
+        logger.debug("newArticle:" + newArticles.toJSONString());
         data.put("newArticles", newArticles);
         JSONObject hotArticles = articleStorage.queryArticles(1, 8, null, null, 0, null, null, "replycount");
-        logger.debug("hotArticle:"+hotArticles.toJSONString());
+        logger.debug("hotArticle:" + hotArticles.toJSONString());
         data.put("hotArticles", hotArticles);
         data.put("sitename", "佚博客");
         model.addAttribute("data", data);

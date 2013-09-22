@@ -15,6 +15,7 @@
                 <property name="features">
                     <array>
                         <value type="com.alibaba.fastjson.serializer.SerializerFeature">DisableCircularReferenceDetect</value>
+                        <value type="com.alibaba.fastjson.serializer.SerializerFeature">QuoteFieldNames</value>
                     </array>
                 </property>
             </bean>
