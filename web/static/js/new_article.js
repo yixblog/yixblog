@@ -28,7 +28,7 @@ $(document).ready(function () {
             type: "post",
             success: function (data) {
                 console.log("submitted return:" + JSON.stringify(data));
-                location.href = "artile/view/" + data.id + ".htm";
+                location.href = "artile/view/" + data.article.id + ".htm";
             }
         })
     });

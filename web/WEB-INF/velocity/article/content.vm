@@ -6,6 +6,7 @@
 
     <script type="text/javascript" src="static/lib/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="static/lib/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="static/lib/ueditor/ueditor.parse.js"></script>
     <link rel="stylesheet" type="text/css" href="resource/yixpager/css/pager.css">
     <link rel="stylesheet" type="text/css" href="static/css/article_content.css">
     <script type="text/javascript" src="static/js/article_content.js"></script>

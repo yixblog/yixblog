@@ -49,29 +49,34 @@ $(document).ready(function () {
         })
     }
 
-    var editor = new UE.ui.Editor();
-    editor.render("new_comment");
-    editor.ready(function () {
-        editor.setHeight(200);
-    });
+    if ($("#new_comment").length > 0) {
+        var editor = new UE.ui.Editor();
+        editor.render("new_comment");
+        editor.ready(function () {
+            editor.setHeight(200);
+        });
 
-    $("#submit_new_comment").button().click(function () {
-        var commentContent = editor.getContent();
-        var title = $.trim($("#comment_title").val());
-        if (commentContent.length > 0) {
-            $.ajax({
-                url: "user/comments/add_comment.action",
-                type: "post",
-                data: {articleId: articleId, content: commentContent, title: title},
-                dataType: "json",
-                success: function (data) {
-                    if (!data.success) {
-                        alert(data.msg);
-                    } else {
-                        window.location.href = location.href;
+        $("#submit_new_comment").button().click(function () {
+            var commentContent = editor.getContent();
+            var title = $.trim($("#comment_title").val());
+            if (commentContent.length > 0) {
+                $.ajax({
+                    url: "user/comments/add_comment.action",
+                    type: "post",
+                    data: {articleId: articleId, content: commentContent, title: title},
+                    dataType: "json",
+                    success: function (data) {
+                        if (!data.success) {
+                            alert(data.msg);
+                        } else {
+                            window.location.href = location.href;
+                        }
                     }
-                }
-            })
-        }
-    });
-});
+                })
+            }
+        });
+    }
+
+    uParse('div', { 'highlightJsUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCore.js', 'highlightCssUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'})
+})
+;

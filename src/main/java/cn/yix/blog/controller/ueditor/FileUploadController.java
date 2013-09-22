@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 @SessionAttributes("user")
 public class FileUploadController {
     private Logger logger = Logger.getLogger(getClass());
-
     @Resource(name = "fileSavingStorage")
     private IFileSavingStorage fileSavingStorage;
 
@@ -40,7 +39,7 @@ public class FileUploadController {
     public
     @ResponseBody
     JSONObject uploadFile(@RequestParam MultipartFile upfile, @RequestParam(required = false) String pictitle, @ModelAttribute("user") JSONObject user) {
-        String[] fileType = {".rar", ".doc", ".docx", ".zip", ".pdf", ".txt", ".xls", ".xlsx", ".jar"};  //允许的文件类型
+        String[] fileType = {".rar", ".doc", ".docx", ".ppt", ".pptx", ".zip", ".pdf", ".txt", ".xls", ".xlsx", ".jar"};  //允许的文件类型
         int maxSize = 10000;
         SavingResultInfo up = fileSavingStorage.doSaveFile(upfile, pictitle, fileType, maxSize, user.getIntValue("id"));
         logger.debug("file uploaded,file size:" + up.getSize() + ",url:" + up.getUrl());

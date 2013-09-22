@@ -156,3 +156,11 @@ fieldset {
     display: inline-block;
     float: none;
 }
+
+.edui-default {
+    color: #000;
+}
+
+.edui-default div, .edui-default span {
+    float: none;
+}

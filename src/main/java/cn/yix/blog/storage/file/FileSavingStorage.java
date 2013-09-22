@@ -31,20 +31,19 @@ import java.util.*;
  */
 @Repository("fileSavingStorage")
 public class FileSavingStorage extends AbstractStorage implements IFileSavingStorage {
+    private static final String SAVE_DIR = "upload";
     private Map<String, String> errorCode = new HashMap<>();
     private String webRoot;
-    private static final String SAVE_DIR = "upload";
-
     private Logger logger = Logger.getLogger(getClass());
-
-    @Resource(name = "sessionFactory")
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        super.setSqlSessionFactory(sqlSessionFactory);
-    }
 
     public FileSavingStorage() {
         initErrorCode();
         webRoot = System.getProperty("web.root");
+    }
+
+    @Resource(name = "sessionFactory")
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+        super.setSqlSessionFactory(sqlSessionFactory);
     }
 
     private void initErrorCode() {
@@ -99,8 +98,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
         String[] sourceUrls = upfile.split(UEditorConfig.UE_SEPERATOR);
         List<String> outSrcs = new ArrayList<>();
         SavingResultInfo result = new SavingResultInfo();
-        for (int i = 0; i < sourceUrls.length; i++) {
-            String sourceUrl = sourceUrls[i];
+        for (String sourceUrl : sourceUrls) {
             result.setType(sourceUrl.substring(sourceUrl.lastIndexOf(".")));
             if (!checkLegal(result, allowedTypes, maxSize)) {
                 return result;
@@ -127,7 +125,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
     private byte[] getUrlImageBytes(String sourceUrl, SavingResultInfo result) throws IOException {
         HttpURLConnection.setFollowRedirects(false);
         HttpURLConnection conn = (HttpURLConnection) new URL(sourceUrl).openConnection();
-        if (conn.getContentType().indexOf("image") == -1) {
+        if (!conn.getContentType().contains("image")) {
             result.setState(errorCode.get("HTTPHEAD"));
             return null;
         }
@@ -212,7 +210,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
     }
 
     private boolean checkLegalSize(SavingResultInfo result, int maxSize) {
-        if (result.getSize() > maxSize) {
+        if (result.getSize() > maxSize * 1024) {
             result.setState(errorCode.get("SIZE"));
             return false;
         }
