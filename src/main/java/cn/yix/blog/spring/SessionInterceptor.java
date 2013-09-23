@@ -98,9 +98,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
             logger.debug("called");
             String path = request.getContextPath();
             path = path.length() > 0 ? path + "/" : path;
-            String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
-            logger.debug("basepath:" + basePath);
-            modelAndView.getModel().put("basePath", basePath);
+            modelAndView.getModel().put("basePath", path);
             JSONObject sessionAdmin = (JSONObject) request.getSession().getAttribute("admin");
             if (sessionAdmin != null) {
                 modelAndView.getModel().put("admin", sessionAdmin);
