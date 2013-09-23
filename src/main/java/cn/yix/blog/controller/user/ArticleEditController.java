@@ -51,7 +51,9 @@ public class ArticleEditController {
     }
 
     @RequestMapping("/{article_id}/edit.htm")
-    public String editArticlePage(Model model, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @PathVariable("article_id") String articleId) {
+    public String editArticlePage(Model model, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @PathVariable("article_id") int articleId) {
+        JSONObject res = articleStorage.queryArticleForEdit(articleId, user.getIntValue("id"));
+        model.addAttribute("res", res);
         return "article/edit";
     }
 

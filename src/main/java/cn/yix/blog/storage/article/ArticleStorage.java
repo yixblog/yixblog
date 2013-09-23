@@ -233,6 +233,24 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     }
 
     @Override
+    public JSONObject queryArticleForEdit(int articleId, int userId) {
+        ArticleMapper articleMapper = getMapper(ArticleMapper.class);
+        JSONObject res = new JSONObject();
+        ArticleBean article = articleMapper.getArticle(articleId);
+        if (article == null) {
+            setResult(res, false, "要修改的文章不存在");
+            return res;
+        }
+        if (article.getAuthor().getId() != userId) {
+            setResult(res, false, "您无权修改本文章");
+            return res;
+        }
+        setResult(res, true, "查询成功");
+        res.put("article", article);
+        return res;
+    }
+
+    @Override
     public JSONObject queryTags(int topNumber) {
         ArticleMapper articleMapper = getMapper(ArticleMapper.class);
         JSONObject res = new JSONObject();

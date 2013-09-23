@@ -2,7 +2,9 @@ package cn.yix.blog.dao.beans;
 
 import cn.yix.blog.utils.DateUtils;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.apache.commons.lang.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public class ArticleBean implements DatabaseEntity {
     private AccountBean author;
     private boolean topFlag = false;
     private List<String> tags;
+    private String tagString;
 
     @JSONField(name = "replycount")
     public int getReplyCount() {
@@ -103,5 +106,15 @@ public class ArticleBean implements DatabaseEntity {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+        buildTagString(tags);
+    }
+
+    private void buildTagString(List<String> tags) {
+        tagString = Arrays.toString(tags.toArray());
+        tagString = tagString.replace("[", "").replace("]", "").trim();
+    }
+
+    public String getTagString() {
+        return tagString;
     }
 }
