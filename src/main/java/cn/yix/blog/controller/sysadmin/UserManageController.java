@@ -1,5 +1,6 @@
 package cn.yix.blog.controller.sysadmin;
 
+import cn.yix.blog.controller.SessionTokens;
 import cn.yix.blog.core.user.IUserAccountStorage;
 import cn.yix.blog.utils.DateUtils;
 import com.alibaba.fastjson.JSONObject;
@@ -16,7 +17,7 @@ import javax.annotation.Resource;
  * Time: 下午11:14
  */
 @RequestMapping("/sysadmin/user")
-@SessionAttributes("admin")
+@SessionAttributes(SessionTokens.ADMIN_TOKEN)
 @Controller
 public class UserManageController {
     @Resource(name = "userAccountStorage")
@@ -25,7 +26,7 @@ public class UserManageController {
     @RequestMapping("/list.htm")
     public String listUsers(@RequestParam(defaultValue = "1", required = false) int page,
                             @RequestParam(defaultValue = "20", required = false) int pageSize,
-                            @ModelAttribute("admin") JSONObject admin, Model model) {
+                            @ModelAttribute(SessionTokens.ADMIN_TOKEN) JSONObject admin, Model model) {
         if (!admin.getBooleanValue("accountmanage")) {
             return "redirect:/static/pages/illegal.html";
         }
@@ -40,7 +41,7 @@ public class UserManageController {
                             @RequestParam(required = false) String uid, @RequestParam(required = false) String email,
                             @RequestParam(required = false) String nick, @RequestParam(required = false) String qq,
                             @RequestParam(required = false) String weibo, @RequestParam(required = false) String startDate,
-                            @RequestParam(required = false) String endDate, @ModelAttribute("admin") JSONObject admin,
+                            @RequestParam(required = false) String endDate, @ModelAttribute(SessionTokens.ADMIN_TOKEN) JSONObject admin,
                             Model model) {
         if (!admin.getBooleanValue("accountmanage")) {
             return "redirect:/static/pages/illegal.html";
@@ -73,7 +74,7 @@ public class UserManageController {
     }
 
     @RequestMapping(value = "/user_info.htm",method = RequestMethod.POST)
-    public String getUserInfo(@RequestParam int id,@ModelAttribute("admin") JSONObject admin,Model model){
+    public String getUserInfo(@RequestParam int id,@ModelAttribute(SessionTokens.ADMIN_TOKEN) JSONObject admin,Model model){
         if (!admin.getBooleanValue("accountmanage")) {
             return "redirect:/static/pages/illegal.html";
         }
@@ -86,7 +87,7 @@ public class UserManageController {
                                              @RequestParam(required = false) String pwd,
                                              @RequestParam(required = false) String email,
                                              @RequestParam(required = false) String sex,
-                                             @ModelAttribute("admin") JSONObject admin){
+                                             @ModelAttribute(SessionTokens.ADMIN_TOKEN) JSONObject admin){
         JSONObject res = new JSONObject();
         if (!admin.getBooleanValue("accountmanage")) {
             res.put("success",false);
@@ -98,7 +99,7 @@ public class UserManageController {
 
     @RequestMapping(value = "/ban_user.action",method = RequestMethod.POST)
     public @ResponseBody JSONObject banUser(@RequestParam int id,@RequestParam int banDays,
-                                            @ModelAttribute("admin") JSONObject admin){
+                                            @ModelAttribute(SessionTokens.ADMIN_TOKEN) JSONObject admin){
         JSONObject res = new JSONObject();
         if (!admin.getBooleanValue("accountmanage")){
             res.put("success",false);

@@ -1,5 +1,6 @@
 package cn.yix.blog.controller.user;
 
+import cn.yix.blog.controller.SessionTokens;
 import cn.yix.blog.core.user.IUserAccountStorage;
 import cn.yix.blog.utils.ResetCodeFactory;
 import cn.yix.blog.utils.bean.ResetCode;
@@ -7,10 +8,12 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.DefaultSessionAttributeStore;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("/accountservice/account")
-@SessionAttributes("user")
+@SessionAttributes({SessionTokens.USER_TOKEN, SessionTokens.VALIDATE_TOKEN})
 public class UserAccountController {
     private static final String UID_REX = "[0-9A-Za-z_]+";
     @Resource(name = "userAccountStorage")
@@ -40,17 +43,15 @@ public class UserAccountController {
     @RequestMapping(value = "/login.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject doLogin(@RequestParam String uid, @RequestParam String pwd, @RequestParam String validate, HttpSession session) {
+    JSONObject doLogin(@RequestParam String uid, @RequestParam String pwd, @RequestParam String validate, DefaultSessionAttributeStore status, WebRequest request, ModelMap modelMap) {
         JSONObject res = new JSONObject();
+        String sessValidate = (String) modelMap.remove(SessionTokens.VALIDATE_TOKEN);
+        status.cleanupAttribute(request, SessionTokens.VALIDATE_TOKEN);
         if (!uid.matches(UID_REX)) {
             res.put("success", false);
             res.put("msg", "用户名中包含非法字符");
-            session.removeAttribute("validatecode");
             return res;
         }
-        logger.debug("session obj id:" + session.getId());
-        String sessValidate = (String) session.getAttribute("validatecode");
-        session.removeAttribute("validatecode");
         if (sessValidate == null || !sessValidate.toLowerCase().equals(validate.toLowerCase())) {
             res.put("success", false);
             res.put("msg", "验证码不正确");
@@ -58,7 +59,7 @@ public class UserAccountController {
         }
         res = userAccountStorage.doUserLogin(uid, pwd);
         if (res.getBooleanValue("success")) {
-            session.setAttribute("user", res.getJSONObject("user"));
+            modelMap.addAttribute(SessionTokens.USER_TOKEN, res.getJSONObject("user"));
         }
         return res;
     }
@@ -66,10 +67,10 @@ public class UserAccountController {
     @RequestMapping(value = "/user/logout.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject logout(HttpSession session) {
-        JSONObject user = (JSONObject) session.getAttribute("user");
+    JSONObject logout(DefaultSessionAttributeStore status, WebRequest request, ModelMap modelMap) {
+        JSONObject user = (JSONObject) modelMap.remove(SessionTokens.USER_TOKEN);
         logger.info("user logout:" + user.getString("nick"));
-        session.removeAttribute("user");
+        status.cleanupAttribute(request, SessionTokens.USER_TOKEN);
         JSONObject res = new JSONObject();
         res.put("success", true);
         res.put("msg", "成功退出");
@@ -82,25 +83,22 @@ public class UserAccountController {
     JSONObject doRegister(@RequestParam String uid, @RequestParam String pwd,
                           @RequestParam(required = false) String nick,
                           @RequestParam(required = false) String email, @RequestParam String sex,
-                          @RequestParam String validate, HttpSession session) {
+                          @RequestParam String validate, DefaultSessionAttributeStore status, WebRequest request, ModelMap modelMap) {
         if (nick == null) {
             nick = uid;
         }
         JSONObject res = new JSONObject();
-        String sessionValidate = (String) session.getAttribute("validatecode");
-        logger.debug("session obj id:" + session.getId());
+        String sessionValidate = (String) modelMap.remove(SessionTokens.VALIDATE_TOKEN);
         logger.debug("session:" + sessionValidate + ",request:" + validate);
-        session.removeAttribute("validatecode");
+        status.cleanupAttribute(request,SessionTokens.VALIDATE_TOKEN);
         if (sessionValidate == null || !sessionValidate.toLowerCase().equals(validate.toLowerCase())) {
             res.put("success", false);
             res.put("msg", "验证码不正确");
-            session.removeAttribute("validatecode");
             return res;
         }
         if (!uid.matches(UID_REX)) {
             res.put("success", false);
             res.put("msg", "用户名中包含非法字符");
-            session.removeAttribute("validatecode");
             return res;
         }
         switch (sex) {
@@ -156,7 +154,7 @@ public class UserAccountController {
     @RequestMapping(value = "/user/reset_email.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject resetEmail(@RequestParam String email, @ModelAttribute("user") JSONObject user) {
+    JSONObject resetEmail(@RequestParam String email, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         return userAccountStorage.doChangeEmail(user.getIntValue("id"), email);
     }
 
@@ -168,15 +166,14 @@ public class UserAccountController {
     }
 
     @RequestMapping("/user/reset_email.htm")
-    public String resetEmailRequest(@ModelAttribute("user") JSONObject user, Model model) {
-        model.addAttribute("user", user);
+    public String resetEmailRequest() {
         return "account/user_reset_email";
     }
 
     @RequestMapping(value = "/user/confirm_email.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject confirmEmail(@ModelAttribute("user") JSONObject user) {
+    JSONObject confirmEmail(@ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         return userAccountStorage.requestConfirmEmail(user.getIntValue("id"));
     }
 
@@ -188,20 +185,19 @@ public class UserAccountController {
     @RequestMapping(value = "/user/change_pwd.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject changePwd(@RequestParam String oldPwd, @RequestParam String newPwd, @ModelAttribute("user") JSONObject user) {
+    JSONObject changePwd(@RequestParam String oldPwd, @RequestParam String newPwd, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         return userAccountStorage.doChangePwd(user.getIntValue("id"), oldPwd, newPwd);
     }
 
     @RequestMapping("/user/change_info.htm")
-    public String changeInfoPage(@ModelAttribute("user") JSONObject user, Model model) {
-        model.addAttribute("user", user);
+    public String changeInfoPage() {
         return "account/user_change_info_page";
     }
 
     @RequestMapping(value = "/user/change_info.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject doChangeInfo(@RequestParam String nick, @RequestParam String sex, @ModelAttribute("user") JSONObject user) {
+    JSONObject doChangeInfo(@RequestParam String nick, @RequestParam String sex, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         JSONObject res = userAccountStorage.editUser(user.getIntValue("id"), null, nick, null, sex, null);
         if (res.getBooleanValue("success")) {
             user.put("nick", nick);
@@ -211,15 +207,14 @@ public class UserAccountController {
     }
 
     @RequestMapping("/user/change_avatar.htm")
-    public String changeAvatarPage(@ModelAttribute("user") JSONObject user, Model model) {
-        model.addAttribute("user", user);
+    public String changeAvatarPage() {
         return "account/user_change_avatar";
     }
 
     @RequestMapping(value = "/user/change_avatar.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject doChangeAvatar(@RequestParam String avatar, @ModelAttribute("user") JSONObject user) {
+    JSONObject doChangeAvatar(@RequestParam String avatar, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         JSONObject res = userAccountStorage.editUser(user.getIntValue("id"), null, null, null, null, avatar);
         if (res.getBooleanValue("success")) {
             user.put("avatar", avatar);
@@ -228,8 +223,7 @@ public class UserAccountController {
     }
 
     @RequestMapping("/user/bind.htm")
-    public String bindPage(@ModelAttribute("user") JSONObject user, Model model) {
-        model.addAttribute("user", user);
+    public String bindPage() {
         return "account/bind";
     }
 

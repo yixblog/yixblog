@@ -1,5 +1,6 @@
 package cn.yix.blog.controller.sysadmin;
 
+import cn.yix.blog.controller.SessionTokens;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,11 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/sysadmin")
-@SessionAttributes("admin")
+@SessionAttributes(SessionTokens.ADMIN_TOKEN)
 public class SystemController {
     @RequestMapping("/index.htm")
-    public String getAdminIndex(Model model,@ModelAttribute("admin")JSONObject admin){
-        model.addAttribute("admin",admin);
+    public String getAdminIndex(Model model,@ModelAttribute(SessionTokens.ADMIN_TOKEN)JSONObject admin){
+        model.addAttribute(SessionTokens.ADMIN_TOKEN,admin);
         List<JSONObject> permissions = new ArrayList<>();
         model.addAttribute("permissions",permissions);
         return "admin_index";

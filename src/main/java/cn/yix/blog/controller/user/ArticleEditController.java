@@ -1,5 +1,6 @@
 package cn.yix.blog.controller.user;
 
+import cn.yix.blog.controller.SessionTokens;
 import cn.yix.blog.core.article.IArticleStorage;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/user/article")
-@SessionAttributes("user")
+@SessionAttributes(SessionTokens.USER_TOKEN)
 public class ArticleEditController {
     @Resource(name = "articleStorage")
     private IArticleStorage articleStorage;
@@ -26,7 +27,7 @@ public class ArticleEditController {
     @RequestMapping(value = "/save.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject addArticle(@RequestParam String title, @RequestParam String content, @RequestParam String tags, @ModelAttribute("user") JSONObject user) {
+    JSONObject addArticle(@RequestParam String title, @RequestParam String content, @RequestParam String tags, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         int userId = user.getIntValue("id");
         String[] tagArray = tags.split(",");
         return articleStorage.saveArticle(userId, title, content, false, tagArray);
@@ -35,7 +36,7 @@ public class ArticleEditController {
     @RequestMapping(value = "/update.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject editArticle(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam String tags, @ModelAttribute("user") JSONObject user) {
+    JSONObject editArticle(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam String tags, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         int userId = user.getIntValue("id");
         String[] tagArray = tags.split(",");
         return articleStorage.editArticle(userId, id, title, content, tagArray);
@@ -44,18 +45,18 @@ public class ArticleEditController {
     @RequestMapping(value = "/delete.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject deleteArticle(@RequestParam int id, @ModelAttribute("user") JSONObject user) {
+    JSONObject deleteArticle(@RequestParam int id, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         int userId = user.getIntValue("id");
         return articleStorage.deleteArticle(userId, id);
     }
 
     @RequestMapping("/{article_id}/edit.htm")
-    public String editArticlePage(Model model, @ModelAttribute("user") JSONObject user,@PathVariable("article_id") String articleId){
+    public String editArticlePage(Model model, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @PathVariable("article_id") String articleId) {
         return "article/edit";
     }
 
     @RequestMapping("/new.htm")
-    public String newArticlePage(Model model, @ModelAttribute("user") JSONObject user) {
+    public String newArticlePage(Model model, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         JSONObject tags = articleStorage.getUserTags(user.getIntValue("id"));
         model.addAttribute("tags", tags);
         return "article/new";
@@ -67,7 +68,7 @@ public class ArticleEditController {
     JSONObject querySelfArticles(@RequestParam(required = false) String tag,
                                  @RequestParam(required = false, defaultValue = "1") int page,
                                  @RequestParam(required = false, defaultValue = "15") int pageSize,
-                                 @ModelAttribute("user") JSONObject user) {
+                                 @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         int userId = user.getIntValue("id");
         JSONObject res = articleStorage.queryArticles(page, pageSize, null, null, userId, tag, null, null);
         if ("".equals(tag)) {

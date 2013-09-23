@@ -1,5 +1,6 @@
 package cn.yix.blog.controller.sysadmin;
 
+import cn.yix.blog.controller.SessionTokens;
 import cn.yix.blog.core.admin.IAdminAccountStorage;
 import cn.yix.blog.utils.ResetCodeFactory;
 import cn.yix.blog.utils.bean.ResetCode;
@@ -7,10 +8,12 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.DefaultSessionAttributeStore;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("/accountservice/adminaccount")
-@SessionAttributes({"admin","validatecode"})
+@SessionAttributes({SessionTokens.ADMIN_TOKEN, SessionTokens.VALIDATE_TOKEN})
 public class AdminAccountController {
     @Resource(name = "adminAccountStorage")
     private IAdminAccountStorage adminAccountStorage;
@@ -29,14 +32,14 @@ public class AdminAccountController {
     @RequestMapping(value = "/login.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject doLogin(@RequestParam String uid, @RequestParam String pwd, @RequestParam String validate, HttpSession session) {
-        String sessionValidate = (String) session.getAttribute("validatecode");
-        session.removeAttribute("validatecode");
+    JSONObject doLogin(@RequestParam String uid, @RequestParam String pwd, @RequestParam String validate, DefaultSessionAttributeStore status, WebRequest request, ModelMap modelMap) {
+        String sessionValidate = (String) modelMap.remove(SessionTokens.VALIDATE_TOKEN);
+        status.cleanupAttribute(request, SessionTokens.VALIDATE_TOKEN);
         if (sessionValidate != null && sessionValidate.equals(validate)) {
             JSONObject res = adminAccountStorage.doLogin(uid, pwd);
             logger.debug("admin login:" + uid);
             if (res.get("admin") != null) {
-                session.setAttribute("admin", res.get("admin"));
+                modelMap.addAttribute("admin", res.get("admin"));
             }
             return res;
         }
@@ -49,8 +52,8 @@ public class AdminAccountController {
     @RequestMapping(value = "/login_status.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject loginStatus(HttpSession session) {
-        JSONObject admin = (JSONObject) session.getAttribute("admin");
+    JSONObject loginStatus(ModelMap modelMap) {
+        JSONObject admin = (JSONObject) modelMap.get("admin");
         JSONObject res = new JSONObject();
         if (admin != null) {
             res.put("admin", admin);
@@ -64,9 +67,10 @@ public class AdminAccountController {
     @RequestMapping(value = "/admin/logout.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject logout(HttpSession session) {
+    JSONObject logout(DefaultSessionAttributeStore status, WebRequest request, ModelMap modelMap) {
         JSONObject res = new JSONObject();
-        session.removeAttribute("admin");
+        modelMap.remove(SessionTokens.ADMIN_TOKEN);
+        status.cleanupAttribute(request, SessionTokens.ADMIN_TOKEN);
         res.put("success", true);
         return res;
     }
@@ -191,8 +195,8 @@ public class AdminAccountController {
     }
 
     @RequestMapping("/login.htm")
-    public String loginPage(HttpSession session) {
-        if (session.getAttribute("admin") != null) {
+    public String loginPage(ModelMap modelMap) {
+        if (modelMap.get("admin") != null) {
             return "redirect:/account/adminaccount/admin/index.htm";
         }
         return "account/adminlogin";

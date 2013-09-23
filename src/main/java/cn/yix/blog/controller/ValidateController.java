@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -20,7 +19,7 @@ import java.io.OutputStream;
  */
 @Controller
 @RequestMapping("/**/validate")
-@SessionAttributes("validatecode")
+@SessionAttributes(SessionTokens.VALIDATE_TOKEN)
 public class ValidateController {
     private Logger logger = Logger.getLogger(getClass());
 
@@ -28,7 +27,7 @@ public class ValidateController {
     public void generateValidateImage(ModelMap model, HttpServletResponse response) throws IOException {
         String validateCode = ValidateCodeDesigner.generateValidateCode(5);
         byte[] imageBytes = ValidateCodeDesigner.generateValidateImage(validateCode, 150, 40);
-        model.addAttribute("validatecode", validateCode);
+        model.addAttribute(SessionTokens.VALIDATE_TOKEN, validateCode);
         logger.debug("validate:" + validateCode);
         response.setHeader("Content-Type", "image/jpeg");
         OutputStream ous = response.getOutputStream();

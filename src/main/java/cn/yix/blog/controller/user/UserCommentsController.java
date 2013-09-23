@@ -1,5 +1,6 @@
 package cn.yix.blog.controller.user;
 
+import cn.yix.blog.controller.SessionTokens;
 import cn.yix.blog.core.comment.ICommentStorage;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/user/comments")
-@SessionAttributes("user")
+@SessionAttributes(SessionTokens.USER_TOKEN)
 public class UserCommentsController {
     @Resource(name = "commentStorage")
     private ICommentStorage commentStorage;
@@ -23,7 +24,7 @@ public class UserCommentsController {
     @RequestMapping(value = "/my_comments.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject getMyComments(@ModelAttribute("user") JSONObject user, @RequestParam(required = false, defaultValue = "1") int page,
+    JSONObject getMyComments(@ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @RequestParam(required = false, defaultValue = "1") int page,
                              @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return commentStorage.queryUserComments(user.getIntValue("id"), page, pageSize);
     }
@@ -31,7 +32,7 @@ public class UserCommentsController {
     @RequestMapping(value = "/comments_to_me.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject getCommentsToMe(@ModelAttribute("user") JSONObject user, @RequestParam(required = false, defaultValue = "1") int page,
+    JSONObject getCommentsToMe(@ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @RequestParam(required = false, defaultValue = "1") int page,
                                @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return commentStorage.queryCommentsToUser(user.getIntValue("id"), page, pageSize);
     }
@@ -39,7 +40,7 @@ public class UserCommentsController {
     @RequestMapping(value = "/add_comment.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject addComment(@ModelAttribute("user") JSONObject user, @RequestParam String content,
+    JSONObject addComment(@ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @RequestParam String content,
                           @RequestParam(required = false, defaultValue = "") String title, @RequestParam int articleId) {
         return commentStorage.saveComment(user.getIntValue("id"), articleId, title, content);
     }
