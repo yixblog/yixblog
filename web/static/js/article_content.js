@@ -6,11 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function () {
-    $(".comment_box").mouseenter(function () {
-        $(".comment_list").stop(true, false).slideDown();
-    }).mouseleave(function () {
-            $(".comment_list").stop(true, false).slideUp();
-        });
 
     var articleId = $("#articleIdInput").val();
 
@@ -58,12 +53,11 @@ $(document).ready(function () {
 
         $("#submit_new_comment").button().click(function () {
             var commentContent = editor.getContent();
-            var title = $.trim($("#comment_title").val());
             if (commentContent.length > 0) {
                 $.ajax({
                     url: "user/comments/add_comment.action",
                     type: "post",
-                    data: {articleId: articleId, content: commentContent, title: title},
+                    data: {articleId: articleId, content: commentContent},
                     dataType: "json",
                     success: function (data) {
                         if (!data.success) {

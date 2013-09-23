@@ -130,10 +130,22 @@ $(document).ready(function () {
             $("#validate_img").click();
         }
     });
+    function enterEventCallback(event) {
+        if (event.which == 13) {
+            var buttons = $("#login_dialog").dialog("option", "buttons");
+            buttons["登陆"]();
+        }
+    }
+
+    login_uid_input.keypress(enterEventCallback);
+    login_pwd_input.keypress(enterEventCallback);
+    login_validate_input.keypress(enterEventCallback);
+
     $("#validate_img").click(function () {
         $("#validate_img")[0].src = "validate/img";
     });
     $("#login_button").click(function () {
         $("#login_dialog").dialog("open");
     });
-});
+})
+;

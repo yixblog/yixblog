@@ -24,7 +24,7 @@
     line-height: 30px;
 }
 
-.article .article_info img{
+.article .article_info img {
     float: none;
 }
 
@@ -34,11 +34,7 @@
 }
 
 .content .comment_box {
-    position: fixed;
-    bottom: 0;
-    float: none;
     width: 1024px;
-    z-index: 999;
     background: #444;
 }
 
@@ -52,22 +48,11 @@
     line-height: 30px;
 }
 
-.comment_box .comment_box_title .right_btn {
-    height: 16px;
-    width: 16px;
-    float: right;
-    background: url("../../img/up.png") no-repeat;
-    margin: 2px;
-}
-
 .comment_box .comment_list {
-    display: none;
     width: 100%;
     border-top: 1px solid #fff;
     background: #fff;
     color: #000;
-    max-height: 400px;
-    overflow-y: auto;
 }
 
 .comment_box .comment_list a {
@@ -88,7 +73,7 @@
     padding: 10px;
 }
 
-.comment_box .comment_list .pager{
+.comment_box .comment_list .pager {
     color: #fff;
 }
 
@@ -101,7 +86,7 @@
 .comment_box .comment_list li .time {
     text-align: right;
     float: right;
-    padding: 10px;
+    padding-right: 10px;
     text-align: right;
 }
 
@@ -112,8 +97,15 @@
 .input_panel {
     padding-left: 10px;
     width: 1010px;
+    background: #cff;
 }
 
-.new_comment {
+.input_panel .new_comment {
     width: 100%;
+    border: 0;
+    margin-bottom: 10px;
+}
+
+.input_panel button {
+    margin: 10px 0;
 }

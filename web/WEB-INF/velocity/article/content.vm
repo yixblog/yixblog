@@ -30,7 +30,7 @@
     </div>
     <div class="ad article_ad">AD2</div>
     <div class="comment_box">
-        <div class="comment_box_title">评论列表<span class="right_btn"></span></div>
+        <div class="comment_box_title">评论列表</div>
         <div class="comment_list">
             <ul></ul>
             #if(!${user})
@@ -40,7 +40,6 @@
             #else
                 <div class="input_panel">
                     <label for="new_comment" class="new_comment">添加评论</label>
-                    <label for="comment_title">标题</label><input type="text" maxlength="30" id="comment_title">
                     <textarea id="new_comment"></textarea>
                     <button id="submit_new_comment">提交</button>
                 </div>
