@@ -54,6 +54,8 @@ public class ArticleEditController {
     public String editArticlePage(Model model, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user, @PathVariable("article_id") int articleId) {
         JSONObject res = articleStorage.queryArticleForEdit(articleId, user.getIntValue("id"));
         model.addAttribute("res", res);
+        JSONObject tags = articleStorage.getUserTags(user.getIntValue("id"));
+        model.addAttribute("tags", tags);
         return "article/edit";
     }
 

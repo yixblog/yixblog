@@ -21,14 +21,15 @@ $(document).ready(function () {
             alert("标题不能为空！");
             return;
         }
+        var articleId = $("#article_id_input").val();
         $.ajax({
-            url: "user/article/save.action",
-            data: {title: title, content: content, tags: tags},
+            url: "user/article/update.action",
+            data: {title: title, content: content, tags: tags, id: articleId},
             dataType: "json",
             type: "post",
             success: function (data) {
                 console.log("submitted return:" + JSON.stringify(data));
-                location.href = "article/view/" + data.article.id + ".htm";
+                location.href = "article/view/" + articleId + ".htm";
             }
         })
     });

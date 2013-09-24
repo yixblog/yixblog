@@ -1,15 +1,16 @@
 package cn.yix.blog.dao;
 
-import cn.yix.blog.dao.beans.CharacterBean;
-import cn.yix.blog.dao.mappers.*;
-import org.apache.ibatis.session.SqlSession;
+import cn.yix.blog.dao.beans.ArticleBean;
+import cn.yix.blog.dao.mappers.ArticleMapper;
+import cn.yix.blog.storage.AbstractStorage;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,28 +19,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Time: 下午12:06
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:WEB-INF/applicationContext.xml")
-public class DAOTest extends SqlSessionDaoSupport{
-    @Autowired
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){
-        super.setSqlSessionFactory(sqlSessionFactory);
+@ContextConfiguration(locations = {"file:web/WEB-INF/applicationContext.xml", "file:web/WEB-INF/dispatcher-servlet.xml"})
+public class DAOTest extends AbstractStorage {
+    @Resource(name = "sessionFactory")
+    public void setSqlSessionFactory(SqlSessionFactory sessionFactory) {
+        super.setSqlSessionFactory(sessionFactory);
     }
 
     @Test
-    public void testConfiguration(){
-        SqlSession sqlSession = getSqlSession();
-        AdminMapper adminMapper = sqlSession.getMapper(AdminMapper.class);
-        AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
-        ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
-        CommentMapper commentMapper = sqlSession.getMapper(CommentMapper.class);
-        CharacterMapper characterMapper = sqlSession.getMapper(CharacterMapper.class);
-        CharacterBean superAdmin = new CharacterBean();
-        superAdmin.setAdminManage(true);
-        superAdmin.setArticleManage(true);
-        superAdmin.setCommentManage(true);
-        superAdmin.setUserManage(true);
-        superAdmin.setSystemConfig(true);
-        superAdmin.setName("超级管理员");
-        characterMapper.save(superAdmin);
+    public void listArticles() {
+        ArticleMapper mapper = getMapper(ArticleMapper.class);
+        ArticleBean article = mapper.getArticle(2);
+        JSONObject res = new JSONObject();
+        res.put("article",article);
+        System.out.println(res.toJSONString());
     }
+
 }
