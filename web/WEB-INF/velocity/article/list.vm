@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>文章列表|佚博客</title>
+    <link rel="stylesheet" type="text/css" href="static/css/article_list.css">
+</head>
+</html>
