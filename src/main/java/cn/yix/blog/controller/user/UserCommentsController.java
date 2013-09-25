@@ -44,4 +44,11 @@ public class UserCommentsController {
                           @RequestParam(required = false, defaultValue = "") String title, @RequestParam int articleId) {
         return commentStorage.saveComment(user.getIntValue("id"), articleId, title, content);
     }
+
+    @RequestMapping(value = "/quote_comment.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    JSONObject quoteComment(@RequestParam("commentid") int commentId) {
+        return commentStorage.getOneComment(commentId);
+    }
 }

@@ -18,6 +18,10 @@
     margin: 0 10px;
 }
 
+.article .tag_list a {
+    margin-right: 5px;
+}
+
 .article .article_info {
     text-align: center;
     font-size: 14px;

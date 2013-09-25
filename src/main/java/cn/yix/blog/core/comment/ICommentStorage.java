@@ -18,4 +18,6 @@ public interface ICommentStorage {
     public JSONObject deleteComment(int commentId);
 
     public JSONObject queryCommentsToUser(int id, int page, int pageSize);
+
+    public JSONObject getOneComment(int commentId);
 }

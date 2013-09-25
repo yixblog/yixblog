@@ -27,6 +27,11 @@
             #end
         </div>
         <div class="article_content">${res.article.content}</div>
+        <div class="article_content tag_list">
+            #foreach($tag in $res.article.tags)
+                <a>$tag</a>
+            #end
+        </div>
     </div>
     <div class="ad article_ad">AD2</div>
     <div class="comment_box">
