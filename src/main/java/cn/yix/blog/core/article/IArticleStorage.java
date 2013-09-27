@@ -32,4 +32,5 @@ public interface IArticleStorage {
 
     public JSONObject queryTags(int topNumber);
 
+    public JSONObject queryArticleAuthors(int topnumber);
 }

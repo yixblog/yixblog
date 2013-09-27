@@ -16,6 +16,15 @@ $(document).ready(function () {
         $("#tag_cloud_box").empty().jQCloud(tagArray, {width: 200, height: 478});
     }
 
+    function initUserCloud(users) {
+        var userArray = [];
+        for (var i = 0; i < users.length; i++) {
+            var user = users[i];
+            userArray[i] = {text: user.nick, weight: user.articleCount, link: "#"};
+        }
+        $("#tag_cloud_box").empty().jQCloud(userArray, {width: 200, height: 478});
+    }
+
     //标签切换
     $(".left_box .cloud_box .tab").click(function () {
         $(".left_box .cloud_box .active").removeClass("active");
@@ -23,6 +32,16 @@ $(document).ready(function () {
         var type = $(this).prevAll().length;
         if (type > 0) {
             //作者
+            $.ajax({
+                url: "article/hot_users.action",
+                type: "post",
+                data: {topnumber: 20},
+                dataType: "json",
+                success: function (data) {
+                    var users = data.users;
+                    initUserCloud(users);
+                }
+            })
         } else {
             //标签
             $.ajax({

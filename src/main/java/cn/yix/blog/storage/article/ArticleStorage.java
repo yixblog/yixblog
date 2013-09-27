@@ -258,4 +258,14 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         res.put("tags", articleMapper.listTags(topNumber));
         return res;
     }
+
+    @Override
+    public JSONObject queryArticleAuthors(int topnumber) {
+        AccountMapper accountMapper = getMapper(AccountMapper.class);
+        List<AccountBean> accounts = accountMapper.listTopArticleAuthors(getRowBounds(1, topnumber));
+        JSONObject res = new JSONObject();
+        setResult(res, true, "查询成功");
+        res.put("users", accounts);
+        return res;
+    }
 }

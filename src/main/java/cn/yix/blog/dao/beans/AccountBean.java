@@ -19,6 +19,7 @@ public class AccountBean implements DatabaseEntity {
     private String weibo;
     private String email;
     private String tempEmail;
+    private int articleCount;
     private boolean banFlag = false;
     private long regTime;
     private long lastLogin;
@@ -144,5 +145,13 @@ public class AccountBean implements DatabaseEntity {
 
     public boolean equals(Object o) {
         return o instanceof AccountBean && ((AccountBean) o).getId() == this.getId();
+    }
+
+    public int getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(int articleCount) {
+        this.articleCount = articleCount;
     }
 }

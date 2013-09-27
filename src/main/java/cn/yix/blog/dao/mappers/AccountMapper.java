@@ -22,12 +22,12 @@ public interface AccountMapper {
      */
     public List<AccountBean> listAccounts(Map<String, Object> params, RowBounds pageArgs);
 
-    public int countListAccounts(Map<String,Object> params);
+    public int countListAccounts(Map<String, Object> params);
 
     //list all accounts includes banned ones
     public List<AccountBean> listAllAccounts(Map<String, Object> params, RowBounds pageArgs);
 
-    public int countListAllAccounts(Map<String,Object> params);
+    public int countListAllAccounts(Map<String, Object> params);
 
     public AccountBean getAccountById(int id);
 
@@ -43,4 +43,5 @@ public interface AccountMapper {
 
     public void update(AccountBean accountBean);
 
+    public List<AccountBean> listTopArticleAuthors(RowBounds rb);
 }

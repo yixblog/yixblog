@@ -70,4 +70,8 @@ public class ArticleController {
         return "article/tag_result";
     }
 
+    @RequestMapping(value = "hot_users.action",method = RequestMethod.POST)
+    public @ResponseBody JSONObject listHotUsers(@RequestParam int topnumber){
+        return articleStorage.queryArticleAuthors(topnumber);
+    }
 }

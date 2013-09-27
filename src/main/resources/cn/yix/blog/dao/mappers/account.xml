@@ -15,6 +15,7 @@
         <result column="regtime" property="regTime"/>
         <result column="lastlogin" property="lastLogin"/>
         <result column="sex" property="sex"/>
+        <result column="article_count" property="articleCount"/>
     </resultMap>
 
     <select id="listAccounts" parameterType="Map" resultMap="account">
@@ -89,6 +90,10 @@
 
     <select id="getAccountByEmail" parameterType="String" resultMap="account">
         select * from blog_accounts where email=#{email} or temp_email=#{tempEmail}
+    </select>
+
+    <select id="listTopArticleAuthors" resultMap="account">
+        select a.*,count(c.id) article_count from blog_accounts a left join blog_articles c on c.author=a.id group by a.id order by count(c.id) desc
     </select>
 
     <update id="update" parameterType="Account">
