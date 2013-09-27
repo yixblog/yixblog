@@ -13,7 +13,7 @@ $(document).ready(function () {
             var tag = tags[i];
             tagArray[i] = {text: tag.tag, weight: tag.count, link: "article/tag/" + tag.tag + ".htm"};
         }
-        $("#tag_cloud_box").jQCloud(tagArray, {width: 200, height: 478});
+        $("#tag_cloud_box").empty().jQCloud(tagArray, {width: 200, height: 478});
     }
 
     //标签切换
