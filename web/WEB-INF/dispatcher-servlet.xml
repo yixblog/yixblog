@@ -14,7 +14,8 @@
                 <property name="supportedMediaTypes" value="application/json"/>
                 <property name="features">
                     <array>
-                        <value type="com.alibaba.fastjson.serializer.SerializerFeature">DisableCircularReferenceDetect</value>
+                        <value type="com.alibaba.fastjson.serializer.SerializerFeature">DisableCircularReferenceDetect
+                        </value>
                         <value type="com.alibaba.fastjson.serializer.SerializerFeature">QuoteFieldNames</value>
                     </array>
                 </property>
@@ -40,6 +41,10 @@
             </property>
         </bean>
     </mvc:interceptors>
+
+    <bean class="cn.yix.blog.controller.exception.ExceptionHandler">
+        <property name="order" value="1"/>
+    </bean>
     <!--velocity-->
     <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="WEB-INF/velocity"/>

@@ -5,4 +5,11 @@
     <title>文章列表|佚博客</title>
     <link rel="stylesheet" type="text/css" href="static/css/article_list.css">
 </head>
+<body>
+<div class="content" id="content">
+    #parse("utils/head.vm")
+
+    #parse("utils/foot.vm")
+</div>
+</body>
 </html>
