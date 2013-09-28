@@ -27,8 +27,8 @@ public class ArticleController {
                                @RequestParam(required = false) String endDate, @RequestParam(required = false, defaultValue = "1") int page,
                                @RequestParam(required = false, defaultValue = "20") int pageSize,
                                @RequestParam(required = false, defaultValue = "0") int userId, @RequestParam(required = false) String tag, Model model) {
-        if ("".equals(tag)){
-            tag=null;
+        if ("".equals(tag)) {
+            tag = null;
         }
         JSONObject res = articleStorage.queryArticles(page, pageSize, DateUtils.parseDate(startDate, DateUtils.DATE_FORMAT),
                 DateUtils.parseDate(endDate, DateUtils.DATE_FORMAT), userId, tag, keywords, null);
@@ -43,8 +43,8 @@ public class ArticleController {
                                   @RequestParam(required = false) String endDate, @RequestParam(required = false, defaultValue = "1") int page,
                                   @RequestParam(required = false, defaultValue = "20") int pageSize,
                                   @RequestParam(required = false, defaultValue = "0") int userId, @RequestParam(required = false) String tag) {
-        if ("".equals(tag)){
-            tag=null;
+        if ("".equals(tag)) {
+            tag = null;
         }
         return articleStorage.queryArticles(page, pageSize, DateUtils.parseDate(startDate, DateUtils.DATE_FORMAT), DateUtils.parseDate(endDate, DateUtils.DATE_FORMAT), userId, tag, keywords, null);
     }
@@ -70,8 +70,10 @@ public class ArticleController {
         return "article/tag_result";
     }
 
-    @RequestMapping(value = "hot_users.action",method = RequestMethod.POST)
-    public @ResponseBody JSONObject listHotUsers(@RequestParam int topnumber){
+    @RequestMapping(value = "hot_users.action", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    JSONObject listHotUsers(@RequestParam int topnumber) {
         return articleStorage.queryArticleAuthors(topnumber);
     }
 }

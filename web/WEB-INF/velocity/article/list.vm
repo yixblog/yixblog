@@ -8,7 +8,17 @@
 <body>
 <div class="content" id="content">
     #parse("utils/head.vm")
+    <div class="article_list_content">
+        <div class="search_box">
+            <input type="text" placeholder="搜索" id="search_input" value="${res.keywords}">
+            <input type="button" id="search_btn" value="搜索">
+            <div class="hidden_btn"></div>
+            <div class="hide"></div>
+        </div>
+        <ul class="list_box">
 
+        </ul>
+    </div>
     #parse("utils/foot.vm")
 </div>
 </body>

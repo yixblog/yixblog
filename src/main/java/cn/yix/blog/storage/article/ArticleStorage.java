@@ -8,6 +8,7 @@ import cn.yix.blog.dao.mappers.AccountMapper;
 import cn.yix.blog.dao.mappers.AdminMapper;
 import cn.yix.blog.dao.mappers.ArticleMapper;
 import cn.yix.blog.storage.AbstractStorage;
+import cn.yix.blog.utils.DateUtils;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
@@ -31,16 +32,20 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
 
     @Override
     public JSONObject queryArticles(int page, int pageSize, Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, String sortKey) {
+        JSONObject res = new JSONObject();
         Map<String, Object> params = new HashMap<>();
         if (timeStart != null) {
+            res.put("addtimeBegin", DateUtils.getDateString(timeStart.getTime(), DateUtils.DATE_FORMAT));
             params.put("addtimeBegin", timeStart.getTime());
         }
         if (timeEnd != null) {
+            res.put("addtimeEnd", DateUtils.getDateString(timeEnd.getTime(), DateUtils.DATE_FORMAT));
             params.put("addtimeEnd", timeEnd.getTime());
         }
         if (keywords != null) {
             String[] keywordsForQuery = buildQueryKeywords(keywords);
             params.put("keywords", keywordsForQuery);
+            res.put("keywords", buildKeywordsString(keywords));
         }
         if (sortKey == null) {
             sortKey = "addtime";
@@ -53,7 +58,6 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         }
         ArticleMapper articleMapper = getMapper(ArticleMapper.class);
         List<ArticleBean> articles = null;
-        JSONObject res = new JSONObject();
         if ("addtime".equals(sortKey)) {
             articles = articleMapper.listNewArticles(params, getRowBounds(page, pageSize));
         } else if ("replycount".equals(sortKey)) {
@@ -64,6 +68,14 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         int totalCount = articleMapper.countArticles(params);
         setPageInfo(res, totalCount, page, pageSize);
         return res;
+    }
+
+    private String buildKeywordsString(String[] keywords) {
+        StringBuilder builder = new StringBuilder();
+        for (String keyword : keywords) {
+            builder.append(keyword).append(" ");
+        }
+        return builder.toString().trim();
     }
 
     private String[] buildQueryKeywords(String[] keywords) {

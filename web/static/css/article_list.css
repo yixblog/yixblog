@@ -1,0 +1,35 @@
+.article_list_content {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.article_list_content .search_box {
+    width: 1000px;
+    background: #533;
+    box-shadow: 8px 3px 3px #322;
+}
+
+.search_box input {
+    font-size: 28px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 4px;
+}
+
+.search_box .hidden_btn {
+    width: 100%;
+    cursor: pointer;
+}
+
+.search_box .hide {
+    width: 100%;
+    display: none;
+}
+
+.article_list_content .list_box {
+    width: 100%;
+}
+
+.list_box li {
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #333));
+}
