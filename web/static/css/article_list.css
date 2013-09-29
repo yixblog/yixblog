@@ -19,6 +19,9 @@
 .search_box .hidden_btn {
     width: 100%;
     cursor: pointer;
+    text-align: center;
+    background: #353;
+    font-size: 10px;
 }
 
 .search_box .hide {
@@ -26,10 +29,58 @@
     display: none;
 }
 
+.search_box .hide input, .search_box .hide label {
+    float: left;
+    position: relative;
+}
+
+.search_box .hide input {
+    margin-right: 5px;
+}
+
 .article_list_content .list_box {
     width: 100%;
+    border-top: 2px solid #fff;
 }
 
 .list_box li {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #333));
+    background-image: -moz-linear-gradient(top, #666, #333);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666', endColorstr='#333', GradientType='0');
+    width: 100%;
+    border-bottom: 2px solid #fff;
+}
+
+.list_box li .title {
+    font-size: 26px;
+    line-height: 30px;
+    height: 30px;
+}
+
+.list_box li .title a {
+    width: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list_box li .response_count {
+    width: 100px;
+    float: right;
+    background: url(../../img/reply.png) no-repeat;
+    text-align: right;
+}
+
+.list_box li .author {
+    background: url(../../img/person.png) no-repeat;
+    width: 100px;
+    text-align: right;
+    float: right;
+}
+
+.list_box li .tag_list a {
+    margin: 0 2px;
+}
+
+.list_box li .time {
+    float: right;
 }

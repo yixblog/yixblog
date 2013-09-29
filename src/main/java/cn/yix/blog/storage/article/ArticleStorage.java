@@ -34,27 +34,9 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     public JSONObject queryArticles(int page, int pageSize, Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, String sortKey) {
         JSONObject res = new JSONObject();
         Map<String, Object> params = new HashMap<>();
-        if (timeStart != null) {
-            res.put("addtimeBegin", DateUtils.getDateString(timeStart.getTime(), DateUtils.DATE_FORMAT));
-            params.put("addtimeBegin", timeStart.getTime());
-        }
-        if (timeEnd != null) {
-            res.put("addtimeEnd", DateUtils.getDateString(timeEnd.getTime(), DateUtils.DATE_FORMAT));
-            params.put("addtimeEnd", timeEnd.getTime());
-        }
-        if (keywords != null) {
-            String[] keywordsForQuery = buildQueryKeywords(keywords);
-            params.put("keywords", keywordsForQuery);
-            res.put("keywords", buildKeywordsString(keywords));
-        }
+        initQueryParams(timeStart, timeEnd, userId, tag, keywords, res, params);
         if (sortKey == null) {
             sortKey = "addtime";
-        }
-        if (userId > 0) {
-            params.put("userid", userId);
-        }
-        if (tag != null) {
-            params.put("tag", tag);
         }
         ArticleMapper articleMapper = getMapper(ArticleMapper.class);
         List<ArticleBean> articles = null;
@@ -68,6 +50,28 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         int totalCount = articleMapper.countArticles(params);
         setPageInfo(res, totalCount, page, pageSize);
         return res;
+    }
+
+    private void initQueryParams(Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, JSONObject res, Map<String, Object> params) {
+        res.put("addtimeBegin", timeStart != null ? DateUtils.getDateString(timeStart.getTime(), DateUtils.DATE_FORMAT) : "");
+        if (timeStart != null) {
+            params.put("addtimeBegin", timeStart.getTime());
+        }
+        res.put("addtimeEnd", timeEnd != null ? DateUtils.getDateString(timeEnd.getTime(), DateUtils.DATE_FORMAT) : "");
+        if (timeEnd != null) {
+            params.put("addtimeEnd", timeEnd.getTime());
+        }
+        res.put("keywords", keywords != null ? buildKeywordsString(keywords) : "");
+        if (keywords != null) {
+            String[] keywordsForQuery = buildQueryKeywords(keywords);
+            params.put("keywords", keywordsForQuery);
+        }
+        if (userId > 0) {
+            params.put("userid", userId);
+        }
+        if (tag != null) {
+            params.put("tag", tag);
+        }
     }
 
     private String buildKeywordsString(String[] keywords) {

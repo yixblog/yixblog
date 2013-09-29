@@ -12,12 +12,34 @@
         <div class="search_box">
             <input type="text" placeholder="搜索" id="search_input" value="${res.keywords}">
             <input type="button" id="search_btn" value="搜索">
-            <div class="hidden_btn"></div>
-            <div class="hide"></div>
+
+            <div class="hide">
+                <label for="date_start_input">开始时间</label>
+                <input type="text" readonly="true" id="date_start_input" value="${res.addtimeBegin}">
+                <label for="date_end_input">结束时间</label>
+                <input type="text" readonly="true" id="date_end_input" value="${res.addtimeEnd}">
+            </div>
+            <div class="hidden_btn">-------高级搜索-------</div>
         </div>
         <ul class="list_box">
-
+            #foreach($article in $res.articles)
+                <li>
+                    <span class="title">
+                        <a href="article/view/${article.id}.htm" target="_blank">${article.title}</a>
+                    </span>
+                    <span class="response_count">${article.responseCount}</span>
+                    <span class="author"><a href="\#">${article.author.nick}</a></span>
+                    <span class="tag_box">
+                        #foreach($tag in ${article.tags})
+                            <a href="article/tag/${tag}.htm" target="_blank">$tag</a>
+                        #end
+                    </span>
+                    <span class="time">${article.addTimeString}</span>
+                </li>
+            #end
         </ul>
+        <div class="pager_box">
+        </div>
     </div>
     #parse("utils/foot.vm")
 </div>

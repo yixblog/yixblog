@@ -23,6 +23,7 @@
         <div class="cloud_box">
             <span class="tab">Tag</span>
             <span class="tab">作者</span>
+
             <div class="tag_box" id="tag_cloud_box">
             </div>
         </div>
@@ -40,12 +41,13 @@
                     #set($newArticles = $data.getJSONObject("newArticles"))
                     #foreach($newArticle in $newArticles.getJSONArray("articles"))
                         <dd>
-                            <span class="title"><a href="article/view/${newArticle.id}.htm">${newArticle.title}</a></span>
+                            <span class="title"><a
+                                    href="article/view/${newArticle.id}.htm">${newArticle.title}</a></span>
                             <span class="response_count">${newArticle.replycount}</span>
                             <span class="author">${newArticle.author.nick}</span>
                             <span class="tag_list">
                                 #foreach($tag in $newArticle.getJSONArray("tags"))
-                                <a href="article/query_tag/${tag}.htm" target="#">${tag}</a>
+                                    <a href="article/query_tag/${tag}.htm" target="#">${tag}</a>
                                 #end
                             </span>
                             <span class="time_box">${newArticle.addtimestring}</span>
@@ -58,17 +60,18 @@
                 <dl class="item article">
                     #set($hotArticles=$data.getJSONObject("hotArticles"))
                     #foreach($hotArticle in $hotArticles.getJSONArray("articles"))
-                    <dd>
-                        <span class="title"><a href="article/view/${hotArticle.id}.htm">${hotArticle.title}</a></span>
-                        <span class="response_count">${hotArticle.replycount}</span>
-                        <span class="author">${hotArticle.author.nick}</span>
+                        <dd>
+                            <span class="title"><a
+                                    href="article/view/${hotArticle.id}.htm">${hotArticle.title}</a></span>
+                            <span class="response_count">${hotArticle.replycount}</span>
+                            <span class="author">${hotArticle.author.nick}</span>
                             <span class="tag_list">
                                 #foreach($tag in $hotArticle.getJSONArray("tags"))
-                                    <a href="article/query_tag/${tag}.htm" target="#">${tag}</a>
+                                    <a href="article/tag/${tag}.htm" target="#">${tag}</a>
                                 #end
                             </span>
-                        <span class="time_box">${hotArticle.addtimestring}</span>
-                    </dd>
+                            <span class="time_box">${hotArticle.addtimestring}</span>
+                        </dd>
                     #end
                 </dl>
                 <dl class="item notice">
