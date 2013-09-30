@@ -10,7 +10,16 @@
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="false">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-            <ref bean="jsonView"/>
+            <bean id="jsonView" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json"/>
+                <property name="features">
+                    <array>
+                        <value type="com.alibaba.fastjson.serializer.SerializerFeature">DisableCircularReferenceDetect
+                        </value>
+                        <value type="com.alibaba.fastjson.serializer.SerializerFeature">QuoteFieldNames</value>
+                    </array>
+                </property>
+            </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
     <mvc:interceptors>
@@ -33,16 +42,6 @@
         </bean>
     </mvc:interceptors>
 
-    <bean name="jsonView" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-        <property name="supportedMediaTypes" value="application/json"/>
-        <property name="features">
-            <array>
-                <value type="com.alibaba.fastjson.serializer.SerializerFeature">DisableCircularReferenceDetect
-                </value>
-                <value type="com.alibaba.fastjson.serializer.SerializerFeature">QuoteFieldNames</value>
-            </array>
-        </property>
-    </bean>
 
     <bean class="cn.yix.blog.controller.exception.ExceptionHandler">
         <property name="order" value="1"/>

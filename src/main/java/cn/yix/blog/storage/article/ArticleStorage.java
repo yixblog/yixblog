@@ -8,13 +8,16 @@ import cn.yix.blog.dao.mappers.AccountMapper;
 import cn.yix.blog.dao.mappers.AdminMapper;
 import cn.yix.blog.dao.mappers.ArticleMapper;
 import cn.yix.blog.storage.AbstractStorage;
+import cn.yix.blog.storage.article.datafix.ArticleQueryJSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,8 +35,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
 
     @Override
     public JSONObject queryArticles(int page, int pageSize, Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, String sortKey) {
-        Map<String, Object> params = new HashMap<>();
-        initQueryParams(timeStart, timeEnd, userId, tag, keywords, params);
+        JSONObject params = initQueryParams(timeStart, timeEnd, userId, tag, keywords);
         if (sortKey == null) {
             sortKey = "addtime";
         }
@@ -52,7 +54,8 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         return res;
     }
 
-    private void initQueryParams(Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, Map<String, Object> params) {
+    private JSONObject initQueryParams(Date timeStart, Date timeEnd, int userId, String tag, String[] keywords) {
+        JSONObject params = new ArticleQueryJSON();
         if (timeStart != null) {
             params.put("addtimeBegin", timeStart.getTime());
         }
@@ -69,6 +72,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         if (tag != null) {
             params.put("tag", tag);
         }
+        return params;
     }
 
     private String[] buildQueryKeywords(String[] keywords) {

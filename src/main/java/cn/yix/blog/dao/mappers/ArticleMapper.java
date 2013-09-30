@@ -2,10 +2,10 @@ package cn.yix.blog.dao.mappers;
 
 import cn.yix.blog.dao.beans.ArticleBean;
 import cn.yix.blog.dao.beans.TagCountBean;
+import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,15 +21,15 @@ public interface ArticleMapper {
      * @param pageArgs page args
      * @return list of ArticlesBean
      */
-    public List<ArticleBean> listNewArticles(Map<String, Object> params, RowBounds pageArgs);
+    public List<ArticleBean> listNewArticles(JSONObject params, RowBounds pageArgs);
 
-    public List<ArticleBean> listHotArticles(Map<String, Object> params, RowBounds pageArgs);
+    public List<ArticleBean> listHotArticles(JSONObject params, RowBounds pageArgs);
 
     public List<String> getArticleTags(int articleId);
 
     public List<String> getUserTags(int userId);
 
-    public int countArticles(Map<String, Object> params);
+    public int countArticles(JSONObject params);
 
     public List<TagCountBean> listTags(int topNumber);
 
