@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
@@ -46,7 +47,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
         JSONObject res = new JSONObject();
         Map<String, Object> params = buildQueryUserParam(param);
         int totalCount = accountMapper.countListAccounts(params);
-        List<AccountBean> accounts = accountMapper.listAccounts(params, getRowBounds(page,pageSize));
+        List<AccountBean> accounts = accountMapper.listAccounts(params, getRowBounds(page, pageSize));
         setResult(res, true, "执行成功");
         setPageInfo(res, totalCount, page, pageSize);
         res.put("accounts", accounts);
@@ -94,6 +95,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doUserLogin(String uid, String pwd) {
         uid = uid.toLowerCase();
         AccountMapper accountMapper = getMapper(AccountMapper.class);
@@ -164,6 +166,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doForceChangePassword(String resetCode, String newPwd) {
         ClearTaskBean task = resetCodeTask.queryTask(resetCode);
         JSONObject res = new JSONObject();
@@ -189,6 +192,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doConfirmEmail(String resetCode) {
         ClearTaskBean task = resetCodeTask.queryTask(resetCode);
         JSONObject res = new JSONObject();
@@ -239,6 +243,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doChangePwd(int id, String oldPwd, String newPwd) {
         JSONObject res = new JSONObject();
         AccountMapper accountMapper = getMapper(AccountMapper.class);
@@ -260,6 +265,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doChangeEmail(int id, String email) {
         email = email.toLowerCase();
         JSONObject res = new JSONObject();
@@ -296,6 +302,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doClearTempEmail(int id, String email) {
         email = email.toLowerCase();
         JSONObject res = new JSONObject();
@@ -310,6 +317,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doRegisterUser(String uid, String pwd, String nick, String email, String sex) {
         uid = uid.toLowerCase();
         if (email != null) {
@@ -345,26 +353,31 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doBindQQ(int id, String qq) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @Transactional
     public JSONObject doBindWeibo(int id, String weibo) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @Transactional
     public JSONObject doQQLogin(String qq) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @Transactional
     public JSONObject doWeiboLogin(String weibo) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
+    @Transactional
     public JSONObject editUser(int id, String pwd, String nick, String email, String sex, String avatar) {
         JSONObject res = new JSONObject();
         AccountMapper accountMapper = getMapper(AccountMapper.class);
@@ -396,6 +409,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public JSONObject doBanUser(int id, int days) {
         JSONObject res = new JSONObject();
         AccountMapper accountMapper = getMapper(AccountMapper.class);
@@ -415,6 +429,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public void doUnbanUser(int id) {
         AccountMapper accountMapper = getMapper(AccountMapper.class);
         AccountBean bean = accountMapper.getAccountById(id);
@@ -425,6 +440,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public void doUnbindQQ(int id) {
         AccountMapper accountMapper = getMapper(AccountMapper.class);
         AccountBean account = accountMapper.getAccountById(id);
@@ -435,6 +451,7 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
     }
 
     @Override
+    @Transactional
     public void doUnbindWeibo(int id) {
         AccountMapper accountMapper = getMapper(AccountMapper.class);
         AccountBean account = accountMapper.getAccountById(id);

@@ -23,30 +23,39 @@ public class ArticleController {
     public IArticleStorage articleStorage;
 
     @RequestMapping("/query.htm")
-    public String listArticles(@RequestParam(required = false) String[] keywords, @RequestParam(required = false) String startDate,
-                               @RequestParam(required = false) String endDate, @RequestParam(required = false, defaultValue = "1") int page,
-                               @RequestParam(required = false, defaultValue = "20") int pageSize,
-                               @RequestParam(required = false, defaultValue = "0") int userId, @RequestParam(required = false) String tag, Model model) {
-        if ("".equals(tag)) {
-            tag = null;
-        }
-        JSONObject res = articleStorage.queryArticles(page, pageSize, DateUtils.parseDate(startDate, DateUtils.DATE_FORMAT),
-                DateUtils.parseDate(endDate, DateUtils.DATE_FORMAT), userId, tag, keywords, null);
-        model.addAttribute("res", res);
+    public String listArticles(@RequestParam(required = false,value = "keywords[]") String[] keywords, @RequestParam(required = false) String startDate,
+                               @RequestParam(required = false) String endDate, Model model) {
+        fillPageParams(keywords, startDate, endDate, model);
         return "article/list";
+    }
+
+    private void fillPageParams(String[] keywords, String startDate, String endDate, Model model) {
+        model.addAttribute("keywordstring", buildKeywordsString(keywords));
+        model.addAttribute("startDate", startDate == null ? "" : startDate);
+        model.addAttribute("endDate", endDate == null ? "" : endDate);
+    }
+
+    private String buildKeywordsString(String[] keywords) {
+        StringBuilder builder = new StringBuilder();
+        if (keywords != null) {
+            for (String keyword : keywords) {
+                builder.append(keyword).append(" ");
+            }
+        }
+        return builder.toString().trim();
     }
 
     @RequestMapping(value = "/query.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject listArticlesByJSON(@RequestParam(required = false) String[] keywords, @RequestParam(required = false) String startDate,
+    JSONObject listArticlesByJSON(@RequestParam(required = false,value = "keywords[]") String[] keywords, @RequestParam(required = false) String startDate,
                                   @RequestParam(required = false) String endDate, @RequestParam(required = false, defaultValue = "1") int page,
-                                  @RequestParam(required = false, defaultValue = "20") int pageSize,
+                                  @RequestParam(required = false, defaultValue = "20") int pageSize, @RequestParam(required = false, defaultValue = "addtime") String sortkey,
                                   @RequestParam(required = false, defaultValue = "0") int userId, @RequestParam(required = false) String tag) {
         if ("".equals(tag)) {
             tag = null;
         }
-        return articleStorage.queryArticles(page, pageSize, DateUtils.parseDate(startDate, DateUtils.DATE_FORMAT), DateUtils.parseDate(endDate, DateUtils.DATE_FORMAT), userId, tag, keywords, null);
+        return articleStorage.queryArticles(page, pageSize, DateUtils.parseDate(startDate, DateUtils.DATE_FORMAT), DateUtils.parseDate(endDate, DateUtils.DATE_FORMAT), userId, tag, keywords, sortkey);
     }
 
     @RequestMapping("/view/{articleId}.htm")

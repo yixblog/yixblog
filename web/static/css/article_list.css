@@ -6,14 +6,26 @@
 .article_list_content .search_box {
     width: 1000px;
     background: #533;
-    box-shadow: 8px 3px 3px #322;
+    border: 1px solid #900;
+    box-shadow: 0 0 10px #422;
+    margin: 10px;
 }
 
-.search_box input {
+.search_box>input {
     font-size: 28px;
     height: 32px;
     line-height: 32px;
     border-radius: 4px;
+    margin: 5px;
+}
+
+.search_box #search_input {
+    width: 800px;
+}
+
+.search_box #search_btn {
+    float: right;
+    line-height: 1px;
 }
 
 .search_box .hidden_btn {
@@ -27,11 +39,13 @@
 .search_box .hide {
     width: 100%;
     display: none;
+    margin: 5px 0;
 }
 
-.search_box .hide input, .search_box .hide label {
+.search_box .hide input, .search_box .hide label, .search_box .hide select {
     float: left;
     position: relative;
+    margin-left: 5px;
 }
 
 .search_box .hide input {
@@ -75,6 +89,10 @@
     width: 100px;
     text-align: right;
     float: right;
+}
+
+.list_box li .tag_list {
+    clear: left;
 }
 
 .list_box li .tag_list a {

@@ -13,6 +13,7 @@ import cn.yix.blog.utils.timertask.ClearTaskBean;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject doLogin(String uid, String pwd) {
         uid = uid.toLowerCase();
         AdminMapper adminMapper = getMapper(AdminMapper.class);
@@ -65,6 +67,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject saveAdminAccount(String uid, String pwd, String email) {
         uid = uid.toLowerCase();
         email = email.toLowerCase();
@@ -148,6 +151,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject doForceResetPassword(String resetCode, String pwd) {
         JSONObject res = new JSONObject();
         AdminMapper adminMapper = getMapper(AdminMapper.class);
@@ -170,6 +174,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject doChangePassword(int id, String oldPwd, String newPwd) {
         AdminMapper adminMapper = getMapper(AdminMapper.class);
         AdminBean adminBean = adminMapper.getAdminById(id);
@@ -210,6 +215,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject doResetEmail(String resetCode, String email) {
         JSONObject res = new JSONObject();
         ClearTaskBean task = clearResetCodeTask.queryTask(resetCode);
@@ -267,6 +273,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject deleteAdmin(int id) {
         AdminMapper adminMapper = getMapper(AdminMapper.class);
         AdminBean adminBean = adminMapper.getAdminById(id);
@@ -281,6 +288,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject doEditAdmin(int id, String pwd, String email) {
         if (email != null) {
             email = email.toLowerCase();
@@ -301,6 +309,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public JSONObject doConfirmEmail(String resetCode) {
         JSONObject res = new JSONObject();
         ClearTaskBean task = clearResetCodeTask.queryTask(resetCode);
@@ -351,6 +360,7 @@ public class AdminAccountStorage extends AbstractStorage implements IAdminAccoun
     }
 
     @Override
+    @Transactional
     public void doClearTempEmail(int id, String email) {
         AdminMapper adminMapper = getMapper(AdminMapper.class);
         AdminBean adminBean = adminMapper.getAdminById(id);

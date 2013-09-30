@@ -9,6 +9,7 @@ import cn.yix.blog.storage.AbstractStorage;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class AdminCharacterStorage extends AbstractStorage implements IAdminChar
     }
 
     @Override
+    @Transactional
     public JSONObject updateCharacter(int id, String name, int permissionMask) {
         CharacterMapper characterMapper = getMapper(CharacterMapper.class);
         JSONObject res = new JSONObject();
@@ -78,6 +80,7 @@ public class AdminCharacterStorage extends AbstractStorage implements IAdminChar
     }
 
     @Override
+    @Transactional
     public JSONObject saveCharacter(String name, int permissionMask) {
         CharacterBean characterBean = new CharacterBean();
         CharacterMapper characterMapper = getMapper(CharacterMapper.class);
@@ -94,6 +97,7 @@ public class AdminCharacterStorage extends AbstractStorage implements IAdminChar
     }
 
     @Override
+    @Transactional
     public JSONObject deleteCharacter(int id) {
         CharacterMapper characterMapper = getMapper(CharacterMapper.class);
         JSONObject res = new JSONObject();
@@ -120,6 +124,7 @@ public class AdminCharacterStorage extends AbstractStorage implements IAdminChar
     }
 
     @Override
+    @Transactional
     public JSONObject doSetAdminCharacters(int adminId, int... characterIds) {
         CharacterMapper characterMapper = getMapper(CharacterMapper.class);
         AdminMapper adminMapper = getMapper(AdminMapper.class);

@@ -30,20 +30,20 @@
         select * from <include refid="view_name"/> where email=#{email}
     </select>
 
-    <select id="listAdmins" parameterType="Map" resultMap="admin">
+    <select id="listAdmins" parameterType="hashmap" resultMap="admin">
         select * from <include refid="view_name"/>
         <where>
-            <if test="#uid!=null"> and uid like #{uid}</if>
-            <if test="#email!=null"> and email=#{email} </if>
+            <if test="uid!=null"> and uid like #{uid}</if>
+            <if test="email!=null"> and email=#{email} </if>
         </where>
         order by uid asc
     </select>
 
-    <select id="countAdmins" parameterType="Map" resultType="int">
+    <select id="countAdmins" parameterType="hashmap" resultType="int">
         select count(*) from <include refid="view_name"/>
         <where>
-            <if test="#uid!=null"> and uid like #{uid}</if>
-            <if test="#email!=null"> and email=#{email} </if>
+            <if test="uid!=null"> and uid like #{uid}</if>
+            <if test="email!=null"> and email=#{email} </if>
         </where>
     </select>
 
@@ -56,9 +56,9 @@
 
     <update id="update" parameterType="Admin">
         update blog_admins set
-        <if test="#pwd!=null" >pwd=#{pwd},</if>
-        <if test="#email!=null">email=#{email,jdbcType=VARCHAR},</if>
-        <if test="#tempEmail!=null">temp_email=#{tempEmail,jdbcType=VARCHAR},</if>
+        <if test="pwd!=null" >pwd=#{pwd},</if>
+        <if test="email!=null">email=#{email,jdbcType=VARCHAR},</if>
+        <if test="tempEmail!=null">temp_email=#{tempEmail,jdbcType=VARCHAR},</if>
         lastlogin=#{lastLogin,jdbcType=int}
         where id=#{id}
     </update>

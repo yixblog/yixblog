@@ -54,7 +54,7 @@
                         </dd>
                     #end
                     <dd>
-                        <a href="#" target="_blank" class="more">更多>></a>
+                        <a href="article/query.htm" target="_blank" class="more">更多>></a>
                     </dd>
                 </dl>
                 <dl class="item article">

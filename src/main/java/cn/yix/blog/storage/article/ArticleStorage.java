@@ -8,10 +8,10 @@ import cn.yix.blog.dao.mappers.AccountMapper;
 import cn.yix.blog.dao.mappers.AdminMapper;
 import cn.yix.blog.dao.mappers.ArticleMapper;
 import cn.yix.blog.storage.AbstractStorage;
-import cn.yix.blog.utils.DateUtils;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -32,9 +32,8 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
 
     @Override
     public JSONObject queryArticles(int page, int pageSize, Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, String sortKey) {
-        JSONObject res = new JSONObject();
         Map<String, Object> params = new HashMap<>();
-        initQueryParams(timeStart, timeEnd, userId, tag, keywords, res, params);
+        initQueryParams(timeStart, timeEnd, userId, tag, keywords, params);
         if (sortKey == null) {
             sortKey = "addtime";
         }
@@ -45,6 +44,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         } else if ("replycount".equals(sortKey)) {
             articles = articleMapper.listHotArticles(params, getRowBounds(page, pageSize));
         }
+        JSONObject res = new JSONObject();
         res.put("articles", articles);
         res.put("success", true);
         int totalCount = articleMapper.countArticles(params);
@@ -52,16 +52,13 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         return res;
     }
 
-    private void initQueryParams(Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, JSONObject res, Map<String, Object> params) {
-        res.put("addtimeBegin", timeStart != null ? DateUtils.getDateString(timeStart.getTime(), DateUtils.DATE_FORMAT) : "");
+    private void initQueryParams(Date timeStart, Date timeEnd, int userId, String tag, String[] keywords, Map<String, Object> params) {
         if (timeStart != null) {
             params.put("addtimeBegin", timeStart.getTime());
         }
-        res.put("addtimeEnd", timeEnd != null ? DateUtils.getDateString(timeEnd.getTime(), DateUtils.DATE_FORMAT) : "");
         if (timeEnd != null) {
             params.put("addtimeEnd", timeEnd.getTime());
         }
-        res.put("keywords", keywords != null ? buildKeywordsString(keywords) : "");
         if (keywords != null) {
             String[] keywordsForQuery = buildQueryKeywords(keywords);
             params.put("keywords", keywordsForQuery);
@@ -72,14 +69,6 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
         if (tag != null) {
             params.put("tag", tag);
         }
-    }
-
-    private String buildKeywordsString(String[] keywords) {
-        StringBuilder builder = new StringBuilder();
-        for (String keyword : keywords) {
-            builder.append(keyword).append(" ");
-        }
-        return builder.toString().trim();
     }
 
     private String[] buildQueryKeywords(String[] keywords) {
@@ -105,6 +94,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject saveArticle(int userId, String title, String content, boolean topFlag, String[] tags) {
         AccountMapper accountMapper = getMapper(AccountMapper.class);
         JSONObject res = new JSONObject();
@@ -138,6 +128,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject editArticle(int userId, int articleId, String title, String content, String[] tags) {
         AccountMapper accountMapper = getMapper(AccountMapper.class);
         AccountBean user = accountMapper.getAccountById(userId);
@@ -169,6 +160,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject doAdminEditArticle(int adminId, int articleId, String title, String content, boolean topFlag, String[] tags) {
         AdminMapper adminMapper = getMapper(AdminMapper.class);
         AdminBean admin = adminMapper.getAdminById(adminId);
@@ -195,6 +187,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject deleteArticle(int userId, int articleId) {
         AccountMapper accountMapper = getMapper(AccountMapper.class);
         AccountBean user = accountMapper.getAccountById(userId);
@@ -217,6 +210,7 @@ public class ArticleStorage extends AbstractStorage implements IArticleStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject doAdminDeleteArticle(int adminId, int articleId) {
         AdminMapper adminMapper = getMapper(AdminMapper.class);
         AdminBean admin = adminMapper.getAdminById(adminId);

@@ -18,57 +18,57 @@
         <result column="article_count" property="articleCount"/>
     </resultMap>
 
-    <select id="listAccounts" parameterType="Map" resultMap="account">
+    <select id="listAccounts" parameterType="hashmap" resultMap="account">
         select * from blog_accounts
         <where>
-            <if test="#uid!=null">and uid like #{uid}</if>
-            <if test="#nick!=null">and nick like #{nick}</if>
-            <if test="#qq!=null">and qq=#{qq}</if>
-            <if test="#weibo!=null">and weibo=#{weibo}</if>
-            <if test="#email!=null">and email=#{email}</if>
-            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
-            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+            <if test="uid!=null">and uid like #{uid}</if>
+            <if test="nick!=null">and nick like #{nick}</if>
+            <if test="qq!=null">and qq=#{qq}</if>
+            <if test="weibo!=null">and weibo=#{weibo}</if>
+            <if test="email!=null">and email=#{email}</if>
+            <if test="regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
             and banflag=0;
         </where>
     </select>
 
-    <select id="countListAccounts" parameterType="Map" resultType="int">
+    <select id="countListAccounts" parameterType="hashmap" resultType="int">
         select count(*) from blog_accounts
         <where>
-            <if test="#uid!=null">and uid like #{uid}</if>
-            <if test="#nick!=null">and nick like #{nick}</if>
-            <if test="#qq!=null">and qq=#{qq}</if>
-            <if test="#weibo!=null">and weibo=#{weibo}</if>
-            <if test="#email!=null">and email=#{email}</if>
-            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
-            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+            <if test="uid!=null">and uid like #{uid}</if>
+            <if test="nick!=null">and nick like #{nick}</if>
+            <if test="qq!=null">and qq=#{qq}</if>
+            <if test="weibo!=null">and weibo=#{weibo}</if>
+            <if test="email!=null">and email=#{email}</if>
+            <if test="regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
             and banflag=0;
         </where>
     </select>
 
-    <select id="listAllAccounts" parameterType="Map" resultMap="account">
+    <select id="listAllAccounts" parameterType="hashmap" resultMap="account">
         select * from blog_accounts
         <where>
-            <if test="#uid!=null">and uid like #{uid}</if>
-            <if test="#nick!=null">and nick like #{nick}</if>
-            <if test="#qq!=null">and qq=#{qq}</if>
-            <if test="#weibo!=null">and weibo=#{weibo}</if>
-            <if test="#email!=null">and email=#{email}</if>
-            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
-            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+            <if test="uid!=null">and uid like #{uid}</if>
+            <if test="nick!=null">and nick like #{nick}</if>
+            <if test="qq!=null">and qq=#{qq}</if>
+            <if test="weibo!=null">and weibo=#{weibo}</if>
+            <if test="email!=null">and email=#{email}</if>
+            <if test="regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
         </where>
     </select>
 
-    <select id="countListAllAccounts" parameterType="Map" resultType="int">
+    <select id="countListAllAccounts" parameterType="hashmap" resultType="int">
         select count(*) from blog_accounts
         <where>
-            <if test="#uid!=null">and uid like #{uid}</if>
-            <if test="#nick!=null">and nick like #{nick}</if>
-            <if test="#qq!=null">and qq=#{qq}</if>
-            <if test="#weibo!=null">and weibo=#{weibo}</if>
-            <if test="#email!=null">and email=#{email}</if>
-            <if test="#regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
-            <if test="#regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
+            <if test="uid!=null">and uid like #{uid}</if>
+            <if test="nick!=null">and nick like #{nick}</if>
+            <if test="qq!=null">and qq=#{qq}</if>
+            <if test="weibo!=null">and weibo=#{weibo}</if>
+            <if test="email!=null">and email=#{email}</if>
+            <if test="regtimeBegin!=null">and regtime&gt;#{regtimeBegin}</if>
+            <if test="regtimeEnd!=null">and regtime&lt;#{regtimeEnd}</if>
         </where>
     </select>
 
@@ -98,14 +98,14 @@
 
     <update id="update" parameterType="Account">
         update blog_accounts set
-        <if test="#pwd!=null">pwd=#{pwd},</if>
-        <if test="#nick!=null">nick=#{nick},</if>
-        <if test="#qq!=null">qq=#{qq,jdbcType=VARCHAR},</if>
-        <if test="#weibo!=null">weibo=#{weibo,jdbcType=VARCHAR},</if>
-        <if test="#email!=null">email=#{email,jdbcType=VARCHAR},</if>
-        <if test="#tempEmail!=null">temp_email=#{tempEmail,jdbcType=VARCHAR}</if>
-        <if test="#avatar!=null">avatar=#{avatar,jdbcType=VARCHAR},</if>
-        <if test="#sex!=null">sex=#{sex,jdbcType=VARCHAR},</if>
+        <if test="pwd!=null">pwd=#{pwd},</if>
+        <if test="nick!=null">nick=#{nick},</if>
+        <if test="qq!=null">qq=#{qq,jdbcType=VARCHAR},</if>
+        <if test="weibo!=null">weibo=#{weibo,jdbcType=VARCHAR},</if>
+        <if test="email!=null">email=#{email,jdbcType=VARCHAR},</if>
+        <if test="tempEmail!=null">temp_email=#{tempEmail,jdbcType=VARCHAR},</if>
+        <if test="avatar!=null">avatar=#{avatar,jdbcType=VARCHAR},</if>
+        <if test="sex!=null">sex=#{sex,jdbcType=VARCHAR},</if>
         banflag=#{banFlag},
         lastlogin=#{lastLogin}
         where id=#{id}

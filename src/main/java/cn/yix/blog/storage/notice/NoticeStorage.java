@@ -7,6 +7,7 @@ import cn.yix.blog.storage.AbstractStorage;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -51,6 +52,7 @@ public class NoticeStorage extends AbstractStorage implements INoticeStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject saveNotice(String title, String content) {
         NoticeMapper mapper = getMapper(NoticeMapper.class);
         NoticeBean notice = new NoticeBean();
@@ -65,6 +67,7 @@ public class NoticeStorage extends AbstractStorage implements INoticeStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject updateNotice(int noticeId, String title, String content) {
         NoticeMapper noticeMapper = getMapper(NoticeMapper.class);
         JSONObject res = new JSONObject();
@@ -81,6 +84,7 @@ public class NoticeStorage extends AbstractStorage implements INoticeStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject deleteNotice(int noticeId) {
         NoticeMapper noticeMapper = getMapper(NoticeMapper.class);
         JSONObject res = new JSONObject();

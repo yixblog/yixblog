@@ -2,7 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
     <typeAliases>
-        <typeAlias type="java.util.Map" alias="Map"/>
         <!--Beans-->
         <typeAlias type="cn.yix.blog.dao.beans.AdminBean" alias="Admin"/>
         <typeAlias type="cn.yix.blog.dao.beans.AccountBean" alias="Account"/>

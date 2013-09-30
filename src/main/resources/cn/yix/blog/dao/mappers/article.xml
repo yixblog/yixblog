@@ -30,62 +30,63 @@
         t.tag order by count(t.tag) desc limit 10
     </select>
 
-    <select id="listNewArticles" resultMap="article" parameterType="Map">
+    <select id="listNewArticles" resultMap="article" parameterType="hashmap">
         select
         <include refid="listcolumns"/>,count(c.id) replycount
         from blog_articles a
         left join blog_comments c on c.article=a.id
         left join blog_tags t on t.article=a.id
         <where>
-            <if test="#keywords!=null">and
-                <foreach collection="#keywords" item="item" separator=" or " open="(" close=")">
-                    title like #{item}
+            <if test="keywords!=null and keywords.length>0">and
+                <foreach collection="keywords" item="item" separator=" or " open="(" close=")">
+                    a.title like #{item}
                 </foreach>
             </if>
-            <if test="#userid>0">and a.author=#{userid}</if>
-            <if test="#tag!=null">and t.tag=#{tag}</if>
-            <if test="#addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
-            <if test="#addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
+            <if test="userid>0">and a.author=#{userid}</if>
+            <if test="tag!=null">and t.tag=#{tag}</if>
+            <if test="addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
+            <if test="addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
         </where>
         group by a.id
-        order by addtime desc
+        order by a.addtime desc
     </select>
 
-    <select id="listHotArticles" resultMap="article" parameterType="Map">
+    <select id="listHotArticles" resultMap="article" parameterType="hashmap">
         select
         <include refid="listcolumns"/>,count(c.id) replycount
         from blog_articles a
         left join blog_comments c on c.article=a.id
         left join blog_tags t on t.article=a.id
         <where>
-            <if test="#keywords!=null">and
-                <foreach collection="#keywords" item="item" separator=" or " open="(" close=")">
-                    title like #{item}
+            <if test="keywords!=null and keywords.length>0">and
+                <foreach collection="keywords" item="item" separator=" or " open="(" close=")">
+                    a.title like #{item}
                 </foreach>
             </if>
-            <if test="#userid>0">and a.author=#{userid}</if>
-            <if test="#tag!=null">and t.tag=#{tag}</if>
-            <if test="#addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
-            <if test="#addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
+            <if test="userid>0">and a.author=#{userid}</if>
+            <if test="tag!=null">and t.tag=#{tag}</if>
+            <if test="addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
+            <if test="addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
         </where>
         group by a.id
         order by replycount desc
     </select>
 
-    <select id="countArticles" resultType="int" parameterType="Map">
-        select count(a.id) from blog_articles a
+    <select id="countArticles" resultType="int" parameterType="hashmap">
+        select count(*) from (select * from blog_articles a
         left join blog_tags t on t.article=a.id
         <where>
-            <if test="#keywords!=null">and
-                <foreach collection="#keywords" item="item" separator=" or " open="(" close=")">
-                    title like #{item}
+            <if test="keywords!=null and keywords.length>0">and
+                <foreach collection="keywords" item="item" separator=" or " open="(" close=")">
+                    a.title like #{item}
                 </foreach>
             </if>
-            <if test="#userid>0">and a.author=#{userid}</if>
-            <if test="#tag!=null">and t.tag=#{tag}</if>
-            <if test="#addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
-            <if test="#addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
+            <if test="userid>0">and a.author=#{userid}</if>
+            <if test="tag!=null">and t.tag=#{tag}</if>
+            <if test="addtimeBegin!=null">and addtime &gt; #{addtimeBegin}</if>
+            <if test="addtimeEnd!=null">and addtime &lt; #{addtimeEnd}</if>
         </where>
+        group by a.id)s
     </select>
 
     <select id="listArticlesByAccount" parameterType="int" resultMap="article">

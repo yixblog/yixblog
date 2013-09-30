@@ -11,6 +11,7 @@ import cn.yix.blog.utils.UEditorConfig;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
@@ -61,6 +62,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
     }
 
     @Override
+    @Transactional
     public SavingResultInfo doSaveFile(MultipartFile file, String pictitle, String[] allowedTypes, int maxSize, int userId) {
         SavingResultInfo result = new SavingResultInfo();
         result.setOriginalName(file.getOriginalFilename());
@@ -80,6 +82,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
     }
 
     @Override
+    @Transactional
     public SavingResultInfo doSaveBase64(String fileContent, String[] allowedTypes, int maxSize, int userId) {
         SavingResultInfo result = new SavingResultInfo();
         result.setType(".png");
@@ -94,6 +97,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
     }
 
     @Override
+    @Transactional
     public SavingResultInfo doSaveRemoteImage(String upfile, String[] allowedTypes, int maxSize, int userId) {
         String[] sourceUrls = upfile.split(UEditorConfig.UE_SEPERATOR);
         List<String> outSrcs = new ArrayList<>();

@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -84,6 +85,7 @@ public class CommentStorage extends AbstractStorage implements ICommentStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject saveComment(int userId, int articleId, String title, String content) {
         JSONObject res = new JSONObject();
         AccountMapper accountMapper = getMapper(AccountMapper.class);
@@ -111,6 +113,7 @@ public class CommentStorage extends AbstractStorage implements ICommentStorage {
     }
 
     @Override
+    @Transactional
     public JSONObject deleteComment(int commentId) {
         JSONObject res = new JSONObject();
         CommentMapper commentMapper = getMapper(CommentMapper.class);
