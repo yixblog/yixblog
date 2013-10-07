@@ -47,7 +47,7 @@
                             <span class="author">${newArticle.author.nick}</span>
                             <span class="tag_list">
                                 #foreach($tag in $newArticle.getJSONArray("tags"))
-                                    <a href="article/query_tag/${tag}.htm" target="#">${tag}</a>
+                                    <a href="article/tag/${tag}.htm" target="#">${tag}</a>
                                 #end
                             </span>
                             <span class="time_box">${newArticle.addtimestring}</span>

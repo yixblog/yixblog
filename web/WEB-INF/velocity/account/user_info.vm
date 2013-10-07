@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>用户信息</title>
+    <link rel="stylesheet" type="text/css" href="static/css/user_info.css">
+</head>
+<body>
+<div id="content" class="content">
+    #parse("utils/head_light.vm")
+    #if(!${user})
+        <div class="err_info">不存在的用户</div>
+    #else
+        <div class="user_info_content">
+            <div class="user_info_box">
+                <span class="name">${user.nick}</span>
+                <span>注册时间：${user.regtimestring}</span>
+                <span>发表文章数：${user.articleCount}</span>
+            </div>
+            <div class="article_box">
+
+            </div>
+        </div>
+    #end
+</div>
+</body>
+</html>

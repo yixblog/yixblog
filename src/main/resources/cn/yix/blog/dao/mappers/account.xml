@@ -73,7 +73,7 @@
     </select>
 
     <select id="getAccountById" parameterType="int" resultMap="account">
-        select * from blog_accounts where id=#{id}
+        select a.*,count(n.id) article_count from blog_accounts a left join blog_articles n on a.id=n.author where a.id=#{id} group by a.id
     </select>
 
     <select id="getAccountByUid" parameterType="String" resultMap="account">

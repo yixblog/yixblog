@@ -11,6 +11,7 @@
 
     <properties>
         <spring.version>3.2.2.RELEASE</spring.version>
+        <lucene.version>4.5.0</lucene.version>
     </properties>
     <dependencies>
         <!-- spring -->
@@ -59,6 +60,18 @@
             <groupId>org.jumpmind.symmetric.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>1.1.1</version>
+        </dependency>
+
+        <!--lucene-->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-highlighter</artifactId>
+            <version>${lucene.version}</version>
         </dependency>
 
 

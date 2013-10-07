@@ -1,15 +1,17 @@
-<div id="head_box" class="full">
-    <div id="logo" title="返回主页"></div>
+<div id="head_box" class="light">
+    <div id="logo" title="返回主页">Yixblog</div>
     <div id="user_box">
         #if(!${user})
             您还没有登陆,<input type="button" id="login_button" value="登陆">
         #else
-            欢迎回来，${user.nick}![<a href="accountservice/account/user/center.htm" target="_blank">用户中心</a>][<a href="#" onclick="doUserLogOut()">退出登陆</a>]
+            欢迎回来，${user.nick}![<a href="accountservice/account/user/center.htm" target="_blank">用户中心</a>][<a href="#"
+                                                                                                             onclick="doUserLogOut()">退出登陆</a>]
         #end
     </div>
 </div>
 <div id="login_dialog" title="登陆">
     <span class="validate_tips">&nbsp;</span>
+
     <form>
         <fieldset>
             <label for="user_login_uid_input">用户名</label><br>
@@ -20,8 +22,4 @@
             <input id="user_login_validate_input" name="validate" type="text" placeholder="请输入验证码">
         </fieldset>
     </form>
-</div>
-<div id="nav_box">
-    <span class="nav_item gradient_01"><a href="#">demos</a></span>
-    <span class="nav_item gradient_01"><a href="#">EVE计算中心</a></span>
 </div>

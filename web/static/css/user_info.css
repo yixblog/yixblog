@@ -1,0 +1,35 @@
+.user_info_content {
+    width: 100%;
+}
+
+.user_info_content .user_info_box {
+    width: 1000px;
+    box-shadow: 5px 5px 10px #000;
+    background: #afa;
+    color: #000;
+}
+
+.user_info_box span {
+    width: 300px;
+}
+
+.user_info_box .name {
+    width: 100%;
+    font-size: 34px;
+    height: 38px;
+    line-height: 38px;
+}
+
+.user_info_content .article_box {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.article_box ul {
+    width: 1022px;
+    border-right: 1px solid #f00;
+}
+
+.article_box ul li {
+    width: 100%;
+}

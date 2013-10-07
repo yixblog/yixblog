@@ -39,18 +39,31 @@ input[type='text'], input[type='password'] {
     width: 100%;
 }
 
-#logo {
-    background: url(../../img/logo.png) no-repeat;
-    width: 210px;
-    height: 95px;
+#head_box.light {
+    background: #060;
+    box-shadow: 5px 5px 8px #000;
+    margin-bottom: 10px;
+}
+
+#head_box #logo {
+    cursor: pointer;
     margin: 10px;
 }
 
-#user_box {
+#head_box.full #logo {
+    background: url(../../img/logo.png) no-repeat;
+    width: 210px;
+    height: 95px;
+}
+
+#head_box #user_box {
+    float: right;
     margin: 10px 0;
+}
+
+#head_box.full #user_box {
     padding: 0 0 0 15px;
     background: #006600;
-    float: right;
     border: 2px solid #aaa;
     box-shadow: -3px 3px 5px #000;
 }

@@ -3,7 +3,6 @@
  * User: yixian
  * Date: 13-9-29
  * Time: 上午10:35
- * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function () {
     $(".hidden_btn").click(function () {
@@ -21,9 +20,15 @@ $(document).ready(function () {
         var startDate = $("#date_start_input").val();
         var endDate = $("#date_end_input").val();
         var sortKey = $("#sort_key_select").val();
+        var data;
+        if ($(".hide").is(":hidden")) {
+            data = {keywords: keywords, page: page};
+        } else {
+            data = {keywords: keywords, startDate: startDate, endDate: endDate, page: page, sortkey: sortKey};
+        }
         $.ajax({
             url: "article/query.action",
-            data: {keywords: keywords, startDate: startDate, endDate: endDate, page: page, sortkey: sortKey},
+            data: data,
             type: "post",
             dataType: "json",
             success: function (data) {
@@ -69,7 +74,7 @@ $(document).ready(function () {
         return parent.children();
     }
 
-    $("#search_btn").button().click(function(){
+    $("#search_btn").button().click(function () {
         doSearch(1);
     });
 });

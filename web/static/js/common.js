@@ -56,7 +56,7 @@ function checkSimilar(input1, input2, msg, tipbox) {
     return true;
 }
 function checkLength(input, name, minLen, maxLen, tipbox) {
-    var text = trimInput(input)
+    var text = trimInput(input);
     if (text.length < minLen || text.length > maxLen) {
         input.addClass("ui-state-error").focus();
         updateTips(tipbox, name + "的长度必须在" + minLen + "到" + maxLen + "之间");
@@ -65,6 +65,11 @@ function checkLength(input, name, minLen, maxLen, tipbox) {
     return true;
 }
 $(document).ready(function () {
+    //logo
+    $("#logo").click(function(){
+        location.href=$("base").attr("href");
+    });
+
     var login_uid_input = $("#user_login_uid_input");
     var login_pwd_input = $("#user_login_pwd_input");
     var login_validate_input = $("#user_login_validate_input");
