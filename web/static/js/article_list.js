@@ -33,8 +33,17 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 buildArticleList(data);
+                highlightKeywords(keywords);
             }
         });
+    }
+
+    function highlightKeywords(keywords) {
+        var articleUL = $(".list_box");
+        articleUL.removeHighlight();
+        for (var i = 0; i < keywords.length; i++) {
+            articleUL.highlight(keywords[i]);
+        }
     }
 
     function buildArticleList(data) {

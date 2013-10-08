@@ -177,3 +177,8 @@ fieldset {
 .edui-default div, .edui-default span {
     float: none;
 }
+
+.highlight{
+    background: yellow;
+    float: none;
+}

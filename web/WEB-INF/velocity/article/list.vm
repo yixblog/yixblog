@@ -4,6 +4,7 @@
     #parse("utils/base.vm")
     <title>文章列表|佚博客</title>
     <link rel="stylesheet" type="text/css" href="static/css/article_list.css">
+    <script type="text/javascript" src="static/lib/jquery.highlight-4.js"></script>
     <script type="text/javascript" src="static/js/article_list.js"></script>
 </head>
 <body>
