@@ -180,5 +180,5 @@ fieldset {
 
 .highlight{
     background: yellow;
-    float: none;
+    float: none !important;
 }

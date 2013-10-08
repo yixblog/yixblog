@@ -4,6 +4,7 @@
     #parse("utils/base.vm")
     <title>用户信息</title>
     <link rel="stylesheet" type="text/css" href="static/css/user_info.css">
+    <script type="text/javascript" src="static/js/user_info.js"></script>
 </head>
 <body>
 <div id="content" class="content">
@@ -11,6 +12,7 @@
     #if(!${user})
         <div class="err_info">不存在的用户</div>
     #else
+        <input type="hidden" value="${user.id}" id="user_id_hidden">
         <div class="user_info_content">
             <div class="user_info_box">
                 <span class="name">${user.nick}</span>
@@ -22,6 +24,7 @@
             </div>
         </div>
     #end
+    #parse("utils/foot.vm")
 </div>
 </body>
 </html>

@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("/userinfo")
-public class UserCenterController {
+public class UserInfoController {
     @Resource(name = "userAccountStorage")
     private IUserAccountStorage accountStorage;
 

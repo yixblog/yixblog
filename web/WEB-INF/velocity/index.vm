@@ -44,7 +44,7 @@
                             <span class="title"><a
                                     href="article/view/${newArticle.id}.htm">${newArticle.title}</a></span>
                             <span class="response_count">${newArticle.replycount}</span>
-                            <span class="author">${newArticle.author.nick}</span>
+                            <span class="author"><a href="userinfo/${newArticle.author.id}.htm">${newArticle.author.nick}</a></span>
                             <span class="tag_list">
                                 #foreach($tag in $newArticle.getJSONArray("tags"))
                                     <a href="article/tag/${tag}.htm" target="#">${tag}</a>
@@ -64,7 +64,7 @@
                             <span class="title"><a
                                     href="article/view/${hotArticle.id}.htm">${hotArticle.title}</a></span>
                             <span class="response_count">${hotArticle.replycount}</span>
-                            <span class="author">${hotArticle.author.nick}</span>
+                            <span class="author"><a href="userinfo/${hotArticle.author.id}.htm">${hotArticle.author.nick}</a></span>
                             <span class="tag_list">
                                 #foreach($tag in $hotArticle.getJSONArray("tags"))
                                     <a href="article/tag/${tag}.htm" target="#">${tag}</a>

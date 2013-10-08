@@ -23,7 +23,7 @@ public class ArticleController {
     public IArticleStorage articleStorage;
 
     @RequestMapping("/query.htm")
-    public String listArticles(@RequestParam(required = false,value = "keywords[]") String[] keywords, @RequestParam(required = false) String startDate,
+    public String listArticles(@RequestParam(required = false, value = "keywords[]") String[] keywords, @RequestParam(required = false) String startDate,
                                @RequestParam(required = false) String endDate, Model model) {
         fillPageParams(keywords, startDate, endDate, model);
         return "article/list";
@@ -48,9 +48,9 @@ public class ArticleController {
     @RequestMapping(value = "/query.action", method = RequestMethod.POST)
     public
     @ResponseBody
-    JSONObject listArticlesByJSON(@RequestParam(required = false,value = "keywords[]") String[] keywords, @RequestParam(required = false) String startDate,
-                                  @RequestParam(required = false) String endDate, @RequestParam(required = false, defaultValue = "1") int page,
-                                  @RequestParam(required = false, defaultValue = "20") int pageSize, @RequestParam(required = false, defaultValue = "addtime") String sortkey,
+    JSONObject listArticlesByJSON(@RequestParam(required = false, value = "keywords[]") String[] keywords, @RequestParam(required = false, defaultValue = "") String startDate,
+                                  @RequestParam(required = false, defaultValue = "") String endDate, @RequestParam(required = false, defaultValue = "1") int page,
+                                  @RequestParam(required = false, defaultValue = "15") int pageSize, @RequestParam(required = false, defaultValue = "addtime") String sortkey,
                                   @RequestParam(required = false, defaultValue = "0") int userId, @RequestParam(required = false) String tag) {
         if ("".equals(tag)) {
             tag = null;

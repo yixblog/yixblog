@@ -3,7 +3,7 @@
 }
 
 .user_info_content .user_info_box {
-    width: 1000px;
+    width: 1024px;
     box-shadow: 5px 5px 10px #000;
     background: #afa;
     color: #000;
@@ -28,8 +28,51 @@
 .article_box ul {
     width: 1022px;
     border-right: 1px solid #f00;
+    border-left: 1px solid #f00;
 }
 
 .article_box ul li {
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #333));
+    background-image: -moz-linear-gradient(top, #666, #333);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666', endColorstr='#333', GradientType='0');
+    width: 1022px;
+    margin-bottom: 5px;
+}
+
+.article_box ul li .title {
+    font-size: 26px;
+    line-height: 30px;
+    height: 30px;
+}
+
+.article_box ul li .title a {
+    width: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.article_box ul li .response_count {
+    width: 100px;
+    float: right;
+    background: url(../../img/reply.png) no-repeat;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.article_box ul li .tag_list {
+    clear: left;
+}
+
+.article_box ul li .tag_list a {
+    margin: 0 2px;
+}
+
+.article_box ul li .time {
+    float: right;
+    padding-right: 5px;
+}
+
+.article_box .pager_box {
     width: 100%;
+    margin-top: 10px;
 }
