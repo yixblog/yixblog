@@ -20,7 +20,7 @@ $(document).ready(function () {
         var userArray = [];
         for (var i = 0; i < users.length; i++) {
             var user = users[i];
-            userArray[i] = {text: user.nick, weight: user.articleCount, link: "#"};
+            userArray[i] = {text: user.nick, weight: user.articleCount, link: "userinfo/" + user.id + ".htm"};
         }
         $("#tag_cloud_box").empty().jQCloud(userArray, {width: 200, height: 478});
     }
@@ -64,5 +64,16 @@ $(document).ready(function () {
         tabs: $(".center_box .article_box .tab_box .item"),
         contents: $(".center_box .article_box .fragment_box .item"),
         activeClass: "active"
+    });
+
+    $("#search_button").click(function () {
+        var keywords = $("#search_input").val().split(" ");
+        var param = "";
+        for (var i = 0; i < keywords.length; i++) {
+            param += "&keywords[]=" + encodeURI(keywords[i]);
+        }
+        param = param.substr(1);
+        var uri = "article/query.htm?" + param;
+        window.open(uri);
     });
 });

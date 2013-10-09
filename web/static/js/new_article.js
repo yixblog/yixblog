@@ -102,7 +102,8 @@ $(document).ready(function () {
     function replaceSplitChar(str) {
         str = str.replace(/;/g, ",");
         str = str.replace(/\|/g, ",");
-        str = str.replace(/,+/, ",");
+        str = str.replace(/,+/g, ",");
+        str = str.replace(/ /g, ",");
         return str;
     }
 });

@@ -9,23 +9,8 @@ $(document).ready(function () {
         $(".hide").stop(true, false).slideToggle();
     });
 
-    $("#date_start_input,#date_end_input").datepicker({
-        dateFormat: "yy-mm-dd",
-        changeMonth: true,
-        changeYear: true
-    });
-
     function doSearch(page) {
-        var keywords = $("#search_input").val().split(" ");
-        var startDate = $("#date_start_input").val();
-        var endDate = $("#date_end_input").val();
-        var sortKey = $("#sort_key_select").val();
-        var data;
-        if ($(".hide").is(":hidden")) {
-            data = {keywords: keywords, page: page};
-        } else {
-            data = {keywords: keywords, startDate: startDate, endDate: endDate, page: page, sortkey: sortKey};
-        }
+        var data = {tag: $("#tagname").html(), page: page};
         $.ajax({
             url: "article/query.action",
             data: data,
@@ -33,18 +18,10 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 buildArticleList(data);
-                highlightKeywords(keywords);
             }
         });
     }
 
-    function highlightKeywords(keywords) {
-        var articleUL = $(".list_box");
-        articleUL.removeHighlight();
-        for (var i = 0; i < keywords.length; i++) {
-            articleUL.highlight(keywords[i]);
-        }
-    }
 
     function buildArticleList(data) {
         var articleUL = $(".list_box").empty();

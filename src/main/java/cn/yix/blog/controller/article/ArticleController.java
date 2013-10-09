@@ -73,9 +73,8 @@ public class ArticleController {
     }
 
     @RequestMapping("/tag/{tagName}.htm")
-    public String queryArticlesByTag(@PathVariable String tagName,
-                                     @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                     @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize) {
+    public String queryArticlesByTag(@PathVariable String tagName, Model model) {
+        model.addAttribute("tagname", tagName);
         return "article/tag_result";
     }
 

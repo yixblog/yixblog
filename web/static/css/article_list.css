@@ -11,6 +11,19 @@
     margin: 10px;
 }
 
+.article_list_content .tag_box {
+    width: 1000px;
+    background: #533;
+    font-size: 34px;
+    padding: 10px;
+    border: 1px solid #900;
+    box-shadow: 0 0 10px #422;
+}
+
+.tag_box #tagname{
+    float: none;
+}
+
 .search_box>input {
     font-size: 28px;
     height: 32px;

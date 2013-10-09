@@ -32,7 +32,7 @@ $(document).ready(function () {
         for (var index = 0; index < data.comments.length; index++) {
             var comment = data.comments[index];
             var li = $("<li></li>");
-            var authorLink = $("<a></a>").html(comment.author.nick);
+            var authorLink = $("<a></a>", {href: "userinfo/" + comment.author.id + ".htm", target: "_blank"}).html(comment.author.nick);
             $("<div></div>").addClass("author").append(authorLink).appendTo(li);
             $("<div></div>").addClass("time").html(comment.addtimestring).appendTo(li);
             $("<div></div>").addClass("comment_content").html(comment.content).appendTo(li);

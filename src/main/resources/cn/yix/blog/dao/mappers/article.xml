@@ -32,7 +32,7 @@
 
     <select id="listNewArticles" resultMap="article" parameterType="map">
         select
-        <include refid="listcolumns"/>,count(c.id) replycount
+        <include refid="listcolumns"/>,count(distinct c.id) replycount
         from blog_articles a
         left join blog_comments c on c.article=a.id
         left join blog_tags t on t.article=a.id
@@ -53,7 +53,7 @@
 
     <select id="listHotArticles" resultMap="article" parameterType="map">
         select
-        <include refid="listcolumns"/>,count(c.id) replycount
+        <include refid="listcolumns"/>,count(distinct c.id) replycount
         from blog_articles a
         left join blog_comments c on c.article=a.id
         left join blog_tags t on t.article=a.id

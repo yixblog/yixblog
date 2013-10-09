@@ -35,7 +35,7 @@ $(document).ready(function () {
         }).appendTo(box);
     }
 
-    function appendArticleTitle(box){
+    function appendArticleTitle(box) {
         var dt = $("<dt></dt>");
         var ul = $("<ul class='article_row'></ul>");
         $("<li class='article_title'>标题</li>").appendTo(ul);
@@ -51,15 +51,15 @@ $(document).ready(function () {
         var dd = $("<dd></dd>");
         var ul = $("<ul class='article_row'></ul>");
         var titleLi = $("<li class='article_title'></li>");
-        $("<a target='_blank'></a>").attr("href", "article/view/" + article.id + ".htm").attr("title",article.title).html(article.title).appendTo(titleLi);
+        $("<a target='_blank'></a>").attr("href", "article/view/" + article.id + ".htm").attr("title", article.title).html(article.title).appendTo(titleLi);
         titleLi.appendTo(ul);
         $("<li class='article_addtime time'></li>").html(article.addtimestring).appendTo(ul);
         $("<li class='article_edittime time'></li>").html(article.edittimestring).appendTo(ul);
         $("<li class='article_reply'></li>").html(article.replycount).appendTo(ul);
-        var editbtn = $("<a href='#' class='edit_btn' title='编辑'></a>").click(function(){
+        var editbtn = $("<a href='#' class='edit_btn' title='编辑'></a>").click(function () {
             editArticle(article.id);
         });
-        var deletebtn = $("<a href='#' class='delete_btn' title='删除'></a>").click(function(){
+        var deletebtn = $("<a href='#' class='delete_btn' title='删除'></a>").click(function () {
             deleteArticle(article.id);
         });
         $("<li class='article_active'></li>").append(deletebtn).append(editbtn).appendTo(ul);
@@ -67,12 +67,12 @@ $(document).ready(function () {
         dd.appendTo(articleDLList);
     }
 
-    function editArticle(id){
-        alert("edit article :"+id);
+    function editArticle(id) {
+        alert("edit article :" + id);
     }
 
-    function deleteArticle(id){
-        alert("delete article:"+id);
+    function deleteArticle(id) {
+        alert("delete article:" + id);
     }
 
     $("#menu").selectable({
@@ -99,7 +99,7 @@ $(document).ready(function () {
         hide: {effect: "slide", duration: "fast"}
     });
 
-    $("#new_article_btn").button().click(function(){
+    $("#new_article_btn").button().click(function () {
         window.open("user/article/new.htm")
     });
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
                 var article_link = $("<a target='_blank'></a>").attr("href", "article/view/" + item_data.article.id + ".htm").html(item_data.article.title);
                 $("<li class='article'></li>").html(article_link).appendTo(row);
                 $("<li class='time'></li>").html(item_data.addTime).appendTo(row);
-                $("<li class='author'></li>").html(item_data.author.nick).appendTo(row);
+                $("<li class='author'></li>").append($("<a></a>", {href: "userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
                 $("<li class='content'></li>").html(item_data.content).appendTo(row);
                 row.appendTo(row_dd);
             }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>文章列表|佚博客</title>
+    <link rel="stylesheet" type="text/css" href="static/css/article_list.css">
+    <script type="text/javascript" src="static/js/tag_result.js"></script>
+</head>
+<body>
+<div class="content" id="content">
+    #parse("utils/head.vm")
+    <div class="article_list_content">
+        <div class="tag_box">
+            #<span id="tagname">${tagname}</span>#
+        </div>
+        <ul class="list_box">
+        </ul>
+        <div class="pager_box">
+        </div>
+    </div>
+    #parse("utils/foot.vm")
+</div>
+</body>
+</html>

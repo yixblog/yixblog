@@ -30,6 +30,9 @@ public class ArticleEditController {
     JSONObject addArticle(@RequestParam String title, @RequestParam String content, @RequestParam String tags, @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         int userId = user.getIntValue("id");
         String[] tagArray = tags.split(",");
+        for (int i = 0, len = tagArray.length; i < len; i++) {
+            tagArray[i] = tagArray[i].trim();
+        }
         return articleStorage.saveArticle(userId, title, content, false, tagArray);
     }
 
@@ -74,10 +77,10 @@ public class ArticleEditController {
                                  @RequestParam(required = false, defaultValue = "15") int pageSize,
                                  @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         int userId = user.getIntValue("id");
-        JSONObject res = articleStorage.queryArticles(page, pageSize, null, null, userId, tag, null, null);
         if ("".equals(tag)) {
             tag = null;
         }
+        JSONObject res = articleStorage.queryArticles(page, pageSize, null, null, userId, tag, null, null);
         res.put("tag", tag);
         return res;
     }
