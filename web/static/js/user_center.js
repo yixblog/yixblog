@@ -117,13 +117,13 @@ $(document).ready(function () {
             }
 
             function appendDataRow(row_dd, item_data) {
-                var row = $("<ul class='comment_row'></ul>");
+                var row = $("<h3 class='comment_row'></h3>");
                 var article_link = $("<a target='_blank'></a>").attr("href", "article/view/" + item_data.article.id + ".htm").html(item_data.article.title);
-                $("<li class='article'></li>").html(article_link).appendTo(row);
-                $("<li class='time'></li>").html(item_data.addTime).appendTo(row);
-                $("<li class='author'></li>").append($("<a></a>", {href: "userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
-                $("<li class='content'></li>").html(item_data.content).appendTo(row);
+                $("<span class='article'></span>").html(article_link).appendTo(row);
+                $("<span class='time'></span>").html(item_data.addtimestring).appendTo(row);
+                $("<span class='author'></span>").append($("<a></a>", {href: "userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
                 row.appendTo(row_dd);
+                $("<p></p>").html(item_data.content).appendTo(row_dd);
             }
 
             function showComments(data) {
@@ -132,11 +132,19 @@ $(document).ready(function () {
                 comment_title.appendTo(comment_data);
                 appendTitle(comment_title);
                 var comments = data.comments;
+                var row_dd = $("<dd></dd>");
                 for (var i = 0; i < comments.length; i++) {
-                    var row_dd = $("<dd></dd>");
                     appendDataRow(row_dd, comments[i]);
-                    row_dd.appendTo(comment_data)
                 }
+                row_dd.appendTo(comment_data);
+                row_dd.accordion({
+                    collapsible: true,
+                    icons: null,
+                    heightStyle: "content"
+                });
+                row_dd.find("a").click(function () {
+                    window.open($(this).attr("href"));
+                });
                 $("<dd></dd>").yixpager({
                     pageInfo: data,
                     callback: function (page) {
@@ -150,6 +158,7 @@ $(document).ready(function () {
                         });
                     }
                 }).appendTo(comment_data);
+                uParse('.comment_list>dd>p', { 'highlightJsUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCore.js', 'highlightCssUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'});
             }
 
             ui.ajaxSettings.success = showComments;

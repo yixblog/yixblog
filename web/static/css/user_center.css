@@ -55,17 +55,17 @@
 .right_box .box_item {
     width: 723px;
     height: 400px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .right_box .box_item .tab_box {
-    width: 697px;
-    height: 398px;
+    width: 713px;
     overflow: hidden;
 }
 
 .right_box .box_item .tab_box>ul {
-    width: 713px;
+    width: 703px;
 }
 
 .right_box .box_item .article_list {
@@ -91,11 +91,15 @@
     border-bottom: 1px solid #999;
 }
 
-.ui-tabs-panel .comment_list ul>li, .article_list ul>li {
+.ui-tabs-panel .comment_list h3>span, .ui-tabs-panel .comment_list ul>li, .article_list ul>li {
     border-right: 1px dotted #335;
     padding: 2px;
     text-align: left;
     height: 100%;
+}
+
+.ui-tabs-panel .comment_list h3>span {
+    border: 0;
 }
 
 .ui-tabs-panel .comment_list dt>ul>li, .article_list dt>ul>li {
@@ -106,10 +110,15 @@
     width: 395px;
 }
 
+.ui-tabs-panel .comment_list h3 .article {
+    width: 385px;
+}
+
 .article_list .article_title {
     width: 262px;
 }
-.article_list .article_title a{
+
+.article_list .article_title a {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -137,26 +146,34 @@
     text-align: right;
 }
 
-.article_list .article_active{
+.article_list .article_active {
     width: 85px;
     height: 100%;
 }
-.article_list .article_active a{
+
+.article_list .article_active a {
     width: 16px;
     height: 16px;
     cursor: pointer;
     float: right;
     margin-right: 5px;
 }
-.edit_btn{
+
+.edit_btn {
     background: url(../../img/edit.png) no-repeat;
 }
-.delete_btn{
+
+.delete_btn {
     background: url(../../img/delete.png) no-repeat;
 }
+
 .ui-tabs-panel .comment_list .author {
     width: 127px;
     text-align: right;
+}
+
+.ui-tabs-panel .comment_list h3 .author {
+    width: 120px;
 }
 
 .ui-tabs-panel .comment_list .content {
@@ -164,7 +181,12 @@
     border-top: 1px solid #ddf;
 }
 
-#new_article_btn{
+#new_article_btn {
     margin: 5px;
     float: right;
+}
+
+.ui-tabs-panel .comment_list p{
+    background: #ffffcc;
+    color: #000;
 }

@@ -23,7 +23,7 @@ input[type='text'], input[type='password'] {
     position: absolute;
 }
 
-.content div, .content span, .content ul, .content li, .content dl,
+.content div, .content span, .content ul, .content li, .content dl, .content h3,
 .content dd, .content dt, .content input, .content label, .content button, .content select, .content img, .content table {
     float: left;
     list-style: none;
@@ -178,7 +178,7 @@ fieldset {
     float: none;
 }
 
-.highlight{
+.highlight {
     background: yellow;
     float: none !important;
 }

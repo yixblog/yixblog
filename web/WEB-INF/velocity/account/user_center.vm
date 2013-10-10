@@ -3,6 +3,9 @@
 <head>
     #parse("utils/base.vm")
     <title>佚博客|用户中心</title>
+    <script type="text/javascript" src="static/lib/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="static/lib/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="static/lib/ueditor/ueditor.parse.js"></script>
     <script src="static/js/user_center.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="static/css/user_center.css">
 </head>
