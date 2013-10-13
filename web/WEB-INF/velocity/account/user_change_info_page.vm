@@ -1,1 +1,33 @@
-change info
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+
+        });
+    })(jQuery)
+</script>
+<body>
+<form id="change_user_info_form">
+    <table>
+        <tr>
+            <td><span class="tip_box"></span></td>
+        </tr>
+        <tr>
+            <td><label for="nick_input">用户昵称</label></td>
+            <td><input type="text" id="nick_input"></td>
+        </tr>
+        <tr>
+            <td><label for="sex_input">性别</label></td>
+            <td><select id="sex_input">
+                <option value="0">保密</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

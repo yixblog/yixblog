@@ -22,13 +22,13 @@ $(document).ready(function () {
             return;
         }
         $.ajax({
-            url: "user/article/save.action",
+            url: "a/user/article/save.action",
             data: {title: title, content: content, tags: tags},
             dataType: "json",
             type: "post",
             success: function (data) {
                 console.log("submitted return:" + JSON.stringify(data));
-                location.href = "article/view/" + data.article.id + ".htm";
+                location.href = "a/article/view/" + data.article.id + ".htm";
             }
         })
     });

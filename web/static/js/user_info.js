@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     function gotoPage(page) {
         $.ajax({
-            url: "article/query.action",
+            url: "a/article/query.action",
             type: "post",
             data: {userId: userId, page: page},
             dataType: "json",
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     function buildArticleRow(article) {
         var li = $("<li></li>");
-        $("<span></span>", {class: "title"}).append($("<a></a>", {target: "_blank", href: "article/view/" + article.id + ".htm", html: article.title})).appendTo(li);
+        $("<span></span>", {class: "title"}).append($("<a></a>", {target: "_blank", href: "a/article/view/" + article.id + ".htm", html: article.title})).appendTo(li);
         $("<span></span>", {class: "response_count", html: article.replycount}).appendTo(li);
         $("<span></span>", {class: "tag_list"}).append(buildTagList(article.tags)).appendTo(li);
         $("<span></span>", {class: "time", html: article.addtimestring}).appendTo(li);
@@ -52,7 +52,7 @@ $(document).ready(function () {
             return parent.children();
         }
         for (var i = 0; i < tags.length; i++) {
-            $("<a></a>", {href: "article/tags/" + tags[i] + ".htm", html: tags[i], target: "_blank"}).appendTo(parent);
+            $("<a></a>", {href: "a/article/tags/" + tags[i] + ".htm", html: tags[i], target: "_blank"}).appendTo(parent);
         }
         return parent.children();
     }

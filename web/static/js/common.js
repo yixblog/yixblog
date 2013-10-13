@@ -6,7 +6,7 @@
  */
 function doUserLogOut() {
     $.ajax({
-        url: "accountservice/account/user/logout.action",
+        url: "a/accountservice/account/user/logout.action",
         dataType: "json",
         type: "post",
         success: function () {
@@ -104,7 +104,7 @@ $(document).ready(function () {
                 var pwd = login_pwd_input.val();
                 var validateCode = login_validate_input.val();
                 $.ajax({
-                    url: "accountservice/account/login.action",
+                    url: "a/accountservice/account/login.action",
                     data: {uid: uid, pwd: pwd, validate: validateCode},
                     type: "post",
                     dataType: "json",
@@ -121,10 +121,10 @@ $(document).ready(function () {
 
             },
             "忘记密码": function () {
-                window.open("accountservice/account/")
+                window.open("a/accountservice/account/")
             },
             "注册": function () {
-                window.open("accountservice/account/register.htm");
+                window.open("a/accountservice/account/register.htm");
             }
         },
         close: function () {
@@ -147,7 +147,7 @@ $(document).ready(function () {
     login_validate_input.keypress(enterEventCallback);
 
     $("#validate_img").click(function () {
-        $("#validate_img")[0].src = "validate/img";
+        $("#validate_img")[0].src = "a/validate/img";
     });
     $("#login_button").click(function () {
         $("#login_dialog").dialog("open");

@@ -4,8 +4,8 @@
         #if(!${user})
             您还没有登陆,<input type="button" id="login_button" value="登陆">
         #else
-            欢迎回来，${user.nick}![<a href="accountservice/account/user/center.htm" target="_blank">用户中心</a>]
-            [<a href="user/article/new.htm" target="_blank">新文章</a>][<a href="#" onclick="doUserLogOut()">退出登陆</a>]
+            欢迎回来，${user.nick}![<a href="a/accountservice/account/user/center.htm" target="_blank">用户中心</a>]
+            [<a href="a/user/article/new.htm" target="_blank">新文章</a>][<a href="#" onclick="doUserLogOut()">退出登陆</a>]
         #end
     </div>
 </div>

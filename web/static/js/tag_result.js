@@ -12,7 +12,7 @@ $(document).ready(function () {
     function doSearch(page) {
         var data = {tag: $("#tagname").html(), page: page};
         $.ajax({
-            url: "article/query.action",
+            url: "a/article/query.action",
             data: data,
             type: "post",
             dataType: "json",
@@ -41,9 +41,9 @@ $(document).ready(function () {
 
     function buildArticleLi(article) {
         var li = $("<li></li>");
-        $("<span></span>", {class: "title"}).append($("<a></a>", {target: "_blank", href: "article/view/" + article.id + ".htm", html: article.title})).appendTo(li);
+        $("<span></span>", {class: "title"}).append($("<a></a>", {target: "_blank", href: "a/article/view/" + article.id + ".htm", html: article.title})).appendTo(li);
         $("<span></span>", {class: "response_count", html: article.replycount}).appendTo(li);
-        $("<span></span>", {class: "author"}).append($("<a></a>"), {href: "userinfo/" + article.author.id + ".htm", target: "_blank", html: article.author.nick}).appendTo(li);
+        $("<span></span>", {class: "author"}).append($("<a></a>"), {href: "a/userinfo/" + article.author.id + ".htm", target: "_blank", html: article.author.nick}).appendTo(li);
         $("<span></span>", {class: "tag_list"}).append(buildTagList(article.tags)).appendTo(li);
         $("<span></span>", {class: "time", html: article.addtimestring}).appendTo(li);
         return li;
@@ -55,7 +55,7 @@ $(document).ready(function () {
             return parent.children();
         }
         for (var i = 0; i < tags.length; i++) {
-            $("<a></a>", {href: "article/tags/" + tags[i] + ".htm", html: tags[i], target: "_blank"}).appendTo(parent);
+            $("<a></a>", {href: "a/article/tags/" + tags[i] + ".htm", html: tags[i], target: "_blank"}).appendTo(parent);
         }
         return parent.children();
     }

@@ -23,13 +23,13 @@
         <div class="article_content article_info">添加时间：${res.article.addTimeString}&nbsp;&nbsp;&nbsp;&nbsp;作者：<a href="userinfo/${res.article.author.id}.htm"
                                                                                                                  target="_blank">${res.article.author.nick}</a>
             #if(${res.article.author.id}==${user.id})
-                <a href="user/article/${res.article.id}/edit.htm" title="修改"><img src="img/edit.png">修改</a>
+                <a href="a/user/article/${res.article.id}/edit.htm" title="修改"><img src="img/edit.png">修改</a>
             #end
         </div>
         <div class="article_content">${res.article.content}</div>
         <div class="article_content tag_list">
             #foreach($tag in $res.article.tags)
-                <a href="article/tag/${tag}.htm}" target="_blank">$tag</a>
+                <a href="a/article/tag/${tag}.htm}" target="_blank">$tag</a>
             #end
         </div>
     </div>

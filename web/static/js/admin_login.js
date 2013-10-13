@@ -13,7 +13,7 @@ $(document).ready(function(){
     var validateTip = $(".validate_info");
 
     $("#login_validate_img").click(function(){
-        $(this)[0].src="validate/img"
+        $(this)[0].src="a/validate/img"
     });
     $(".login_box").dialog({
         width:400,
@@ -38,7 +38,7 @@ $(document).ready(function(){
                 var pwd = pwd_input.val();
                 var validate = val_input.val();
                 $.ajax({
-                    url:"accountservice/adminaccount/login.action",
+                    url:"a/accountservice/adminaccount/login.action",
                     data:{uid:uid,pwd:pwd,validate:validate},
                     type:"post",
                     dataType:"json",
@@ -53,7 +53,7 @@ $(document).ready(function(){
                 })
             },
             "忘记密码":function(){
-                location.href="accountservice/adminaccount/forget_pwd_request.htm";
+                location.href="a/accountservice/adminaccount/forget_pwd_request.htm";
             }
         },
         close:function(){

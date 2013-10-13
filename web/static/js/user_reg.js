@@ -52,7 +52,7 @@ $(function(){
                 var sex = sex_selector.val();
                 var validate = validate_input.val();
                 $.ajax({
-                    url:"accountservice/account/register.action",
+                    url:"a/accountservice/account/register.action",
                     type:"post",
                     dataType:"json",
                     data:{uid:uid,pwd:pwd,nick:nick,email:email,sex:sex,validate:validate},

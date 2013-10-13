@@ -27,7 +27,7 @@ $(document).ready(function () {
             data = {keywords: keywords, startDate: startDate, endDate: endDate, page: page, sortkey: sortKey};
         }
         $.ajax({
-            url: "article/query.action",
+            url: "a/article/query.action",
             data: data,
             type: "post",
             dataType: "json",

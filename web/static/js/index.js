@@ -33,7 +33,7 @@ $(document).ready(function () {
         if (type > 0) {
             //作者
             $.ajax({
-                url: "article/hot_users.action",
+                url: "a/article/hot_users.action",
                 type: "post",
                 data: {topnumber: 20},
                 dataType: "json",
@@ -45,7 +45,7 @@ $(document).ready(function () {
         } else {
             //标签
             $.ajax({
-                url: "article/tag_cloud.action",
+                url: "a/article/tag_cloud.action",
                 type: "post",
                 data: {topnumber: 20},
                 dataType: "json",
@@ -73,7 +73,7 @@ $(document).ready(function () {
             param += "&keywords[]=" + encodeURI(keywords[i]);
         }
         param = param.substr(1);
-        var uri = "article/query.htm?" + param;
+        var uri = "a/article/query.htm?" + param;
         window.open(uri);
     });
 });

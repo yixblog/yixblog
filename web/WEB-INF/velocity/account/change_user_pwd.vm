@@ -2,17 +2,20 @@
 <html>
 <head>
     <style type="text/css">
-        #change_pwd_form label{
+        #change_pwd_form label {
             clear: left;
             line-height: 25px;
         }
-        #change_pwd_form .tip_box{
+
+        #change_pwd_form .tip_box {
             height: 20px;
         }
-        #change_pwd_form input[type='button']{
+
+        #change_pwd_form input[type='button'] {
             clear: left;
         }
-        #change_pwd_form input[type='password']{
+
+        #change_pwd_form input[type='password'] {
             float: right;
         }
     </style>
@@ -22,23 +25,28 @@
         var formBox = jQuery("#change_pwd_form");
         var oldPwdInput = jQuery("#user_old_password");
         var newPwdInput = jQuery("#user_new_password");
-        var confirmInput= jQuery("#user_confirm_password");
-        var inputs = [oldPwdInput,newPwdInput,confirmInput];
+        var confirmInput = jQuery("#user_confirm_password");
+        var inputs = [oldPwdInput, newPwdInput, confirmInput];
         var tip_box = formBox.find(".tip_box");
-        formBox.find("input[type='button']").button().click(function(){
+        formBox.find("input[type='button']").button().click(function () {
             var checkFlag = true;
-            checkFlag = checkFlag&&checkEmpty(oldPwdInput,"旧密码",tip_box);
-            checkFlag = checkFlag&&checkEmpty(newPwdInput,"新密码",tip_box);
-            checkFlag = checkFlag&&checkSimilar(newPwdInput,confirmInput,"两次输入密码不同",tip_box);
-            if(checkFlag){
+            jQuery(inputs).each(function () {
+                jQuery(this).removeClass("ui-state-error");
+            });
+            checkFlag = checkFlag && checkEmpty(oldPwdInput, "旧密码", tip_box);
+            checkFlag = checkFlag && checkEmpty(newPwdInput, "新密码", tip_box);
+            checkFlag = checkFlag && checkSimilar(newPwdInput, confirmInput, "两次输入密码不同", tip_box);
+            if (checkFlag) {
                 tip_box.html("");
                 jQuery.ajax({
-                    url:"accountservice/account/user/change_pwd.action",
-                    data:{oldPwd:oldPwdInput.val(),newPwd:newPwdInput.val()},
-                    type:"post",
-                    dataType:"json",
-                    success:function(data){
-                        inputs.val("");
+                    url: "a/accountservice/account/user/change_pwd.action",
+                    data: {oldPwd: oldPwdInput.val(), newPwd: newPwdInput.val()},
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        jQuery(inputs).each(function () {
+                            jQuery(this).val("");
+                        });
                         tip_box.html(data.msg);
                     }
                 })

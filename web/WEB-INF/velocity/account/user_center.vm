@@ -30,11 +30,11 @@
             <div class="box_item">
                 <div id="user_info_tab" class="tab_box">
                     <ul>
-                        <li><a href="accountservice/account/user/change_pwd.htm">密码修改</a></li>
-                        <li><a href="accountservice/account/user/change_info.htm">基本信息修改</a></li>
-                        <li><a href="accountservice/account/user/change_avatar.htm">头像修改</a></li>
-                        <li><a href="accountservice/account/user/reset_email.htm">邮箱修改</a></li>
-                        <li><a href="accountservice/account/user/bind.htm">第三方帐号绑定</a></li>
+                        <li><a href="a/accountservice/account/user/change_pwd.htm">密码修改</a></li>
+                        <li><a href="a/accountservice/account/user/change_info.htm">基本信息修改</a></li>
+                        <li><a href="a/accountservice/account/user/change_avatar.htm">头像修改</a></li>
+                        <li><a href="a/accountservice/account/user/reset_email.htm">邮箱修改</a></li>
+                        <li><a href="a/accountservice/account/user/bind.htm">第三方帐号绑定</a></li>
                     </ul>
                 </div>
             </div>
@@ -47,8 +47,8 @@
             <div class="box_item">
                 <div id="comment_tab" class="tab_box">
                     <ul>
-                        <li><a href="user/comments/comments_to_me.action">我收到的评论</a></li>
-                        <li><a href="user/comments/my_comments.action">我评论的</a></li>
+                        <li><a href="a/user/comments/comments_to_me.action">我收到的评论</a></li>
+                        <li><a href="a/user/comments/my_comments.action">我评论的</a></li>
                     </ul>
                 </div>
             </div>

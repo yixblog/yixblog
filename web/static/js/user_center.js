@@ -11,7 +11,7 @@ $(document).ready(function () {
     function listArticles(page) {
         var tag = $("#current_tag_input").val();
         $.ajax({
-            url: "user/article/query.action",
+            url: "a/user/article/query.action",
             dataType: "json",
             data: {page: page, tag: tag},
             type: "post",
@@ -51,7 +51,7 @@ $(document).ready(function () {
         var dd = $("<dd></dd>");
         var ul = $("<ul class='article_row'></ul>");
         var titleLi = $("<li class='article_title'></li>");
-        $("<a target='_blank'></a>").attr("href", "article/view/" + article.id + ".htm").attr("title", article.title).html(article.title).appendTo(titleLi);
+        $("<a target='_blank'></a>").attr("href", "a/article/view/" + article.id + ".htm").attr("title", article.title).html(article.title).appendTo(titleLi);
         titleLi.appendTo(ul);
         $("<li class='article_addtime time'></li>").html(article.addtimestring).appendTo(ul);
         $("<li class='article_edittime time'></li>").html(article.edittimestring).appendTo(ul);
@@ -100,7 +100,7 @@ $(document).ready(function () {
     });
 
     $("#new_article_btn").button().click(function () {
-        window.open("user/article/new.htm")
+        window.open("a/user/article/new.htm")
     });
 
     var comment_data;
@@ -118,10 +118,10 @@ $(document).ready(function () {
 
             function appendDataRow(row_dd, item_data) {
                 var row = $("<h3 class='comment_row'></h3>");
-                var article_link = $("<a target='_blank'></a>").attr("href", "article/view/" + item_data.article.id + ".htm").html(item_data.article.title);
+                var article_link = $("<a target='_blank'></a>").attr("href", "a/article/view/" + item_data.article.id + ".htm").html(item_data.article.title);
                 $("<span class='article'></span>").html(article_link).appendTo(row);
                 $("<span class='time'></span>").html(item_data.addtimestring).appendTo(row);
-                $("<span class='author'></span>").append($("<a></a>", {href: "userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
+                $("<span class='author'></span>").append($("<a></a>", {href: "a/userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
                 row.appendTo(row_dd);
                 $("<p></p>").html(item_data.content).appendTo(row_dd);
             }

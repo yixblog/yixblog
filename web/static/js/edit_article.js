@@ -29,7 +29,7 @@ $(document).ready(function () {
             type: "post",
             success: function (data) {
                 console.log("submitted return:" + JSON.stringify(data));
-                location.href = "article/view/" + articleId + ".htm";
+                location.href = "a/article/view/" + articleId + ".htm";
             }
         })
     });

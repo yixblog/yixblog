@@ -55,7 +55,7 @@ $(document).ready(function () {
             var commentContent = editor.getContent();
             if (commentContent.length > 0) {
                 $.ajax({
-                    url: "user/comments/add_comment.action",
+                    url: "a/user/comments/add_comment.action",
                     type: "post",
                     data: {articleId: articleId, content: commentContent},
                     dataType: "json",

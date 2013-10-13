@@ -42,19 +42,19 @@
                     #foreach($newArticle in $newArticles.getJSONArray("articles"))
                         <dd>
                             <span class="title"><a
-                                    href="article/view/${newArticle.id}.htm">${newArticle.title}</a></span>
+                                    href="a/article/view/${newArticle.id}.htm">${newArticle.title}</a></span>
                             <span class="response_count">${newArticle.replycount}</span>
-                            <span class="author"><a href="userinfo/${newArticle.author.id}.htm">${newArticle.author.nick}</a></span>
+                            <span class="author"><a href="a/userinfo/${newArticle.author.id}.htm">${newArticle.author.nick}</a></span>
                             <span class="tag_list">
                                 #foreach($tag in $newArticle.getJSONArray("tags"))
-                                    <a href="article/tag/${tag}.htm" target="#">${tag}</a>
+                                    <a href="a/article/tag/${tag}.htm" target="#">${tag}</a>
                                 #end
                             </span>
                             <span class="time_box">${newArticle.addtimestring}</span>
                         </dd>
                     #end
                     <dd>
-                        <a href="article/query.htm" target="_blank" class="more">更多>></a>
+                        <a href="a/article/query.htm" target="_blank" class="more">更多>></a>
                     </dd>
                 </dl>
                 <dl class="item article">
@@ -62,12 +62,12 @@
                     #foreach($hotArticle in $hotArticles.getJSONArray("articles"))
                         <dd>
                             <span class="title"><a
-                                    href="article/view/${hotArticle.id}.htm">${hotArticle.title}</a></span>
+                                    href="a/article/view/${hotArticle.id}.htm">${hotArticle.title}</a></span>
                             <span class="response_count">${hotArticle.replycount}</span>
-                            <span class="author"><a href="userinfo/${hotArticle.author.id}.htm">${hotArticle.author.nick}</a></span>
+                            <span class="author"><a href="a/userinfo/${hotArticle.author.id}.htm">${hotArticle.author.nick}</a></span>
                             <span class="tag_list">
                                 #foreach($tag in $hotArticle.getJSONArray("tags"))
-                                    <a href="article/tag/${tag}.htm" target="#">${tag}</a>
+                                    <a href="a/article/tag/${tag}.htm" target="#">${tag}</a>
                                 #end
                             </span>
                             <span class="time_box">${hotArticle.addtimestring}</span>
