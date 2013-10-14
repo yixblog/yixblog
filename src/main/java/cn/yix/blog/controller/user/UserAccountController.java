@@ -90,7 +90,7 @@ public class UserAccountController {
         JSONObject res = new JSONObject();
         String sessionValidate = (String) modelMap.remove(SessionTokens.VALIDATE_TOKEN);
         logger.debug("session:" + sessionValidate + ",request:" + validate);
-        status.cleanupAttribute(request,SessionTokens.VALIDATE_TOKEN);
+        status.cleanupAttribute(request, SessionTokens.VALIDATE_TOKEN);
         if (sessionValidate == null || !sessionValidate.toLowerCase().equals(validate.toLowerCase())) {
             res.put("success", false);
             res.put("msg", "验证码不正确");

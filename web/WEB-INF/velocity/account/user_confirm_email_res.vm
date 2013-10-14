@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("utils/base.vm")
+    <title>确认邮箱</title>
+</head>
+<body>
+<div id="content" class="content">
+    #parse("utils/head_light.vm")
+    <div class="information">
+        <span class="title">确认邮箱
+            #if(${res.success})
+                成功
+            #else
+                失败
+            #end
+        </span>
+        #if(${res.success})
+            您的邮箱：<a href="mailto:${res.email}">${res.email}</a>已确认成功
+        #end
+    </div>
+</div>
+</body>
+</html>

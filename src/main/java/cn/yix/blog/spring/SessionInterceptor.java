@@ -65,9 +65,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                     return false;
                 }
             }
-        } else {
-            JSONObject updatedAdmin = adminAccountStorage.queryAdminById(admin.getIntValue("id"));
-            session.setAttribute("admin", updatedAdmin);
         }
         if (user == null) {
             for (String userBlackpattern : userBlackList) {
@@ -83,12 +80,26 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                     return false;
                 }
             }
-        } else {
-            JSONObject updatedUser = userAccountStorage.queryUser(user.getIntValue("id")).getJSONObject("user");
-            logger.debug("session update user info:" + updatedUser.toJSONString());
-            session.setAttribute("user", updatedUser);
         }
-        return super.preHandle(request, response, handler);
+        boolean handleResult = super.preHandle(request, response, handler);
+        if (admin != null) {
+            updateSessionAdmin(session, admin.getIntValue("id"));
+        }
+        if (user != null) {
+            updateSessionUser(session, user.getIntValue("id"));
+        }
+        return handleResult;
+    }
+
+    private void updateSessionAdmin(HttpSession session, int adminId) {
+        JSONObject updatedAdmin = adminAccountStorage.queryAdminById(adminId);
+        session.setAttribute("admin", updatedAdmin);
+    }
+
+    private void updateSessionUser(HttpSession session, int userId) {
+        JSONObject updatedUser = userAccountStorage.queryUser(userId).getJSONObject("user");
+        logger.debug("session update user info:" + updatedUser.toJSONString());
+        session.setAttribute("user", updatedUser);
     }
 
     @Override

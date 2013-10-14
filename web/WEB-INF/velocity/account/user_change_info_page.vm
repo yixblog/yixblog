@@ -4,8 +4,37 @@
 </head>
 <script type="text/javascript">
     (function ($) {
+        var sex = "${user.sex}";
         $(document).ready(function () {
-
+            var form = $("#change_user_info_form");
+            var sex_selector = form.find("#sex_input");
+            sex_selector.find("option").each(function (index) {
+                if ($(this).html() == sex) {
+                    sex_selector[0].selectedIndex = index;
+                }
+            });
+            var nick_input = form.find("#nick_input");
+            var tip_box = form.find(".tip_box");
+            form.find("#submit_edit_btn").click(function () {
+                var checkflag = checkEmpty(nick_input, tip_box);
+                if (checkflag) {
+                    var nick = nick_input.val();
+                    var sex = sex_selector.val();
+                    nick_input.removeClass("ui-state-error");
+                    $.ajax({
+                        url: "a/user/change_info.action",
+                        data: {nick: nick, sex: sex},
+                        type: "post",
+                        dataType: "json",
+                        success: function (data) {
+                            tip_box.html(data.msg);
+                            setTimeout(function () {
+                                tip_box.html("");
+                            }, 5000);
+                        }
+                    });
+                }
+            });
         });
     })(jQuery)
 </script>
@@ -13,19 +42,23 @@
 <form id="change_user_info_form">
     <table>
         <tr>
-            <td><span class="tip_box"></span></td>
+            <td colspan="2"><span class="tip_box"></span></td>
         </tr>
         <tr>
             <td><label for="nick_input">用户昵称</label></td>
-            <td><input type="text" id="nick_input"></td>
+            <td><input type="text" id="nick_input" value="${user.nick}"></td>
         </tr>
         <tr>
             <td><label for="sex_input">性别</label></td>
             <td><select id="sex_input">
-                <option value="0">保密</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
+                <option>保密</option>
+                <option>男</option>
+                <option>女</option>
             </select></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" id="submit_edit_btn" value="提交"></td>
         </tr>
     </table>
 </form>

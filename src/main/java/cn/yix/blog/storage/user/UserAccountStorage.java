@@ -210,10 +210,12 @@ public class UserAccountStorage extends AbstractStorage implements IUserAccountS
             setResult(res, false, "不存在的用户，可能账号已被删除");
             return res;
         }
-        bean.setEmail(bean.getTempEmail());
+        String tempEmail = bean.getTempEmail();
+        bean.setEmail(tempEmail);
         bean.setTempEmail(null);
         accountMapper.update(bean);
         setResult(res, true, "确认成功");
+        res.put("email", tempEmail);
         return res;
     }
 

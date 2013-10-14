@@ -48,6 +48,9 @@
                             jQuery(this).val("");
                         });
                         tip_box.html(data.msg);
+                        setTimeout(function(){
+                            tip_box.html("");
+                        },5000)
                     }
                 })
             }
