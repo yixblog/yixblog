@@ -12,6 +12,7 @@
     <properties>
         <spring.version>3.2.2.RELEASE</spring.version>
         <lucene.version>4.5.0</lucene.version>
+        <groovy.version>2.1.0</groovy.version>
     </properties>
     <dependencies>
         <!-- spring -->
@@ -74,6 +75,12 @@
             <version>${lucene.version}</version>
         </dependency>
 
+        <!--groovy-->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
 
         <!-- test -->
         <dependency>
@@ -162,6 +169,21 @@
                     <target>1.7</target>
                     <encoding>utf-8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.groovy.maven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
