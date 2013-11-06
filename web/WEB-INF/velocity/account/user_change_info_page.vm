@@ -3,8 +3,11 @@
 <head>
 </head>
 <script type="text/javascript">
+    var sex = "${user.sex}";
+    #[[
     (function ($) {
-        var sex = "${user.sex}";
+
+
         $(document).ready(function () {
             var form = $("#change_user_info_form");
             var sex_selector = form.find("#sex_input");
@@ -37,6 +40,7 @@
             });
         });
     })(jQuery)
+    ]]#
 </script>
 <body>
 <form id="change_user_info_form">

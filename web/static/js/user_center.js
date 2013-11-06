@@ -103,9 +103,10 @@ $(document).ready(function () {
         window.open("a/user/article/new.htm")
     });
 
-    var comment_data;
+    var comment_data=$("<dl class='comment_list'></dl>");
     $("#comment_tab").tabs({
         beforeLoad: function (event, ui) {
+            comment_data.empty();
             ui.ajaxSettings.type = "post";
             ui.ajaxSettings.dataType = "json";
             function appendTitle(comment_title) {
@@ -123,11 +124,10 @@ $(document).ready(function () {
                 $("<span class='time'></span>").html(item_data.addtimestring).appendTo(row);
                 $("<span class='author'></span>").append($("<a></a>", {href: "a/userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
                 row.appendTo(row_dd);
-                $("<p></p>").html(item_data.content).appendTo(row_dd);
+                $("<p></p>",{class:"comment_content",html:item_data.content}).appendTo(row_dd);
             }
 
             function showComments(data) {
-                comment_data = $("<dl class='comment_list'></dl>");
                 var comment_title = $("<dt></dt>");
                 comment_title.appendTo(comment_data);
                 appendTitle(comment_title);
@@ -158,13 +158,18 @@ $(document).ready(function () {
                         });
                     }
                 }).appendTo(comment_data);
-                uParse('.comment_list>dd>p', { 'highlightJsUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCore.js', 'highlightCssUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'});
             }
 
             ui.ajaxSettings.success = showComments;
+
+            var selector = ".comment_content";
+            console.log($(selector).length);
+            uParse(selector, { 'highlightJsUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCore.js', 'highlightCssUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'});
         },
         load: function (event, ui) {
-            ui.panel.empty().append(comment_data);
+            if(ui.panel.children().length==0){
+                ui.panel.append(comment_data);
+            }
         }
     });
 
