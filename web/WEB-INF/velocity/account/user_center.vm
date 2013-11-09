@@ -23,6 +23,7 @@
             <li class="ui-widget-content">用户信息</li>
             <li class="ui-widget-content">文章管理</li>
             <li class="ui-widget-content">评论管理</li>
+            <li class="ui-widget-content">图片管理</li>
         </ol>
     </div>
     <div class="right_box">
@@ -51,6 +52,9 @@
                         <li><a href="a/user/comments/my_comments.action">我评论的</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="box_item">
+
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 package cn.yix.blog.core.file;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 
 /**
@@ -11,4 +13,6 @@ import java.util.List;
  */
 public interface IImageListStorage {
     public List<String> listAllImages(int userid);
+
+    public JSONObject listUserImages(int page, int pageSize, int id);
 }
