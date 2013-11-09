@@ -6,12 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function () {
-
+    SyntaxHighlighter.highlight($(".article_content"));
     var articleId = $("#articleIdInput").val();
 
     function gotoCommentPage(page) {
         $.ajax({
-            url: "comments/list.action",
+            url: "a/comments/list.action",
             type: "post",
             dataType: "json",
             data: {articleId: articleId, page: page},
@@ -33,11 +33,12 @@ $(document).ready(function () {
             var comment = data.comments[index];
             var li = $("<li></li>");
             var authorLink = $("<a></a>", {href: "userinfo/" + comment.author.id + ".htm", target: "_blank"}).html(comment.author.nick);
-            $("<div></div>").addClass("author").append(authorLink).appendTo(li);
-            $("<div></div>").addClass("time").html(comment.addtimestring).appendTo(li);
-            $("<div></div>").addClass("comment_content").html(comment.content).appendTo(li);
+            $("<div></div>", {class: "author"}).append(authorLink).appendTo(li);
+            $("<div></div>", {class: "time", html: comment.addtimestring}).appendTo(li);
+            var contentBox = $("<div></div>", {class: "comment_content", html: comment.content}).appendTo(li);
             li.appendTo(commentBox);
         }
+        SyntaxHighlighter.highlight(".comment_content");
         commentBox.yixpager({
             pageInfo: data,
             callback: gotoCommentPage
@@ -70,7 +71,5 @@ $(document).ready(function () {
             }
         });
     }
-
-    uParse('div', { 'highlightJsUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCore.js', 'highlightCssUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'})
 })
 ;

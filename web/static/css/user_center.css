@@ -186,7 +186,7 @@
     float: right;
 }
 
-.ui-tabs-panel .comment_list p{
+.ui-tabs-panel .comment_list div.comment_content{
     background: #ffffcc;
     color: #000;
 }

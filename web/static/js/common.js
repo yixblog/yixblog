@@ -152,5 +152,4 @@ $(document).ready(function () {
     $("#login_button").click(function () {
         $("#login_dialog").dialog("open");
     });
-})
-;
+});

@@ -103,73 +103,88 @@ $(document).ready(function () {
         window.open("a/user/article/new.htm")
     });
 
-    var comment_data=$("<dl class='comment_list'></dl>");
+    var CommentList = function(url){
+        var box = $("<dl class='comment_list'></dl>");
+        var panelCache;
+
+        this.appendToPanel = function(panel){
+            panel.append(box);
+            SyntaxHighlighter.highlight(box);
+            panelCache= panel;
+        };
+
+        this.initUI = function(data){
+            showComments(data);
+        };
+        function appendTitle(comment_title) {
+            var row = $("<ul class='comment_row'></ul>");
+            $("<li class='article'></li>").html("日志").appendTo(row);
+            $("<li class='time'></li>").html("发表时间").appendTo(row);
+            $("<li class='author'></li>").html("作者").appendTo(row);
+            row.appendTo(comment_title);
+        }
+
+        function appendDataRow(row_dd, item_data) {
+            var row = $("<h3 class='comment_row'></h3>");
+            var article_link = $("<a target='_blank'></a>").attr("href", "a/article/view/" + item_data.article.id + ".htm").html(item_data.article.title);
+            $("<span class='article'></span>").html(article_link).appendTo(row);
+            $("<span class='time'></span>").html(item_data.addtimestring).appendTo(row);
+            $("<span class='author'></span>").append($("<a></a>", {href: "a/userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
+            row.appendTo(row_dd);
+            $("<div></div>", {class: "comment_content", html: item_data.content}).appendTo(row_dd);
+        }
+
+        function showComments(data) {
+            box.empty();
+            var comment_title = $("<dt></dt>");
+            comment_title.appendTo(box);
+            appendTitle(comment_title);
+            var comments = data.comments;
+            var row_dd = $("<dd></dd>");
+            for (var i = 0; i < comments.length; i++) {
+                appendDataRow(row_dd, comments[i]);
+            }
+            row_dd.appendTo(box);
+            row_dd.find("a").click(function () {
+                window.open($(this).attr("href"));
+            });
+            $("<dd></dd>").yixpager({
+                pageInfo: data,
+                callback: changeCommentPage
+            }).appendTo(box);
+            if(panelCache!=null){
+                SyntaxHighlighter.highlight(box);
+            }
+            row_dd.accordion({
+                collapsible: true,
+                icons: null,
+                heightStyle: "content"
+            });
+        }
+
+        function changeCommentPage(page) {
+            $.ajax({
+                url: url,
+                type: "post",
+                dataType: "json",
+                data: {page: page},
+                success: showComments
+            });
+        }
+    };
+    var currentCommentList;
     $("#comment_tab").tabs({
         beforeLoad: function (event, ui) {
-            comment_data.empty();
+            currentCommentList = new CommentList(ui.ajaxSettings.url);
             ui.ajaxSettings.type = "post";
             ui.ajaxSettings.dataType = "json";
-            function appendTitle(comment_title) {
-                var row = $("<ul class='comment_row'></ul>");
-                $("<li class='article'></li>").html("日志").appendTo(row);
-                $("<li class='time'></li>").html("发表时间").appendTo(row);
-                $("<li class='author'></li>").html("作者").appendTo(row);
-                row.appendTo(comment_title);
-            }
+            ui.ajaxSettings.success = function(data){
+                currentCommentList.initUI(data);
+            };
 
-            function appendDataRow(row_dd, item_data) {
-                var row = $("<h3 class='comment_row'></h3>");
-                var article_link = $("<a target='_blank'></a>").attr("href", "a/article/view/" + item_data.article.id + ".htm").html(item_data.article.title);
-                $("<span class='article'></span>").html(article_link).appendTo(row);
-                $("<span class='time'></span>").html(item_data.addtimestring).appendTo(row);
-                $("<span class='author'></span>").append($("<a></a>", {href: "a/userinfo/" + item_data.author.id + ".htm", html: item_data.author.nick, target: "_blank"})).appendTo(row);
-                row.appendTo(row_dd);
-                $("<p></p>",{class:"comment_content",html:item_data.content}).appendTo(row_dd);
-            }
-
-            function showComments(data) {
-                var comment_title = $("<dt></dt>");
-                comment_title.appendTo(comment_data);
-                appendTitle(comment_title);
-                var comments = data.comments;
-                var row_dd = $("<dd></dd>");
-                for (var i = 0; i < comments.length; i++) {
-                    appendDataRow(row_dd, comments[i]);
-                }
-                row_dd.appendTo(comment_data);
-                row_dd.accordion({
-                    collapsible: true,
-                    icons: null,
-                    heightStyle: "content"
-                });
-                row_dd.find("a").click(function () {
-                    window.open($(this).attr("href"));
-                });
-                $("<dd></dd>").yixpager({
-                    pageInfo: data,
-                    callback: function (page) {
-                        var url = ui.tab.find("a").attr("href");
-                        $.ajax({
-                            url: url,
-                            type: "post",
-                            dataType: "json",
-                            data: {page: page},
-                            success: showComments
-                        });
-                    }
-                }).appendTo(comment_data);
-            }
-
-            ui.ajaxSettings.success = showComments;
-
-            var selector = ".comment_content";
-            console.log($(selector).length);
-            uParse(selector, { 'highlightJsUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCore.js', 'highlightCssUrl': 'static/lib/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css'});
         },
         load: function (event, ui) {
-            if(ui.panel.children().length==0){
-                ui.panel.append(comment_data);
-            }
+            currentCommentList.appendToPanel(ui.panel);
         }
     });
 
