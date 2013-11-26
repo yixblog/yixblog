@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="box_item">
-
+                <div id="img_list" class="img_box"></div>
             </div>
         </div>
     </div>
