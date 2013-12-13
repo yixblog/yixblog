@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 public class UserImageController {
     @Resource(name = "imageListStorage")
     private IImageListStorage imageListStorage;
-    @RequestMapping(value = "/images", method = RequestMethod.POST)
+    @RequestMapping(value = "/images.action", method = RequestMethod.POST)
     public
     @ResponseBody
     JSONObject getUserImages(@RequestParam(defaultValue = "0", required = false) int page,

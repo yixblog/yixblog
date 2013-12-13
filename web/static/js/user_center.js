@@ -103,17 +103,26 @@ $(document).ready(function () {
         window.open("a/user/article/new.htm")
     });
 
-    var CommentList = function(url){
+    $.ajax({
+        url: "a/user/images.action",
+        dataType: "json",
+        type: "post",
+        success: function () {
+
+        }
+    });
+
+    var CommentList = function (url) {
         var box = $("<dl class='comment_list'></dl>");
         var panelCache;
 
-        this.appendToPanel = function(panel){
+        this.appendToPanel = function (panel) {
             panel.append(box);
             SyntaxHighlighter.highlight(box);
-            panelCache= panel;
+            panelCache = panel;
         };
 
-        this.initUI = function(data){
+        this.initUI = function (data) {
             showComments(data);
         };
         function appendTitle(comment_title) {
@@ -152,7 +161,7 @@ $(document).ready(function () {
                 pageInfo: data,
                 callback: changeCommentPage
             }).appendTo(box);
-            if(panelCache!=null){
+            if (panelCache != null) {
                 SyntaxHighlighter.highlight(box);
             }
             row_dd.accordion({
@@ -178,7 +187,7 @@ $(document).ready(function () {
             currentCommentList = new CommentList(ui.ajaxSettings.url);
             ui.ajaxSettings.type = "post";
             ui.ajaxSettings.dataType = "json";
-            ui.ajaxSettings.success = function(data){
+            ui.ajaxSettings.success = function (data) {
                 currentCommentList.initUI(data);
             };
 
