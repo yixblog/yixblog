@@ -28,4 +28,10 @@ public class UserImageController {
                              @ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user) {
         return imageListStorage.listUserImages(page,pageSize,user.getIntValue("id"));
     }
+
+    @RequestMapping(value = "/deleteImage.action",method = RequestMethod.POST)
+    public @ResponseBody
+    JSONObject deleteImage(@RequestParam int id,@ModelAttribute(SessionTokens.USER_TOKEN) JSONObject user){
+        return imageListStorage.deleteUserImage(id,user.getIntValue("id"));
+    }
 }

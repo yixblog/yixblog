@@ -91,6 +91,38 @@
     border-bottom: 1px solid #999;
 }
 
+.right_box .box_item .img_box{
+    width: 720px;
+}
+
+.right_box .box_item .img_box .img_item{
+    width: 218px;
+    height: 200px;
+    border: 1px solid #afafaf;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.right_box .box_item .img_box .img_item img{
+    width: 218px;
+}
+
+
+.right_box .box_item .img_box .img_item .delete{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 16px;
+    width: 16px;
+    background: url(../../img/delete.png) no-repeat;
+    display: none;
+    cursor: pointer;
+}
+
+.right_box .box_item .img_box .img_item:hover .delete{
+    display: block;
+}
+
 .ui-tabs-panel .comment_list h3>span, .ui-tabs-panel .comment_list ul>li, .article_list ul>li {
     border-right: 1px dotted #335;
     padding: 2px;

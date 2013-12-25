@@ -15,4 +15,6 @@ public interface IImageListStorage {
     public List<String> listAllImages(int userid);
 
     public JSONObject listUserImages(int page, int pageSize, int id);
+
+    public JSONObject deleteUserImage(int imageId, int userId);
 }

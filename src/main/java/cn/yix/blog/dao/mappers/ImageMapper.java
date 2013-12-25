@@ -19,4 +19,8 @@ public interface ImageMapper {
     public void clearUnusedImage();
 
     public void deleteImage(int id);
+
+    public int getUserImageCount(int userId);
+
+    public ImageBean findOneImage(int imageId);
 }

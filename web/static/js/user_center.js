@@ -107,10 +107,29 @@ $(document).ready(function () {
         url: "a/user/images.action",
         dataType: "json",
         type: "post",
-        success: function () {
-
+        success: function (data) {
+            if (data.success) {
+                var images = data.images;
+                for (var i = 0, len = images.length; i < len; i++) {
+                    buildImageItem(images[i]);
+                }
+            } else {
+                console.log(data.msg)
+            }
         }
     });
+
+    function buildImageItem(image) {
+        var imgBox = $("#img_list").empty();
+        var imgItem = $("<span></span>",{class:"img_item"}).appendTo(imgBox);
+        $("<img>", {src: image.url}).appendTo(imgItem);
+        $("<div></div>",{class:"delete"}).appendTo(imgItem).click(function(){
+            $.ajax({
+                url:"a/user/deleteImage.action",
+                dataType:"post"
+            })
+        })
+    }
 
     var CommentList = function (url) {
         var box = $("<dl class='comment_list'></dl>");

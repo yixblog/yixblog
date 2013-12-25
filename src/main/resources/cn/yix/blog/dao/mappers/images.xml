@@ -12,6 +12,14 @@
         select * from blog_images where account=#{userid}
     </select>
 
+    <select id="getUserImageCount" resultType="int" parameterType="int">
+        select count(*) from blog_images where account=#{userid}
+    </select>
+
+    <select id="findOneImage" resultMap="image" parameterType="int">
+        select * from blog_images where id=#{imageId}
+    </select>
+
     <insert id="saveImage" parameterType="Image" useGeneratedKeys="true" keyProperty="id">
         insert into blog_images (url,account) values (#{url},#{user.id})
     </insert>
