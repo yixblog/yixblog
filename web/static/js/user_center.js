@@ -121,12 +121,17 @@ $(document).ready(function () {
 
     function buildImageItem(image) {
         var imgBox = $("#img_list").empty();
-        var imgItem = $("<span></span>",{class:"img_item"}).appendTo(imgBox);
+        var imgItem = $("<span></span>", {class: "img_item"}).appendTo(imgBox);
         $("<img>", {src: image.url}).appendTo(imgItem);
-        $("<div></div>",{class:"delete"}).appendTo(imgItem).click(function(){
+        $("<div></div>", {class: "delete"}).appendTo(imgItem).click(function () {
             $.ajax({
-                url:"a/user/deleteImage.action",
-                dataType:"post"
+                url: "a/user/deleteImage.action",
+                type: "post",
+                data: {id: image.id},
+                dataType: "json",
+                success:function(data){
+
+                }
             })
         })
     }
