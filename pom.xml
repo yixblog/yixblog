@@ -12,7 +12,6 @@
     <properties>
         <spring.version>4.0.0.RELEASE</spring.version>
         <lucene.version>4.5.0</lucene.version>
-        <groovy.version>2.1.0</groovy.version>
     </properties>
     <dependencies>
         <!-- spring -->
@@ -73,13 +72,6 @@
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-highlighter</artifactId>
             <version>${lucene.version}</version>
-        </dependency>
-
-        <!--groovy-->
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>${groovy.version}</version>
         </dependency>
 
         <!-- test -->
@@ -169,17 +161,6 @@
                     <target>1.7</target>
                     <encoding>utf-8</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.groovy.maven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>2.1.9</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
