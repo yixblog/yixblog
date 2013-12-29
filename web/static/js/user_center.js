@@ -103,21 +103,27 @@ $(document).ready(function () {
         window.open("a/user/article/new.htm")
     });
 
-    $.ajax({
-        url: "a/user/images.action",
-        dataType: "json",
-        type: "post",
-        success: function (data) {
-            if (data.success) {
-                var images = data.images;
-                for (var i = 0, len = images.length; i < len; i++) {
-                    buildImageItem(images[i]);
+    function updateImageList(page) {
+        $.ajax({
+            url: "a/user/images.action",
+            dataType: "json",
+            data:{page:page},
+            type: "post",
+            success: function (data) {
+                if (data.success) {
+                    var images = data.images;
+                    for (var i = 0, len = images.length; i < len; i++) {
+                        buildImageItem(images[i]);
+                    }
+                    $("#img_list").yixpager(data);
+                } else {
+                    console.log(data.msg)
                 }
-            } else {
-                console.log(data.msg)
             }
-        }
-    });
+        });
+    }
+
+    updateImageList(1);
 
     function buildImageItem(image) {
         var imgBox = $("#img_list").empty();
@@ -130,7 +136,11 @@ $(document).ready(function () {
                 data: {id: image.id},
                 dataType: "json",
                 success:function(data){
-
+                    if(!data.success){
+                        alert(data.msg);
+                    }else{
+                        updateImageList(1)
+                    }
                 }
             })
         })
