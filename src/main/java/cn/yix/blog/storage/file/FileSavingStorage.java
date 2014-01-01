@@ -8,6 +8,7 @@ import cn.yix.blog.dao.mappers.AccountMapper;
 import cn.yix.blog.dao.mappers.ImageMapper;
 import cn.yix.blog.storage.AbstractStorage;
 import cn.yix.blog.utils.UEditorConfig;
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -157,10 +158,7 @@ public class FileSavingStorage extends AbstractStorage implements IFileSavingSto
         String targetFile = webRoot + File.separator + savingFolder + File.separator + fileName;
         logger.debug("saving file to:" + targetFile);
         try {
-            BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(targetFile));
-            output.write(fileBytes);
-            output.flush();
-            output.close();
+            FileUtils.writeByteArrayToFile(new File(targetFile), fileBytes);
         } catch (IOException e) {
             result.setState(errorCode.get("IO"));
             return result;

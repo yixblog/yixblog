@@ -69,9 +69,11 @@ public class ImageListStorage extends AbstractStorage implements IImageListStora
             setResult(res, false, "您无权删除别人的图片");
             return res;
         }
-        String imageRealPath = webRoot + "/" + img.getUrl();
+        String imageRealPath = webRoot + img.getUrl();
         logger.debug("image real path to delete:" + imageRealPath);
-        if (!FileUtils.deleteQuietly(new File(imageRealPath))) {
+
+        File imageFile = new File(imageRealPath);
+        if (imageFile.exists() && !FileUtils.deleteQuietly(imageFile)) {
             setResult(res, false, "删除失败");
             return res;
         }

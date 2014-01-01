@@ -112,10 +112,15 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.success) {
                     var images = data.images;
+                    var $imglist = $("#img_list");
+                    $imglist.empty();
                     for (var i = 0, len = images.length; i < len; i++) {
                         buildImageItem(images[i]);
                     }
-                    $("#img_list").yixpager(data);
+                    $imglist.yixpager({
+                        pageInfo:data,
+                        callback:updateImageList
+                    });
                 } else {
                     console.log(data.msg)
                 }
@@ -126,7 +131,7 @@ $(document).ready(function () {
     updateImageList(1);
 
     function buildImageItem(image) {
-        var imgBox = $("#img_list").empty();
+        var imgBox = $("#img_list");
         var imgItem = $("<span></span>", {class: "img_item"}).appendTo(imgBox);
         $("<img>", {src: image.url}).appendTo(imgItem);
         $("<div></div>", {class: "delete"}).appendTo(imgItem).click(function () {
