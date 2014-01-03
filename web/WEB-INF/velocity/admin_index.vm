@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<head>
+    #parse('utils/base.vm')
+</head>
+<body>
+管理员中心<br>
+<a href="/a/sysadmin/user/list.htm">用户列表</a>
+</body>
+</html>

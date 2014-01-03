@@ -33,9 +33,9 @@
                     <ul>
                         <li><a href="a/accountservice/account/user/change_pwd.htm">密码修改</a></li>
                         <li><a href="a/accountservice/account/user/change_info.htm">基本信息修改</a></li>
-                        <li><a href="a/accountservice/account/user/change_avatar.htm">头像修改</a></li>
-                        <li><a href="a/accountservice/account/user/reset_email.htm">邮箱修改</a></li>
-                        <li><a href="a/accountservice/account/user/bind.htm">第三方帐号绑定</a></li>
+##                        <li><a href="a/accountservice/account/user/change_avatar.htm">头像修改</a></li>
+##                        <li><a href="a/accountservice/account/user/reset_email.htm">邮箱修改</a></li>
+##                        <li><a href="a/accountservice/account/user/bind.htm">第三方帐号绑定</a></li>
                     </ul>
                 </div>
             </div>

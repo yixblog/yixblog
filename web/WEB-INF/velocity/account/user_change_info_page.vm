@@ -4,7 +4,6 @@
 </head>
 <script type="text/javascript">
     var sex = "${user.sex}";
-    #[[
     (function ($) {
 
 
@@ -24,7 +23,7 @@
                     var nick = nick_input.val();
                     var sex = sex_selector.val();
                     nick_input.removeClass("ui-state-error");
-                    $.ajax({
+                    jQuery.ajax({
                         url: "a/user/change_info.action",
                         data: {nick: nick, sex: sex},
                         type: "post",
@@ -40,7 +39,6 @@
             });
         });
     })(jQuery)
-    ]]#
 </script>
 <body>
 <form id="change_user_info_form">
